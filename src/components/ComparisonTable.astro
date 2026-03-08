@@ -1,0 +1,93 @@
+---
+import StatPill from './StatPill.astro';
+
+interface Props {
+  entries: Array<{
+    data: {
+      name: string;
+      dlc: string[];
+      diet: string[];
+      output: { product: string; rate: { value: number; unit: string } };
+      stable_capacity: number;
+    };
+  }>;
+}
+
+const { entries } = Astro.props;
+
+function formatName(slug: string): string {
+  return slug
+    .split('_')
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
+function dlcLabel(dlc: string[]): string {
+  return dlc.map((d) => formatName(d)).join(', ');
+}
+---
+
+<!-- Desktop: grid table -->
+<div class="hidden md:block">
+  <div class="grid grid-cols-6 gap-x-4 py-2 border-b border-oni-bg-elevated text-oni-text-muted text-sm uppercase tracking-wider font-bold">
+    <span>Name</span>
+    <span>Diet</span>
+    <span>Output</span>
+    <span>Rate</span>
+    <span>Stable Cap</span>
+    <span>DLC</span>
+  </div>
+  {entries.map((entry, i) => (
+    <div class:list={[
+      'grid grid-cols-6 gap-x-4 py-3 border-b border-oni-bg-elevated/50 items-center',
+      i % 2 === 1 && 'bg-oni-bg-surface/50'
+    ]}>
+      <span class="font-medium text-oni-text-primary">{entry.data.name}</span>
+      <span class="text-oni-text-secondary truncate" title={entry.data.diet.map(formatName).join(', ')}>
+        {entry.data.diet.map(formatName).join(', ')}
+      </span>
+      <span class="text-oni-text-secondary">{formatName(entry.data.output.product)}</span>
+      <span>
+        <StatPill value={entry.data.output.rate.value} unit={entry.data.output.rate.unit} />
+      </span>
+      <span>
+        <StatPill value={entry.data.stable_capacity} />
+      </span>
+      <span>
+        <span class="inline-block text-xs px-2 py-0.5 rounded-full bg-oni-bg-elevated text-oni-text-muted">
+          {dlcLabel(entry.data.dlc)}
+        </span>
+      </span>
+    </div>
+  ))}
+</div>
+
+<!-- Mobile: stacked cards -->
+<div class="md:hidden space-y-3">
+  {entries.map((entry) => (
+    <div class="bg-oni-bg-surface border border-oni-bg-elevated rounded-lg p-4 relative">
+      <span class="absolute top-3 right-3 text-xs px-2 py-0.5 rounded-full bg-oni-bg-elevated text-oni-text-muted">
+        {dlcLabel(entry.data.dlc)}
+      </span>
+      <h3 class="font-medium text-oni-text-primary text-lg mb-2">{entry.data.name}</h3>
+      <dl class="space-y-1 text-sm">
+        <div class="flex justify-between">
+          <dt class="text-oni-text-muted">Diet</dt>
+          <dd class="text-oni-text-secondary text-right">{entry.data.diet.map(formatName).join(', ')}</dd>
+        </div>
+        <div class="flex justify-between">
+          <dt class="text-oni-text-muted">Output</dt>
+          <dd class="text-oni-text-secondary">{formatName(entry.data.output.product)}</dd>
+        </div>
+        <div class="flex justify-between items-center">
+          <dt class="text-oni-text-muted">Rate</dt>
+          <dd><StatPill value={entry.data.output.rate.value} unit={entry.data.output.rate.unit} /></dd>
+        </div>
+        <div class="flex justify-between items-center">
+          <dt class="text-oni-text-muted">Stable Cap</dt>
+          <dd><StatPill value={entry.data.stable_capacity} /></dd>
+        </div>
+      </dl>
+    </div>
+  ))}
+</div>
