@@ -85,7 +85,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Design System | 1/3 | In progress | - |
+| 1. Foundation & Design System | 2/3 | In Progress|  |
 | 2. Rooms & Ranching | 0/2 | Not started | - |
 | 3. Farming, Power & Plumbing | 0/2 | Not started | - |
 | 4. Search & DLC Toggle | 0/1 | Not started | - |

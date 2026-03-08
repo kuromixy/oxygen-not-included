@@ -9,7 +9,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Navigation
 
-- [ ] **NAV-01**: User can navigate between content categories (Ranching, Farming, Power/Plumbing, Base Layouts) via clear top-level navigation
+- [x] **NAV-01**: User can navigate between content categories (Ranching, Farming, Power/Plumbing, Base Layouts) via clear top-level navigation
 - [ ] **NAV-02**: User can search across all site content and find matching results via client-side search (Pagefind)
 
 ### Rooms & Base Layouts
@@ -50,7 +50,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **INFR-02**: Game data is stored as structured JSON/YAML files, separate from templates
 - [x] **INFR-03**: Site deploys automatically to GitHub Pages via GitHub Actions on push
 - [x] **INFR-04**: Site loads in under 2 seconds on typical connections
-- [ ] **INFR-05**: Site is responsive and usable on mobile devices
+- [x] **INFR-05**: Site is responsive and usable on mobile devices
 
 ## v2 Requirements
 
@@ -97,7 +97,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| NAV-01 | Phase 1 | Pending |
+| NAV-01 | Phase 1 | Complete |
 | NAV-02 | Phase 4 | Pending |
 | ROOM-01 | Phase 2 | Pending |
 | ROOM-02 | Phase 2 | Pending |
@@ -120,7 +120,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INFR-02 | Phase 1 | Complete |
 | INFR-03 | Phase 1 | Complete |
 | INFR-04 | Phase 1 | Complete |
-| INFR-05 | Phase 1 | Pending |
+| INFR-05 | Phase 1 | Complete |
 
 **Coverage:**
 - v1 requirements: 24 total
