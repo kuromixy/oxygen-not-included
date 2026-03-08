@@ -1,7 +1,42 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CategoryCard from '../components/CategoryCard.astro';
 ---
 
-<BaseLayout title="ONI Reference">
-  <p>Coming soon</p>
+<BaseLayout title="ONI Reference -- Quick Reference for Oxygen Not Included">
+  <section class="text-center mb-12">
+    <h1 class="text-4xl md:text-5xl font-bold text-oni-text-primary">
+      <span class="text-oni-teal">Oxygen Not Included</span> Quick Reference
+    </h1>
+    <p class="mt-4 text-lg text-oni-text-secondary max-w-2xl mx-auto">
+      Find the exact numbers you need, fast.
+    </p>
+  </section>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+    <CategoryCard
+      title="Ranching"
+      description="Critter diets, outputs, stable sizes, and grooming requirements"
+      href="/oni-fanpage/ranching/"
+      icon="🐣"
+    />
+    <CategoryCard
+      title="Farming"
+      description="Crop temperatures, irrigation, growth times, and calorie yields"
+      href="/oni-fanpage/farming/"
+      icon="🌱"
+    />
+    <CategoryCard
+      title="Power / Plumbing"
+      description="Generators, batteries, pipes, pumps -- wattage and throughput"
+      href="/oni-fanpage/power-plumbing/"
+      icon="⚡"
+    />
+    <CategoryCard
+      title="Base Layouts"
+      description="Room dimensions, required buildings, and optimal layouts"
+      href="/oni-fanpage/base-layouts/"
+      icon="🏗️"
+    />
+  </div>
 </BaseLayout>
