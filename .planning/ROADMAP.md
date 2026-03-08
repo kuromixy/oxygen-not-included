@@ -12,7 +12,7 @@ This roadmap delivers an Oxygen Not Included quick-reference fanpage from zero t
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation & Design System** - Astro project with data schemas, nav shell, dark mode, deploy pipeline, and one proof-of-concept page
+- [x] **Phase 1: Foundation & Design System** - Astro project with data schemas, nav shell, dark mode, deploy pipeline, and one proof-of-concept page
 - [ ] **Phase 2: Rooms & Ranching** - Complete room reference and critter ranching data using established templates
 - [ ] **Phase 3: Farming, Power & Plumbing** - Remaining content domains reusing Phase 2 patterns
 - [ ] **Phase 4: Search & DLC Toggle** - Client-side search and base game vs DLC content filtering
@@ -33,8 +33,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01-PLAN.md -- Scaffold Astro project with Tailwind v4, content schema, data layer, dark mode, and deploy pipeline
-- [ ] 01-02-PLAN.md -- Home page with category cards and category landing pages
-- [ ] 01-03-PLAN.md -- Hatches proof-of-concept page with comparison table and detail cards
+- [x] 01-02-PLAN.md -- Home page with category cards and category landing pages
+- [x] 01-03-PLAN.md -- Hatches proof-of-concept page with comparison table and detail cards
 
 ### Phase 2: Rooms & Ranching
 **Goal**: Users can look up any room type or critter and immediately find the dimensions, requirements, and key stats they need
@@ -85,7 +85,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Design System | 2/3 | In Progress|  |
+| 1. Foundation & Design System | 3/3 | Complete | 2026-03-08 |
 | 2. Rooms & Ranching | 0/2 | Not started | - |
 | 3. Farming, Power & Plumbing | 0/2 | Not started | - |
 | 4. Search & DLC Toggle | 0/1 | Not started | - |

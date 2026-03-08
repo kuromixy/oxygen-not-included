@@ -40,7 +40,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Visual Design
 
-- [x] **DSGN-01**: Site uses dark mode by default, respecting system preference with manual toggle
+- [x] **DSGN-01**: Site uses dark mode (dark-only per user decision; toggle removed)
 - [ ] **DSGN-02**: Site supports DLC toggle to show/hide Spaced Out! DLC content
 - [x] **DSGN-03**: All data is tagged with base game vs DLC applicability in the data layer
 
