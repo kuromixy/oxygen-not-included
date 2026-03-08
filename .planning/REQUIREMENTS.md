@@ -40,16 +40,16 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Visual Design
 
-- [ ] **DSGN-01**: Site uses dark mode by default, respecting system preference with manual toggle
+- [x] **DSGN-01**: Site uses dark mode by default, respecting system preference with manual toggle
 - [ ] **DSGN-02**: Site supports DLC toggle to show/hide Spaced Out! DLC content
-- [ ] **DSGN-03**: All data is tagged with base game vs DLC applicability in the data layer
+- [x] **DSGN-03**: All data is tagged with base game vs DLC applicability in the data layer
 
 ### Infrastructure
 
-- [ ] **INFR-01**: Site is built with Astro as a static site generator with structured content collections
-- [ ] **INFR-02**: Game data is stored as structured JSON/YAML files, separate from templates
-- [ ] **INFR-03**: Site deploys automatically to GitHub Pages via GitHub Actions on push
-- [ ] **INFR-04**: Site loads in under 2 seconds on typical connections
+- [x] **INFR-01**: Site is built with Astro as a static site generator with structured content collections
+- [x] **INFR-02**: Game data is stored as structured JSON/YAML files, separate from templates
+- [x] **INFR-03**: Site deploys automatically to GitHub Pages via GitHub Actions on push
+- [x] **INFR-04**: Site loads in under 2 seconds on typical connections
 - [ ] **INFR-05**: Site is responsive and usable on mobile devices
 
 ## v2 Requirements
@@ -113,13 +113,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | POWR-02 | Phase 3 | Pending |
 | POWR-03 | Phase 3 | Pending |
 | POWR-04 | Phase 3 | Pending |
-| DSGN-01 | Phase 1 | Pending |
+| DSGN-01 | Phase 1 | Complete |
 | DSGN-02 | Phase 4 | Pending |
-| DSGN-03 | Phase 1 | Pending |
-| INFR-01 | Phase 1 | Pending |
-| INFR-02 | Phase 1 | Pending |
-| INFR-03 | Phase 1 | Pending |
-| INFR-04 | Phase 1 | Pending |
+| DSGN-03 | Phase 1 | Complete |
+| INFR-01 | Phase 1 | Complete |
+| INFR-02 | Phase 1 | Complete |
+| INFR-03 | Phase 1 | Complete |
+| INFR-04 | Phase 1 | Complete |
 | INFR-05 | Phase 1 | Pending |
 
 **Coverage:**

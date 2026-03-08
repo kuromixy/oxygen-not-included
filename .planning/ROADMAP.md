@@ -32,7 +32,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
 
 Plans:
-- [ ] 01-01-PLAN.md -- Scaffold Astro project with Tailwind v4, content schema, data layer, dark mode, and deploy pipeline
+- [x] 01-01-PLAN.md -- Scaffold Astro project with Tailwind v4, content schema, data layer, dark mode, and deploy pipeline
 - [ ] 01-02-PLAN.md -- Home page with category cards and category landing pages
 - [ ] 01-03-PLAN.md -- Hatches proof-of-concept page with comparison table and detail cards
 
@@ -85,7 +85,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Design System | 0/3 | Not started | - |
+| 1. Foundation & Design System | 1/3 | In progress | - |
 | 2. Rooms & Ranching | 0/2 | Not started | - |
 | 3. Farming, Power & Plumbing | 0/2 | Not started | - |
 | 4. Search & DLC Toggle | 0/1 | Not started | - |
