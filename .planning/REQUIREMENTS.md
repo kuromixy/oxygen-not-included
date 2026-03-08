@@ -97,36 +97,36 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| NAV-01 | — | Pending |
-| NAV-02 | — | Pending |
-| ROOM-01 | — | Pending |
-| ROOM-02 | — | Pending |
-| ROOM-03 | — | Pending |
-| RNCH-01 | — | Pending |
-| RNCH-02 | — | Pending |
-| RNCH-03 | — | Pending |
-| RNCH-04 | — | Pending |
-| FARM-01 | — | Pending |
-| FARM-02 | — | Pending |
-| FARM-03 | — | Pending |
-| POWR-01 | — | Pending |
-| POWR-02 | — | Pending |
-| POWR-03 | — | Pending |
-| POWR-04 | — | Pending |
-| DSGN-01 | — | Pending |
-| DSGN-02 | — | Pending |
-| DSGN-03 | — | Pending |
-| INFR-01 | — | Pending |
-| INFR-02 | — | Pending |
-| INFR-03 | — | Pending |
-| INFR-04 | — | Pending |
-| INFR-05 | — | Pending |
+| NAV-01 | Phase 1 | Pending |
+| NAV-02 | Phase 4 | Pending |
+| ROOM-01 | Phase 2 | Pending |
+| ROOM-02 | Phase 2 | Pending |
+| ROOM-03 | Phase 2 | Pending |
+| RNCH-01 | Phase 2 | Pending |
+| RNCH-02 | Phase 2 | Pending |
+| RNCH-03 | Phase 2 | Pending |
+| RNCH-04 | Phase 2 | Pending |
+| FARM-01 | Phase 3 | Pending |
+| FARM-02 | Phase 3 | Pending |
+| FARM-03 | Phase 3 | Pending |
+| POWR-01 | Phase 3 | Pending |
+| POWR-02 | Phase 3 | Pending |
+| POWR-03 | Phase 3 | Pending |
+| POWR-04 | Phase 3 | Pending |
+| DSGN-01 | Phase 1 | Pending |
+| DSGN-02 | Phase 4 | Pending |
+| DSGN-03 | Phase 1 | Pending |
+| INFR-01 | Phase 1 | Pending |
+| INFR-02 | Phase 1 | Pending |
+| INFR-03 | Phase 1 | Pending |
+| INFR-04 | Phase 1 | Pending |
+| INFR-05 | Phase 1 | Pending |
 
 **Coverage:**
 - v1 requirements: 24 total
-- Mapped to phases: 0
-- Unmapped: 24
+- Mapped to phases: 24
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-08*
-*Last updated: 2026-03-08 after initial definition*
+*Last updated: 2026-03-08 after roadmap creation*
