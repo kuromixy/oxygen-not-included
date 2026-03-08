@@ -1,0 +1,49 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+---
+
+<nav class="bg-oni-bg-surface border-b border-oni-bg-elevated">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="/oni-fanpage/" class="text-oni-teal font-bold text-lg hover:text-oni-teal-dim transition-colors">
+      ONI Reference
+    </a>
+
+    <div class="hidden md:flex items-center gap-6">
+      <a href="/oni-fanpage/ranching/" class="text-oni-text-secondary hover:text-oni-teal transition-colors">Ranching</a>
+      <a href="/oni-fanpage/farming/" class="text-oni-text-secondary hover:text-oni-teal transition-colors">Farming</a>
+      <a href="/oni-fanpage/power-plumbing/" class="text-oni-text-secondary hover:text-oni-teal transition-colors">Power/Plumbing</a>
+      <a href="/oni-fanpage/base-layouts/" class="text-oni-text-secondary hover:text-oni-teal transition-colors">Base Layouts</a>
+      <ThemeToggle />
+    </div>
+
+    <button
+      id="menu-toggle"
+      class="md:hidden p-2 text-oni-text-secondary hover:text-oni-teal transition-colors"
+      aria-label="Toggle menu"
+    >
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="hidden md:hidden border-t border-oni-bg-elevated px-4 py-3 space-y-2">
+    <a href="/oni-fanpage/ranching/" class="block text-oni-text-secondary hover:text-oni-teal transition-colors py-2">Ranching</a>
+    <a href="/oni-fanpage/farming/" class="block text-oni-text-secondary hover:text-oni-teal transition-colors py-2">Farming</a>
+    <a href="/oni-fanpage/power-plumbing/" class="block text-oni-text-secondary hover:text-oni-teal transition-colors py-2">Power/Plumbing</a>
+    <a href="/oni-fanpage/base-layouts/" class="block text-oni-text-secondary hover:text-oni-teal transition-colors py-2">Base Layouts</a>
+    <div class="py-2">
+      <ThemeToggle />
+    </div>
+  </div>
+</nav>
+
+<script is:inline>
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+</script>
