@@ -1,0 +1,129 @@
+- id: hatch
+  name: Hatch
+  dlc:
+    - base
+  diet:
+    - sedimentary_rock
+    - sandstone
+    - igneous_rock
+    - obsidian
+    - granite
+  output:
+    product: coal
+    rate:
+      value: 10
+      unit: kg/cycle
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 8
+  temperature:
+    min:
+      value: -30
+      unit: C
+    max:
+      value: 70
+      unit: C
+  grooming:
+    station: grooming_station
+    cycle_time:
+      value: 1
+      unit: cycle
+
+- id: sage_hatch
+  name: Sage Hatch
+  dlc:
+    - base
+  diet:
+    - sedimentary_rock
+    - sandstone
+  output:
+    product: coal
+    rate:
+      value: 10
+      unit: kg/cycle
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 8
+  temperature:
+    min:
+      value: -30
+      unit: C
+    max:
+      value: 70
+      unit: C
+  grooming:
+    station: grooming_station
+    cycle_time:
+      value: 1
+      unit: cycle
+
+- id: stone_hatch
+  name: Stone Hatch
+  dlc:
+    - base
+  diet:
+    - sedimentary_rock
+    - igneous_rock
+    - obsidian
+    - granite
+  output:
+    product: refined_metal
+    rate:
+      value: 10
+      unit: kg/cycle
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 8
+  temperature:
+    min:
+      value: -30
+      unit: C
+    max:
+      value: 70
+      unit: C
+  grooming:
+    station: grooming_station
+    cycle_time:
+      value: 1
+      unit: cycle
+
+- id: smooth_hatch
+  name: Smooth Hatch
+  dlc:
+    - base
+  diet:
+    - iron
+    - copper
+    - gold
+    - tungsten
+    - steel
+    - aluminum
+  output:
+    product: refined_metal
+    rate:
+      value: 10
+      unit: kg/cycle
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 8
+  temperature:
+    min:
+      value: -30
+      unit: C
+    max:
+      value: 70
+      unit: C
+  grooming:
+    station: grooming_station
+    cycle_time:
+      value: 1
+      unit: cycle
+  notes: Useful for converting raw metals to refined metals

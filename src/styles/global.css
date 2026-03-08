@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* ONI Dark Mode Colors */
+  --color-oni-bg-deep: #0a0a0f;
+  --color-oni-bg-surface: #141420;
+  --color-oni-bg-elevated: #1e1e2e;
+  --color-oni-teal: #2dd4bf;
+  --color-oni-teal-dim: #1a8a7a;
+  --color-oni-orange: #f59e0b;
+  --color-oni-text-primary: #e2e8f0;
+  --color-oni-text-secondary: #94a3b8;
+  --color-oni-text-muted: #64748b;
+  --color-oni-stat-pill-bg: #1e293b;
+  --color-oni-stat-pill-text: #2dd4bf;
+}
+
+/* Light mode overrides — applied when .dark class is NOT present */
+html:not(.dark) {
+  --color-oni-bg-deep: #f8fafc;
+  --color-oni-bg-surface: #ffffff;
+  --color-oni-bg-elevated: #f1f5f9;
+  --color-oni-text-primary: #1e293b;
+  --color-oni-text-secondary: #475569;
+  --color-oni-text-muted: #94a3b8;
+  --color-oni-stat-pill-bg: #e2e8f0;
+  --color-oni-stat-pill-text: #0d9488;
+}
