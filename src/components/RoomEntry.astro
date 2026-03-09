@@ -1,0 +1,77 @@
+---
+import StatPill from './StatPill.astro';
+
+interface Props {
+  room: {
+    data: {
+      id: string;
+      name: string;
+      dimensions: { min: number; max: number };
+      required_buildings: string[];
+      bonus: string;
+      upgrade_to: string | null;
+      upgrade_from: string | null;
+      layout_tip: string;
+      diagram_slot: boolean;
+    };
+  };
+}
+
+const { room } = Astro.props;
+const d = room.data;
+---
+
+<div id={d.id} class="bg-oni-bg-surface border border-oni-bg-elevated rounded-xl p-5 mb-4">
+  <div class="flex items-start justify-between mb-3 gap-3">
+    <h3 class="text-xl font-bold text-oni-text-primary">{d.name}</h3>
+    <span class="shrink-0 text-sm px-2 py-1 rounded bg-oni-bg-elevated text-oni-teal font-medium">
+      {d.bonus}
+    </span>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+    <div>
+      <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-1">Dimensions</h4>
+      <p class="text-oni-text-secondary">
+        <StatPill value={d.dimensions.min} unit="tiles" />
+        <span class="mx-1 text-oni-text-muted">to</span>
+        <StatPill value={d.dimensions.max} unit="tiles" />
+      </p>
+    </div>
+    <div>
+      <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-1">Required Buildings</h4>
+      <div class="flex flex-wrap gap-1.5">
+        {d.required_buildings.map((b) => (
+          <span class="text-xs px-2 py-1 rounded-md bg-oni-bg-elevated text-oni-text-secondary">
+            {b}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  {(d.upgrade_from || d.upgrade_to) && (
+    <div class="flex flex-wrap gap-3 mb-3 text-sm">
+      {d.upgrade_from && (
+        <span class="text-oni-text-muted">
+          Upgraded from: <a href={`#${d.upgrade_from}`} class="text-oni-teal hover:underline">{d.upgrade_from.replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())}</a>
+        </span>
+      )}
+      {d.upgrade_to && (
+        <span class="text-oni-text-muted">
+          Upgrades to: <a href={`#${d.upgrade_to}`} class="text-oni-teal hover:underline">{d.upgrade_to.replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())}</a>
+        </span>
+      )}
+    </div>
+  )}
+
+  {d.layout_tip && (
+    <p class="text-sm text-oni-text-secondary italic mb-3">{d.layout_tip}</p>
+  )}
+
+  {d.diagram_slot && (
+    <div class="aspect-video bg-oni-bg-elevated rounded-lg flex items-center justify-center">
+      <span class="text-oni-text-muted text-sm">Layout diagram placeholder</span>
+    </div>
+  )}
+</div>

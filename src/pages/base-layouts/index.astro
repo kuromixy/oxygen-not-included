@@ -1,21 +1,58 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import RoomEntry from '../../components/RoomEntry.astro';
+import { getCollection } from 'astro:content';
+
+const allRooms = await getCollection('rooms');
+
+// Define display order: upgrade chains first (grouped), then standalone rooms
+const displayOrder = [
+  // Latrine chain
+  'latrine', 'washroom',
+  // Barracks chain
+  'barracks', 'luxury-barracks', 'private-bedroom',
+  // Mess Hall chain
+  'mess-hall', 'great-hall', 'banquet-hall',
+  // Park chain
+  'park', 'nature-reserve',
+  // Standalone rooms
+  'kitchen', 'massage-clinic', 'hospital', 'power-plant',
+  'greenhouse', 'stable', 'laboratory', 'recreation-room',
+];
+
+const orderedRooms = displayOrder
+  .map((id) => allRooms.find((r) => r.data.id === id))
+  .filter(Boolean);
+
+// Group labels for visual separation
+const groups = [
+  { label: 'Bathroom Chain', start: 0, end: 2 },
+  { label: 'Bedroom Chain', start: 2, end: 5 },
+  { label: 'Dining Chain', start: 5, end: 8 },
+  { label: 'Nature Chain', start: 8, end: 10 },
+  { label: 'Standalone Rooms', start: 10, end: 18 },
+];
 ---
 
-<BaseLayout title="Base Layouts -- ONI Reference">
+<BaseLayout title="Rooms Reference -- ONI Reference">
   <section class="mb-8">
-    <h1 class="text-3xl md:text-4xl font-bold text-oni-text-primary">Base Layouts</h1>
+    <h1 class="text-3xl md:text-4xl font-bold text-oni-text-primary">Rooms Reference</h1>
     <p class="mt-3 text-oni-text-secondary text-lg">
-      Room dimensions, required buildings, and optimal layouts for your colony.
+      Every standard room type the game recognizes, with dimensions, required buildings, bonuses, and layout tips.
+    </p>
+    <p class="mt-2 text-oni-text-muted text-sm">
+      Rooms are grouped by upgrade chains. Use Ctrl+F to find a specific room or scroll through all 18 types.
     </p>
   </section>
 
-  <div class="flex items-center justify-center py-16">
-    <div class="bg-oni-bg-surface border border-oni-bg-elevated rounded-xl p-8 text-center max-w-md">
-      <p class="text-oni-text-muted text-lg">Coming in a future update</p>
-      <p class="text-oni-text-muted text-sm mt-2">
-        Room size requirements, building placement guides, and layout templates will be added here.
-      </p>
-    </div>
-  </div>
+  {groups.map((group) => (
+    <section class="mb-8">
+      <h2 class="text-lg font-semibold text-oni-text-secondary mb-4 border-b border-oni-bg-elevated pb-2">
+        {group.label}
+      </h2>
+      {orderedRooms.slice(group.start, group.end).map((room) => (
+        <RoomEntry room={room} />
+      ))}
+    </section>
+  ))}
 </BaseLayout>
