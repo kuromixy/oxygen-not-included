@@ -14,9 +14,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Rooms & Base Layouts
 
-- [ ] **ROOM-01**: User can look up room types with minimum/maximum tile dimensions
-- [ ] **ROOM-02**: User can see required buildings for each room type
-- [ ] **ROOM-03**: User can see optimal room sizes and common layout patterns
+- [x] **ROOM-01**: User can look up room types with minimum/maximum tile dimensions
+- [x] **ROOM-02**: User can see required buildings for each room type
+- [x] **ROOM-03**: User can see optimal room sizes and common layout patterns
 
 ### Ranching
 
@@ -99,9 +99,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | NAV-01 | Phase 1 | Complete |
 | NAV-02 | Phase 4 | Pending |
-| ROOM-01 | Phase 2 | Pending |
-| ROOM-02 | Phase 2 | Pending |
-| ROOM-03 | Phase 2 | Pending |
+| ROOM-01 | Phase 2 | Complete |
+| ROOM-02 | Phase 2 | Complete |
+| ROOM-03 | Phase 2 | Complete |
 | RNCH-01 | Phase 2 | Pending |
 | RNCH-02 | Phase 2 | Pending |
 | RNCH-03 | Phase 2 | Pending |
