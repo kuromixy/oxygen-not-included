@@ -20,10 +20,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Ranching
 
-- [ ] **RNCH-01**: User can look up critter types with diet, output product, and calorie/resource rates
-- [ ] **RNCH-02**: User can see stable capacity limits per critter type
-- [ ] **RNCH-03**: User can see grooming station requirements and taming/grooming cycle times
-- [ ] **RNCH-04**: User can see critter variants (e.g., Hatch, Sage Hatch, Stone Hatch) with differences highlighted
+- [x] **RNCH-01**: User can look up critter types with diet, output product, and calorie/resource rates
+- [x] **RNCH-02**: User can see stable capacity limits per critter type
+- [x] **RNCH-03**: User can see grooming station requirements and taming/grooming cycle times
+- [x] **RNCH-04**: User can see critter variants (e.g., Hatch, Sage Hatch, Stone Hatch) with differences highlighted
 
 ### Farming
 
@@ -102,10 +102,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ROOM-01 | Phase 2 | Complete |
 | ROOM-02 | Phase 2 | Complete |
 | ROOM-03 | Phase 2 | Complete |
-| RNCH-01 | Phase 2 | Pending |
-| RNCH-02 | Phase 2 | Pending |
-| RNCH-03 | Phase 2 | Pending |
-| RNCH-04 | Phase 2 | Pending |
+| RNCH-01 | Phase 2 | Complete |
+| RNCH-02 | Phase 2 | Complete |
+| RNCH-03 | Phase 2 | Complete |
+| RNCH-04 | Phase 2 | Complete |
 | FARM-01 | Phase 3 | Pending |
 | FARM-02 | Phase 3 | Pending |
 | FARM-03 | Phase 3 | Pending |

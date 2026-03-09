@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in-progress
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-03-09T19:30:37Z"
-last_activity: 2026-03-09 -- Plan 02-01 executed, rooms data layer and reference page
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-03-09T19:36:51Z"
+last_activity: 2026-03-09 -- Plan 02-02 executed, critter page template and hatches revision
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 6
-  completed_plans: 4
-  percent: 67
+  completed_plans: 5
+  percent: 83
 ---
 
 # Project State
@@ -26,28 +26,28 @@ See: .planning/PROJECT.md (updated 2026-03-08)
 ## Current Position
 
 Phase: 2 of 4 (Rooms & Ranching)
-Plan: 1 of 3 in current phase (02-01 done)
-Status: Plan 02-01 complete, ready for Plan 02-02
-Last activity: 2026-03-09 -- Plan 02-01 executed, rooms data layer and reference page
+Plan: 2 of 3 in current phase (02-02 done)
+Status: Plan 02-02 complete, ready for Plan 02-03
+Last activity: 2026-03-09 -- Plan 02-02 executed, critter page template and hatches revision
 
-Progress: [███████░░░] 67%
+Progress: [████████░░] 83%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: 7 min
-- Total execution time: 0.47 hours
+- Total plans completed: 5
+- Average duration: 6.2 min
+- Total execution time: 0.52 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1 | 3 | 19 min | 6.3 min |
-| 2 | 1 | 9 min | 9 min |
+| 2 | 2 | 12 min | 6 min |
 
 **Recent Trend:**
-- Last 5 plans: 4 min, 1 min, 14 min, 9 min
+- Last 5 plans: 4 min, 1 min, 14 min, 9 min, 3 min
 - Trend: stable
 
 *Updated after each plan completion*
@@ -72,6 +72,9 @@ Recent decisions affecting current work:
 - [02-01]: Rooms grouped by upgrade chain on page (Bathroom, Bedroom, Dining, Nature, Standalone)
 - [02-01]: Collection renamed from 'critters' to 'hatches' -- hatches.astro temporarily broken until Plan 02
 - [02-01]: Room IDs used as anchor slugs for direct linking
+- [02-02]: Used inline JS for tab switching (radio inputs + JS listeners) for reliable cross-browser behavior
+- [02-02]: Calculator serializes variant data to data-attributes for client-side interactivity without framework overhead
+- [02-02]: Removed ComparisonTable and DetailCard from Hatches page per locked user decision
 
 ### Pending Todos
 
@@ -83,6 +86,6 @@ None -- Astro/Tailwind version verification complete.
 
 ## Session Continuity
 
-Last session: 2026-03-09T19:30:37Z
-Stopped at: Completed 02-01-PLAN.md
-Resume file: .planning/phases/02-rooms-ranching/02-01-SUMMARY.md
+Last session: 2026-03-09T19:36:51Z
+Stopped at: Completed 02-02-PLAN.md
+Resume file: .planning/phases/02-rooms-ranching/02-02-SUMMARY.md
