@@ -1,0 +1,88 @@
+---
+interface Props {
+  family: string;
+}
+
+const { family } = Astro.props;
+
+const tabs = ['Overview', 'Automation', 'Power', 'Plumbing'];
+---
+
+<section class="mb-10">
+  <h2 class="text-lg font-bold text-oni-text-primary mb-4">Ranch Build Layout</h2>
+
+  <div class="border border-oni-bg-elevated rounded-xl overflow-hidden">
+    {/* CSS-only tabs using radio inputs */}
+    {tabs.map((tab, i) => (
+      <input
+        type="radio"
+        name={`ranch-tab-${family}`}
+        id={`tab-${family}-${i}`}
+        class="peer hidden"
+        checked={i === 0}
+        data-tab-index={i}
+      />
+    ))}
+
+    {/* Tab labels */}
+    <div class="flex border-b border-oni-bg-elevated">
+      {tabs.map((tab, i) => (
+        <label
+          for={`tab-${family}-${i}`}
+          class="cursor-pointer px-4 py-2.5 text-sm font-medium text-oni-text-muted bg-oni-bg-surface hover:text-oni-text-secondary transition-colors rounded-t-lg"
+          data-tab-label={i}
+        >
+          {tab}
+        </label>
+      ))}
+    </div>
+
+    {/* Tab panels */}
+    {tabs.map((tab, i) => (
+      <div class="tab-panel hidden p-4" data-tab-panel={i}>
+        <div class="aspect-video bg-oni-bg-elevated rounded-lg flex items-center justify-center">
+          <p class="text-oni-text-muted text-sm">{tab} diagram &mdash; coming soon</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script define:vars={{ family }}>
+  // Simple tab switching since CSS-only :checked sibling selectors
+  // cannot reach non-adjacent panels in Astro's output
+  const container = document.currentScript?.previousElementSibling;
+  if (container) {
+    const radios = container.querySelectorAll(`input[name="ranch-tab-${family}"]`);
+    const labels = container.querySelectorAll('[data-tab-label]');
+    const panels = container.querySelectorAll('[data-tab-panel]');
+
+    function activate(index) {
+      panels.forEach((p, i) => {
+        p.classList.toggle('hidden', i !== index);
+      });
+      labels.forEach((l, i) => {
+        if (i === index) {
+          l.classList.remove('text-oni-text-muted', 'bg-oni-bg-surface');
+          l.classList.add('text-oni-teal', 'border-b-2', 'border-oni-teal');
+        } else {
+          l.classList.add('text-oni-text-muted', 'bg-oni-bg-surface');
+          l.classList.remove('text-oni-teal', 'border-b-2', 'border-oni-teal');
+        }
+      });
+    }
+
+    radios.forEach((radio, i) => {
+      radio.addEventListener('change', () => activate(i));
+    });
+    labels.forEach((label, i) => {
+      label.addEventListener('click', () => {
+        radios[i].checked = true;
+        activate(i);
+      });
+    });
+
+    // Activate first tab on load
+    activate(0);
+  }
+</script>
