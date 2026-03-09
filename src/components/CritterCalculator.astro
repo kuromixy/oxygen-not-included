@@ -1,0 +1,107 @@
+---
+interface VariantData {
+  name: string;
+  product: string;
+  rateValue: number;
+  rateUnit: string;
+}
+
+interface Props {
+  variants: {
+    data: {
+      name: string;
+      output: {
+        product: string;
+        rate: { value: number; unit: string };
+      };
+    };
+  }[];
+  defaultCapacity: number;
+}
+
+const { variants, defaultCapacity } = Astro.props;
+
+function formatName(slug: string): string {
+  return slug
+    .split('_')
+    .map((w: string) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
+const variantData: VariantData[] = variants.map((v) => ({
+  name: v.data.name,
+  product: formatName(v.data.output.product),
+  rateValue: v.data.output.rate.value,
+  rateUnit: v.data.output.rate.unit,
+}));
+---
+
+<section class="mb-10">
+  <h2 class="text-xl font-bold text-oni-text-primary mb-4">Resource Calculator</h2>
+
+  <div
+    class="bg-oni-bg-surface border border-oni-bg-elevated rounded-xl p-5"
+    data-calculator
+    data-variants={JSON.stringify(variantData)}
+    data-default-capacity={defaultCapacity}
+  >
+    <div class="flex flex-wrap items-end gap-4 mb-4">
+      {/* Variant selector */}
+      <div>
+        <label for="calc-variant" class="block text-xs text-oni-text-muted uppercase tracking-wider mb-1">Variant</label>
+        <select
+          id="calc-variant"
+          class="bg-oni-bg-elevated text-oni-text-primary border border-oni-bg-elevated rounded px-3 py-2 text-sm"
+        >
+          {variants.map((v, i) => (
+            <option value={i}>{v.data.name}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Critter count */}
+      <div>
+        <label for="calc-count" class="block text-xs text-oni-text-muted uppercase tracking-wider mb-1">Critter Count</label>
+        <input
+          id="calc-count"
+          type="number"
+          min="1"
+          max="50"
+          value={defaultCapacity}
+          class="bg-oni-bg-elevated text-oni-text-primary border border-oni-bg-elevated rounded px-3 py-2 text-sm w-24"
+        />
+      </div>
+    </div>
+
+    {/* Results */}
+    <div class="calc-result text-lg text-oni-teal font-mono" aria-live="polite">
+      &mdash;
+    </div>
+  </div>
+</section>
+
+<script>
+  const container = document.querySelector('[data-calculator]') as HTMLElement;
+  if (container) {
+    const variants = JSON.parse(container.dataset.variants || '[]');
+    const defaultCapacity = parseInt(container.dataset.defaultCapacity || '8', 10);
+    const select = container.querySelector('#calc-variant') as HTMLSelectElement;
+    const input = container.querySelector('#calc-count') as HTMLInputElement;
+    const result = container.querySelector('.calc-result') as HTMLElement;
+
+    function update() {
+      const idx = parseInt(select.value, 10);
+      const count = parseInt(input.value, 10) || 1;
+      const v = variants[idx];
+      if (!v) return;
+      const total = (count * v.rateValue).toFixed(2).replace(/\.?0+$/, '');
+      result.textContent = `${count} x ${v.name} = ${total} ${v.rateUnit} of ${v.product} per cycle`;
+    }
+
+    select.addEventListener('change', update);
+    input.addEventListener('input', update);
+
+    // Initialize
+    update();
+  }
+</script>

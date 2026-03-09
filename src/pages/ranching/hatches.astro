@@ -1,41 +1,42 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ComparisonTable from '../../components/ComparisonTable.astro';
-import DetailCard from '../../components/DetailCard.astro';
+import RanchBuildTabs from '../../components/RanchBuildTabs.astro';
+import CritterVariantCard from '../../components/CritterVariantCard.astro';
+import CritterCalculator from '../../components/CritterCalculator.astro';
 import { getCollection } from 'astro:content';
 
-const hatches = await getCollection('critters');
+const variants = await getCollection('hatches');
 ---
 
 <BaseLayout title="Hatches -- ONI Reference">
-  <!-- Breadcrumb -->
+  {/* Breadcrumb */}
   <nav class="text-sm text-oni-text-muted mb-4" aria-label="Breadcrumb">
     <a href="/oni-fanpage/ranching/" class="hover:text-oni-teal transition-colors">Ranching</a>
     <span class="mx-1">&gt;</span>
     <span class="text-oni-text-secondary">Hatches</span>
   </nav>
 
-  <!-- Page heading -->
+  {/* Page heading */}
   <section class="mb-8">
     <h1 class="text-3xl md:text-4xl font-bold text-oni-text-primary">Hatches</h1>
     <p class="mt-3 text-oni-text-secondary text-lg">
-      The Hatch family of critters. They eat minerals and produce useful materials.
+      The Hatch family eats minerals and produces coal or refined metals.
     </p>
   </section>
 
-  <!-- Section 1: At a Glance -->
-  <section class="mb-10">
-    <h2 class="text-xl font-bold text-oni-text-primary mb-4">At a Glance</h2>
-    <ComparisonTable entries={hatches} />
-  </section>
+  {/* Ranch Build Layout */}
+  <RanchBuildTabs family="hatches" />
 
-  <!-- Section 2: Variant Details -->
-  <section>
-    <h2 class="text-xl font-bold text-oni-text-primary mb-4">Variant Details</h2>
+  {/* Variants */}
+  <section class="mb-10">
+    <h2 class="text-xl font-bold text-oni-text-primary mb-4">Variants</h2>
     <div class="space-y-4">
-      {hatches.map((hatch) => (
-        <DetailCard entry={hatch} />
+      {variants.map((variant) => (
+        <CritterVariantCard entry={variant} />
       ))}
     </div>
   </section>
+
+  {/* Calculator */}
+  <CritterCalculator variants={variants} defaultCapacity={8} />
 </BaseLayout>
