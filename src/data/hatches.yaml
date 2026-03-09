@@ -1,5 +1,6 @@
 - id: hatch
   name: Hatch
+  family: Hatch
   dlc:
     - base
   diet:
@@ -13,6 +14,7 @@
     rate:
       value: 10
       unit: kg/cycle
+    method: excretion
   calories:
     metabolism:
       value: 1000000
@@ -30,9 +32,11 @@
     cycle_time:
       value: 1
       unit: cycle
+  image_slot: true
 
 - id: sage_hatch
   name: Sage Hatch
+  family: Hatch
   dlc:
     - base
   diet:
@@ -43,6 +47,7 @@
     rate:
       value: 10
       unit: kg/cycle
+    method: excretion
   calories:
     metabolism:
       value: 1000000
@@ -60,9 +65,11 @@
     cycle_time:
       value: 1
       unit: cycle
+  image_slot: true
 
 - id: stone_hatch
   name: Stone Hatch
+  family: Hatch
   dlc:
     - base
   diet:
@@ -75,6 +82,7 @@
     rate:
       value: 10
       unit: kg/cycle
+    method: excretion
   calories:
     metabolism:
       value: 1000000
@@ -92,9 +100,11 @@
     cycle_time:
       value: 1
       unit: cycle
+  image_slot: true
 
 - id: smooth_hatch
   name: Smooth Hatch
+  family: Hatch
   dlc:
     - base
   diet:
@@ -109,6 +119,7 @@
     rate:
       value: 10
       unit: kg/cycle
+    method: excretion
   calories:
     metabolism:
       value: 1000000
@@ -126,4 +137,5 @@
     cycle_time:
       value: 1
       unit: cycle
+  image_slot: true
   notes: Useful for converting raw metals to refined metals

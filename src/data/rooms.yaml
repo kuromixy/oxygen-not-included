@@ -1,0 +1,288 @@
+- id: latrine
+  name: Latrine
+  dimensions:
+    min: 12
+    max: 64
+  required_buildings:
+    - Outhouse
+    - Wash Basin
+  bonus: "+1 Morale"
+  upgrade_from: null
+  upgrade_to: washroom
+  layout_tip: "A simple 4x3 room works. Place wash basin near the exit so dupes wash on the way out."
+  diagram_slot: true
+  dlc:
+    - base
+
+- id: washroom
+  name: Washroom
+  dimensions:
+    min: 12
+    max: 64
+  required_buildings:
+    - Lavatory
+    - Sink
+  bonus: "+2 Morale"
+  upgrade_from: latrine
+  upgrade_to: null
+  layout_tip: "Same footprint as Latrine. Requires plumbing -- plan water and sewage lines early."
+  diagram_slot: true
+  dlc:
+    - base
+
+- id: barracks
+  name: Barracks
+  dimensions:
+    min: 12
+    max: 64
+  required_buildings:
+    - Bed
+  bonus: "+1 Morale"
+  upgrade_from: null
+  upgrade_to: luxury-barracks
+  layout_tip: "Stack cots vertically with ladders. A 4-wide room fits 4 cots with room for a ladder."
+  diagram_slot: true
+  dlc:
+    - base
+
+- id: luxury-barracks
+  name: Luxury Barracks
+  dimensions:
+    min: 12
+    max: 64
+  required_buildings:
+    - Comfy Bed
+    - Decor item
+  bonus: "+2 Morale"
+  upgrade_from: barracks
+  upgrade_to: private-bedroom
+  layout_tip: "Replace cots with comfy beds and add a painting or sculpture for the decor requirement."
+  diagram_slot: true
+  dlc:
+    - base
+
+- id: private-bedroom
+  name: Private Bedroom
+  dimensions:
+    min: 24
+    max: 64
+  required_buildings:
+    - Comfy Bed (1 only)
+    - Decor items (2+)
+    - Backwall
+  bonus: "+3 Morale"
+  upgrade_from: luxury-barracks
+  upgrade_to: null
+  layout_tip: "One bed per room. A 6x4 layout with drywall backwall, a painting, and a potted plant works well."
+  diagram_slot: true
+  dlc:
+    - base
+
+- id: mess-hall
+  name: Mess Hall
+  dimensions:
+    min: 12
+    max: 64
+  required_buildings:
+    - Mess Table
+  bonus: "+3 Morale"
+  upgrade_from: null
+  upgrade_to: great-hall
+  layout_tip: "Place near your kitchen and food storage. A central location reduces dupe travel time."
+  diagram_slot: true
+  dlc:
+    - base
+
+- id: great-hall
+  name: Great Hall
+  dimensions:
+    min: 32
+    max: 120
+  required_buildings:
+    - Mess Table
+    - Decor (20+ total)
+    - Recreation building
+  bonus: "+4 Morale"
+  upgrade_from: mess-hall
+  upgrade_to: banquet-hall
+  layout_tip: "Needs 32+ tiles and 20 decor. Use paintings and sculptures along walls. Add a water cooler or jukebot for recreation."
+  diagram_slot: true
+  dlc:
+    - base
+
+- id: banquet-hall
+  name: Banquet Hall
+  dimensions:
+    min: 32
+    max: 120
+  required_buildings:
+    - Communal Table
+    - Decor item
+    - Recreation building
+    - Ornament
+  bonus: "+6 Morale"
+  upgrade_from: great-hall
+  upgrade_to: null
+  layout_tip: "Upgrade from Great Hall by replacing Mess Table with Communal Table and adding an ornament."
+  diagram_slot: true
+  dlc:
+    - base
+
+- id: kitchen
+  name: Kitchen
+  dimensions:
+    min: 12
+    max: 96
+  required_buildings:
+    - Spice Grinder
+    - Cooking Station
+    - Refrigerator
+  bonus: "Enables spices"
+  upgrade_from: null
+  upgrade_to: null
+  layout_tip: "Place near your food storage and mess hall. Keep the fridge close to the cooking station to minimize dupe travel."
+  diagram_slot: true
+  dlc:
+    - base
+
+- id: massage-clinic
+  name: Massage Clinic
+  dimensions:
+    min: 12
+    max: 64
+  required_buildings:
+    - Massage Table
+    - Decor item
+  bonus: "+100% Massage efficiency"
+  upgrade_from: null
+  upgrade_to: null
+  layout_tip: "A small 4x3 room with a massage table and a painting is sufficient. Place near bedrooms for stressed dupes."
+  diagram_slot: true
+  dlc:
+    - base
+
+- id: hospital
+  name: Hospital
+  dimensions:
+    min: 12
+    max: 96
+  required_buildings:
+    - Medical equipment
+    - Toilet
+    - Mess Table
+  bonus: "Disease containment"
+  upgrade_from: null
+  upgrade_to: null
+  layout_tip: "Isolate from main base with a liquid lock or decontamination room. Include a toilet and mess table so sick dupes stay quarantined."
+  diagram_slot: true
+  dlc:
+    - base
+
+- id: power-plant
+  name: Power Plant
+  dimensions:
+    min: 12
+    max: 96
+  required_buildings:
+    - Heavy-Watt Generator
+    - Power buildings (2+)
+  bonus: "+50% power output"
+  upgrade_from: null
+  upgrade_to: null
+  layout_tip: "Group generators together. Use heavy-watt wire inside the room and transformers at the boundary to avoid decor penalties."
+  diagram_slot: true
+  dlc:
+    - base
+
+- id: greenhouse
+  name: Greenhouse
+  dimensions:
+    min: 12
+    max: 96
+  required_buildings:
+    - Farm Station
+  bonus: "Enables fertilizer"
+  upgrade_from: null
+  upgrade_to: null
+  layout_tip: "Build around your existing farm plots. The Farm Station buff applies to all plants in the room."
+  diagram_slot: true
+  dlc:
+    - base
+
+- id: stable
+  name: Stable
+  dimensions:
+    min: 12
+    max: 96
+  required_buildings:
+    - Grooming Station
+  bonus: "Enables grooming"
+  upgrade_from: null
+  upgrade_to: null
+  layout_tip: "Size depends on critter type. Most critters need 12 tiles per critter. Keep the grooming station accessible near the entrance."
+  diagram_slot: true
+  dlc:
+    - base
+
+- id: laboratory
+  name: Laboratory
+  dimensions:
+    min: 32
+    max: 120
+  required_buildings:
+    - Science buildings (2+)
+  bonus: "+10% efficiency"
+  upgrade_from: null
+  upgrade_to: null
+  layout_tip: "Place a Super Computer and Research Station together. Needs 32+ tiles, so plan a larger room from the start."
+  diagram_slot: true
+  dlc:
+    - base
+
+- id: recreation-room
+  name: Recreation Room
+  dimensions:
+    min: 12
+    max: 96
+  required_buildings:
+    - Recreation building
+    - Decor item
+  bonus: "Downtime benefits"
+  upgrade_from: null
+  upgrade_to: null
+  layout_tip: "Place near bedrooms and mess hall so dupes use it during downtime. A water cooler and jukebot cover most recreation needs."
+  diagram_slot: true
+  dlc:
+    - base
+
+- id: park
+  name: Park
+  dimensions:
+    min: 12
+    max: 64
+  required_buildings:
+    - Park Sign
+    - Wild plants (2+)
+  bonus: "+3 Morale"
+  upgrade_from: null
+  upgrade_to: nature-reserve
+  layout_tip: "Use naturally growing wild plants to avoid irrigation costs. Place the park sign near an existing plant cluster."
+  diagram_slot: true
+  dlc:
+    - base
+
+- id: nature-reserve
+  name: Nature Reserve
+  dimensions:
+    min: 32
+    max: 120
+  required_buildings:
+    - Park Sign
+    - Wild plants (4+)
+  bonus: "+6 Morale"
+  upgrade_from: park
+  upgrade_to: null
+  layout_tip: "Needs 32+ tiles and 4 wild plants. Build around a natural biome with existing plants. Great morale boost for minimal upkeep."
+  diagram_slot: true
+  dlc:
+    - base
