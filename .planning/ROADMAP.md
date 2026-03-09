@@ -45,11 +45,12 @@ Plans:
   2. User can look up any critter family (Hatch, Drecko, Pacu, etc.) and see diet, output product, and calorie/resource rates
   3. User can see stable capacity limits and grooming station requirements for each critter type
   4. User can see critter variants (e.g., Hatch vs Sage Hatch vs Stone Hatch) with differences clearly highlighted on the same page
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
+- [ ] 02-01-PLAN.md -- Data layer (content.config, rooms YAML, schema updates) and rooms reference page
+- [ ] 02-02-PLAN.md -- Critter page template components (RanchBuildTabs, VariantCard, Calculator) and Hatches revision
+- [ ] 02-03-PLAN.md -- Remaining 5 critter families (data + pages) and ranching hub activation
 
 ### Phase 3: Farming, Power & Plumbing
 **Goal**: Users can look up any crop, generator, battery, pipe, or pump and find the key stats at a glance
@@ -86,6 +87,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Design System | 3/3 | Complete | 2026-03-08 |
-| 2. Rooms & Ranching | 0/2 | Not started | - |
+| 2. Rooms & Ranching | 0/3 | Not started | - |
 | 3. Farming, Power & Plumbing | 0/2 | Not started | - |
 | 4. Search & DLC Toggle | 0/1 | Not started | - |
