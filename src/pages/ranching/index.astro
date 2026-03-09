@@ -2,12 +2,12 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const critters = [
-  { name: 'Hatches', href: '/oni-fanpage/ranching/hatches/', active: true },
-  { name: 'Dreckos', href: null, active: false },
-  { name: 'Pacus', href: null, active: false },
-  { name: 'Pips', href: null, active: false },
-  { name: 'Slicksters', href: null, active: false },
-  { name: 'Shine Bugs', href: null, active: false },
+  { name: 'Hatches', href: '/oni-fanpage/ranching/hatches/' },
+  { name: 'Dreckos', href: '/oni-fanpage/ranching/dreckos/' },
+  { name: 'Pacus', href: '/oni-fanpage/ranching/pacus/' },
+  { name: 'Pips', href: '/oni-fanpage/ranching/pips/' },
+  { name: 'Slicksters', href: '/oni-fanpage/ranching/slicksters/' },
+  { name: 'Shine Bugs', href: '/oni-fanpage/ranching/shine-bugs/' },
 ];
 ---
 
@@ -20,24 +20,15 @@ const critters = [
   </section>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-    {critters.map((critter) =>
-      critter.active ? (
-        <a
-          href={critter.href}
-          class="bg-oni-bg-surface border border-oni-bg-elevated rounded-lg p-4 hover:border-oni-teal transition-colors group"
-        >
-          <span class="text-lg font-semibold text-oni-text-primary group-hover:text-oni-teal transition-colors">
-            {critter.name}
-          </span>
-        </a>
-      ) : (
-        <div class="bg-oni-bg-surface border border-oni-bg-elevated rounded-lg p-4 opacity-50">
-          <span class="text-lg font-semibold text-oni-text-primary">{critter.name}</span>
-          <span class="ml-2 text-xs bg-oni-bg-elevated text-oni-text-muted px-2 py-0.5 rounded-full">
-            Coming soon
-          </span>
-        </div>
-      )
-    )}
+    {critters.map((critter) => (
+      <a
+        href={critter.href}
+        class="bg-oni-bg-surface border border-oni-bg-elevated rounded-lg p-4 hover:border-oni-teal transition-colors group"
+      >
+        <span class="text-lg font-semibold text-oni-text-primary group-hover:text-oni-teal transition-colors">
+          {critter.name}
+        </span>
+      </a>
+    ))}
   </div>
 </BaseLayout>

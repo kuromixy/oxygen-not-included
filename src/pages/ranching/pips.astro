@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RanchBuildTabs from '../../components/RanchBuildTabs.astro';
+import CritterVariantCard from '../../components/CritterVariantCard.astro';
+import CritterCalculator from '../../components/CritterCalculator.astro';
+import { getCollection } from 'astro:content';
+
+const variants = await getCollection('pips');
+---
+
+<BaseLayout title="Pips -- ONI Reference">
+  {/* Breadcrumb */}
+  <nav class="text-sm text-oni-text-muted mb-4" aria-label="Breadcrumb">
+    <a href="/oni-fanpage/ranching/" class="hover:text-oni-teal transition-colors">Ranching</a>
+    <span class="mx-1">&gt;</span>
+    <span class="text-oni-text-secondary">Pips</span>
+  </nav>
+
+  {/* Page heading */}
+  <section class="mb-8">
+    <h1 class="text-3xl md:text-4xl font-bold text-oni-text-primary">Pips</h1>
+    <p class="mt-3 text-oni-text-secondary text-lg">
+      Pips produce dirt and can plant seeds in wild conditions. Cuddle Pips are compact and high-density.
+    </p>
+  </section>
+
+  {/* Ranch Build Layout */}
+  <RanchBuildTabs family="pips" />
+
+  {/* Variants */}
+  <section class="mb-10">
+    <h2 class="text-xl font-bold text-oni-text-primary mb-4">Variants</h2>
+    <div class="space-y-4">
+      {variants.map((variant) => (
+        <CritterVariantCard entry={variant} />
+      ))}
+    </div>
+  </section>
+
+  {/* Calculator */}
+  <CritterCalculator variants={variants} defaultCapacity={8} />
+</BaseLayout>
