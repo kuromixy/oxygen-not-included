@@ -1,0 +1,97 @@
+- id: slickster
+  name: Slickster
+  family: Slickster
+  dlc:
+    - base
+  diet:
+    - carbon_dioxide
+  output:
+    product: crude_oil
+    rate:
+      value: 20
+      unit: kg/cycle
+    method: excretion
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 8
+  temperature:
+    min:
+      value: 35
+      unit: C
+    max:
+      value: 80
+      unit: C
+  grooming:
+    station: grooming_station
+    cycle_time:
+      value: 1
+      unit: cycle
+  image_slot: true
+
+- id: molten_slickster
+  name: Molten Slickster
+  family: Slickster
+  dlc:
+    - base
+  diet:
+    - carbon_dioxide
+  output:
+    product: petroleum
+    rate:
+      value: 20
+      unit: kg/cycle
+    method: excretion
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 8
+  temperature:
+    min:
+      value: 110
+      unit: C
+    max:
+      value: 160
+      unit: C
+  grooming:
+    station: grooming_station
+    cycle_time:
+      value: 1
+      unit: cycle
+  image_slot: true
+  notes: Requires extreme heat (110-160 C). Produces petroleum instead of crude oil.
+
+- id: longhair_slickster
+  name: Longhair Slickster
+  family: Slickster
+  dlc:
+    - base
+  diet:
+    - oxygen
+  output:
+    product: none
+    rate:
+      value: 0
+      unit: kg/cycle
+    method: ambient
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 8
+  temperature:
+    min:
+      value: -30
+      unit: C
+    max:
+      value: 60
+      unit: C
+  grooming:
+    station: grooming_station
+    cycle_time:
+      value: 1
+      unit: cycle
+  image_slot: true
+  notes: Produces decor only, no material output. Consumes oxygen.

@@ -1,0 +1,100 @@
+- id: pacu
+  name: Pacu
+  family: Pacu
+  dlc:
+    - base
+  diet:
+    - algae
+    - seeds
+  output:
+    product: pacu_fillet
+    rate:
+      value: 1
+      unit: kg/cycle
+    method: on_death
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 8
+  temperature:
+    min:
+      value: -30
+      unit: C
+    max:
+      value: 70
+      unit: C
+  grooming:
+    station: fish_feeder
+    cycle_time:
+      value: 1
+      unit: cycle
+  image_slot: true
+  notes: Lives in water. Main value is Pacu Fillet on death. Also excretes polluted dirt.
+
+- id: tropical_pacu
+  name: Tropical Pacu
+  family: Pacu
+  dlc:
+    - base
+  diet:
+    - algae
+    - seeds
+  output:
+    product: pacu_fillet
+    rate:
+      value: 1
+      unit: kg/cycle
+    method: on_death
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 8
+  temperature:
+    min:
+      value: 35
+      unit: C
+    max:
+      value: 80
+      unit: C
+  grooming:
+    station: fish_feeder
+    cycle_time:
+      value: 1
+      unit: cycle
+  image_slot: true
+  notes: Requires warm water (35-80 C). Produces Pacu Fillet on death.
+
+- id: gulp_fish
+  name: Gulp Fish
+  family: Pacu
+  dlc:
+    - base
+  diet:
+    - polluted_water
+  output:
+    product: clean_water
+    rate:
+      value: 10
+      unit: kg/cycle
+    method: excretion
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 8
+  temperature:
+    min:
+      value: -30
+      unit: C
+    max:
+      value: 70
+      unit: C
+  grooming:
+    station: fish_feeder
+    cycle_time:
+      value: 1
+      unit: cycle
+  image_slot: true
+  notes: Consumes polluted water and excretes clean water. Useful for water purification.

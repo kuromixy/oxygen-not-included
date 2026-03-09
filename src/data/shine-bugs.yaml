@@ -1,0 +1,234 @@
+- id: shine_bug
+  name: Shine Bug
+  family: Shine Bug
+  dlc:
+    - base
+  diet:
+    - phosphorite
+  output:
+    product: light
+    rate:
+      value: 1800
+      unit: lux
+    method: ambient
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 16
+  space_per_critter: 6
+  temperature:
+    min:
+      value: -30
+      unit: C
+    max:
+      value: 70
+      unit: C
+  grooming:
+    station: grooming_station
+    cycle_time:
+      value: 1
+      unit: cycle
+  image_slot: true
+  notes: Produces light and decor. High stable capacity (16).
+
+- id: sun_bug
+  name: Sun Bug
+  family: Shine Bug
+  dlc:
+    - spaced_out
+  diet:
+    - phosphorite
+  output:
+    product: light
+    rate:
+      value: 2400
+      unit: lux
+    method: ambient
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 16
+  space_per_critter: 6
+  temperature:
+    min:
+      value: -30
+      unit: C
+    max:
+      value: 70
+      unit: C
+  grooming:
+    station: grooming_station
+    cycle_time:
+      value: 1
+      unit: cycle
+  image_slot: true
+  notes: Spaced Out DLC variant. Brighter than standard Shine Bug.
+
+- id: royal_bug
+  name: Royal Bug
+  family: Shine Bug
+  dlc:
+    - base
+  diet:
+    - phosphorite
+  output:
+    product: light
+    rate:
+      value: 1800
+      unit: lux
+    method: ambient
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 16
+  space_per_critter: 6
+  temperature:
+    min:
+      value: -30
+      unit: C
+    max:
+      value: 70
+      unit: C
+  grooming:
+    station: grooming_station
+    cycle_time:
+      value: 1
+      unit: cycle
+  image_slot: true
+
+- id: coral_bug
+  name: Coral Bug
+  family: Shine Bug
+  dlc:
+    - base
+  diet:
+    - phosphorite
+  output:
+    product: light
+    rate:
+      value: 1800
+      unit: lux
+    method: ambient
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 16
+  space_per_critter: 6
+  temperature:
+    min:
+      value: -30
+      unit: C
+    max:
+      value: 70
+      unit: C
+  grooming:
+    station: grooming_station
+    cycle_time:
+      value: 1
+      unit: cycle
+  image_slot: true
+
+- id: azure_bug
+  name: Azure Bug
+  family: Shine Bug
+  dlc:
+    - base
+  diet:
+    - phosphorite
+  output:
+    product: light
+    rate:
+      value: 1800
+      unit: lux
+    method: ambient
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 16
+  space_per_critter: 6
+  temperature:
+    min:
+      value: -30
+      unit: C
+    max:
+      value: 70
+      unit: C
+  grooming:
+    station: grooming_station
+    cycle_time:
+      value: 1
+      unit: cycle
+  image_slot: true
+
+- id: abyss_bug
+  name: Abyss Bug
+  family: Shine Bug
+  dlc:
+    - base
+  diet:
+    - phosphorite
+  output:
+    product: light
+    rate:
+      value: -1800
+      unit: lux
+    method: ambient
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 16
+  space_per_critter: 6
+  temperature:
+    min:
+      value: -30
+      unit: C
+    max:
+      value: 70
+      unit: C
+  grooming:
+    station: grooming_station
+    cycle_time:
+      value: 1
+      unit: cycle
+  image_slot: true
+  notes: Produces negative light (darkness). Useful for reducing light in areas.
+
+- id: radiant_bug
+  name: Radiant Bug
+  family: Shine Bug
+  dlc:
+    - base
+  diet:
+    - phosphorite
+  output:
+    product: light
+    rate:
+      value: 3600
+      unit: lux
+    method: ambient
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 16
+  space_per_critter: 6
+  temperature:
+    min:
+      value: -30
+      unit: C
+    max:
+      value: 70
+      unit: C
+  grooming:
+    station: grooming_station
+    cycle_time:
+      value: 1
+      unit: cycle
+  image_slot: true
+  notes: Brightest Shine Bug variant. Excellent for lighting large areas.

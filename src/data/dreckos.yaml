@@ -1,0 +1,68 @@
+- id: drecko
+  name: Drecko
+  family: Drecko
+  dlc:
+    - base
+  diet:
+    - balm_lily
+    - pincha_pepperplant
+    - mealwood
+  output:
+    product: reed_fiber
+    rate:
+      value: 0.25
+      unit: kg/cycle
+    method: shearing
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 8
+  temperature:
+    min:
+      value: -30
+      unit: C
+    max:
+      value: 100
+      unit: C
+  grooming:
+    station: grooming_station
+    cycle_time:
+      value: 1
+      unit: cycle
+  image_slot: true
+  notes: Requires hydrogen atmosphere for scale growth. Shear for Reed Fiber.
+
+- id: glossy_drecko
+  name: Glossy Drecko
+  family: Drecko
+  dlc:
+    - base
+  diet:
+    - mealwood
+    - bristle_blossom
+  output:
+    product: plastic
+    rate:
+      value: 0.05
+      unit: kg/cycle
+    method: shearing
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 8
+  temperature:
+    min:
+      value: -30
+      unit: C
+    max:
+      value: 100
+      unit: C
+  grooming:
+    station: grooming_station
+    cycle_time:
+      value: 1
+      unit: cycle
+  image_slot: true
+  notes: Requires hydrogen atmosphere for scale growth. Shear for Plastic.

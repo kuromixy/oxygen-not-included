@@ -1,0 +1,67 @@
+- id: pip
+  name: Pip
+  family: Pip
+  dlc:
+    - base
+  diet:
+    - raw_minerals
+    - seeds
+  output:
+    product: dirt
+    rate:
+      value: 20
+      unit: kg/cycle
+    method: excretion
+  calories:
+    metabolism:
+      value: 1000000
+      unit: kcal/cycle
+  stable_capacity: 8
+  temperature:
+    min:
+      value: -30
+      unit: C
+    max:
+      value: 70
+      unit: C
+  grooming:
+    station: grooming_station
+    cycle_time:
+      value: 1
+      unit: cycle
+  image_slot: true
+  notes: Can plant seeds in wild conditions. Useful for establishing wild plant farms.
+
+- id: cuddle_pip
+  name: Cuddle Pip
+  family: Pip
+  dlc:
+    - base
+  diet:
+    - seeds
+  output:
+    product: dirt
+    rate:
+      value: 10
+      unit: kg/cycle
+    method: excretion
+  calories:
+    metabolism:
+      value: 500000
+      unit: kcal/cycle
+  stable_capacity: 24
+  space_per_critter: 4
+  temperature:
+    min:
+      value: -30
+      unit: C
+    max:
+      value: 70
+      unit: C
+  grooming:
+    station: grooming_station
+    cycle_time:
+      value: 1
+      unit: cycle
+  image_slot: true
+  notes: Small size allows high density (24 per stable). Eats only seeds.
