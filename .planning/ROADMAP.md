@@ -53,7 +53,7 @@ Plans:
 - [ ] 02-03-PLAN.md -- Remaining 5 critter families (data + pages) and ranching hub activation
 
 ### Phase 3: Farming, Power & Plumbing
-**Goal**: Users can look up any crop, generator, battery, pipe, or pump and find the key stats at a glance
+**Goal**: Users can look up any crop, generator, or geyser and find the key stats at a glance, and compare crops side-by-side on the farming hub
 **Depends on**: Phase 2
 **Requirements**: FARM-01, FARM-02, FARM-03, POWR-01, POWR-02, POWR-03, POWR-04
 **Success Criteria** (what must be TRUE):
@@ -61,11 +61,11 @@ Plans:
   2. User can compare crops side-by-side to choose the optimal food source for their colony situation
   3. User can look up generators and batteries with wattage, fuel type, consumption rate, capacity, and heat output
   4. User can look up pipe types and pumps with throughput, temperature limits, flow rates, and power consumption
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
+- [ ] 03-01-PLAN.md -- Crop data layer, farming hub with comparison table, and 7 individual crop pages
+- [ ] 03-02-PLAN.md -- Generator/battery/geyser data, power hub with battery reference, 4 generator pages, and 6 geyser pages
 
 ### Phase 4: Search & DLC Toggle
 **Goal**: Users can instantly find any data point via search and filter content by base game vs Spaced Out! DLC
