@@ -1,0 +1,124 @@
+---
+import StatPill from './StatPill.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'crops'>;
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+
+function formatName(slug: string): string {
+  return slug
+    .split('_')
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+---
+
+<div class="border border-oni-bg-elevated rounded-xl p-5">
+  {/* Top section: icon + name */}
+  <div class="flex items-center gap-4 mb-4">
+    <div class="w-20 h-20 rounded-lg bg-oni-bg-elevated flex items-center justify-center text-3xl shrink-0" aria-hidden="true">
+      🌱
+    </div>
+    <div>
+      <h3 class="text-xl font-bold text-oni-text-primary">{d.name}</h3>
+      {d.dlc.includes('spaced_out') && (
+        <span class="inline-block mt-1 text-xs px-2 py-0.5 rounded-full bg-oni-bg-elevated text-oni-text-muted">Spaced Out! DLC</span>
+      )}
+    </div>
+  </div>
+
+  {/* Stats grid */}
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {/* Growth Time */}
+    <div>
+      <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Growth Time</h4>
+      <StatPill value={d.growth_cycles} unit="cycles" />
+    </div>
+
+    {/* Harvest Yield */}
+    <div>
+      <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Harvest Yield</h4>
+      <p class="text-oni-text-secondary">
+        <StatPill value={d.kcal_per_harvest.toLocaleString()} unit="kcal" />
+        <span class="text-oni-text-muted text-sm ml-1">({d.kcal_per_cycle.toLocaleString()} kcal/cycle)</span>
+      </p>
+    </div>
+
+    {/* Temperature Range */}
+    <div>
+      <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Temperature Range</h4>
+      <p class="flex items-center gap-1 text-oni-text-secondary flex-wrap">
+        <StatPill value={d.temperature.min.value} unit={`\u00B0${d.temperature.min.unit}`} />
+        <span class="text-oni-text-muted">to</span>
+        <StatPill value={d.temperature.max.value} unit={`\u00B0${d.temperature.max.unit}`} />
+      </p>
+    </div>
+
+    {/* Irrigation */}
+    <div>
+      <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Irrigation</h4>
+      <div class="text-oni-text-secondary">
+        {d.irrigation.liquid && d.irrigation.liquid_amount ? (
+          <p class="mb-1">
+            <StatPill value={d.irrigation.liquid_amount.value} unit={d.irrigation.liquid_amount.unit} />
+            <span class="ml-1">{formatName(d.irrigation.liquid)}</span>
+          </p>
+        ) : null}
+        {d.irrigation.solid && d.irrigation.solid_amount ? (
+          <p>
+            <StatPill value={d.irrigation.solid_amount.value} unit={d.irrigation.solid_amount.unit} />
+            <span class="ml-1">{formatName(d.irrigation.solid)}</span>
+          </p>
+        ) : null}
+        {!d.irrigation.liquid && !d.irrigation.solid && (
+          <span class="text-oni-text-muted">None</span>
+        )}
+      </div>
+    </div>
+
+    {/* Fertilizer */}
+    <div>
+      <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Fertilizer</h4>
+      <p class="text-oni-text-secondary">
+        {d.fertilizer ? formatName(d.fertilizer) : <span class="text-oni-text-muted">None required</span>}
+      </p>
+    </div>
+
+    {/* Light Requirement */}
+    {d.light_required !== null && (
+      <div>
+        <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Light</h4>
+        <p class="text-oni-text-secondary">
+          {d.light_required === 0 ? (
+            <span class="text-oni-text-secondary">Darkness required (0 lux)</span>
+          ) : (
+            <><StatPill value={d.light_required} unit="lux" /> <span class="text-oni-text-muted text-sm">minimum</span></>
+          )}
+        </p>
+      </div>
+    )}
+
+    {/* DLC Compatibility */}
+    <div>
+      <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">DLC Compatibility</h4>
+      <div class="flex flex-wrap gap-1.5">
+        {d.dlc.map((tag) => (
+          <span class="inline-block text-xs px-2 py-1 rounded-full bg-oni-bg-elevated text-oni-text-muted">
+            {formatName(tag)}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  {/* Notes */}
+  {d.notes && (
+    <div class="mt-4 p-3 rounded-lg bg-oni-bg-elevated/50 border border-oni-bg-elevated">
+      <p class="text-sm text-oni-text-secondary italic">{d.notes}</p>
+    </div>
+  )}
+</div>

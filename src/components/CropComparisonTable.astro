@@ -1,0 +1,145 @@
+---
+import StatPill from './StatPill.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  crops: CollectionEntry<'crops'>[];
+}
+
+const { crops } = Astro.props;
+
+function formatName(slug: string): string {
+  return slug
+    .split('_')
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
+function cropHref(id: string): string {
+  return `/oni-fanpage/farming/${id.replace(/_/g, '-')}/`;
+}
+
+// Static display order per plan
+const ORDER = ['mealwood', 'bristle_blossom', 'dusk_cap', 'pincha_pepper', 'sleet_wheat', 'waterweed', 'nosh_sprout'];
+const sorted = [...crops].sort((a, b) => {
+  const ai = ORDER.indexOf(a.data.id);
+  const bi = ORDER.indexOf(b.data.id);
+  return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+});
+---
+
+{/* Desktop table (hidden on mobile) */}
+<div class="hidden md:block overflow-x-auto mb-10">
+  <div class="min-w-[700px]">
+    {/* Header */}
+    <div class="grid grid-cols-[2fr_1fr_1fr_2fr_2fr_1.5fr] gap-x-4 px-4 py-2 border-b border-oni-bg-elevated">
+      <span class="text-xs text-oni-text-muted uppercase tracking-wider">Crop</span>
+      <span class="text-xs text-oni-text-muted uppercase tracking-wider">Growth</span>
+      <span class="text-xs text-oni-text-muted uppercase tracking-wider">kcal/cycle</span>
+      <span class="text-xs text-oni-text-muted uppercase tracking-wider">Irrigation</span>
+      <span class="text-xs text-oni-text-muted uppercase tracking-wider">Temp Range</span>
+      <span class="text-xs text-oni-text-muted uppercase tracking-wider">Fertilizer</span>
+    </div>
+
+    {/* Rows */}
+    {sorted.map((crop) => {
+      const d = crop.data;
+      return (
+        <a
+          href={cropHref(d.id)}
+          class="grid grid-cols-[2fr_1fr_1fr_2fr_2fr_1.5fr] gap-x-4 px-4 py-3 border-b border-oni-bg-elevated/50 hover:bg-oni-bg-elevated/50 transition-colors items-center"
+        >
+          <span class="font-medium text-oni-text-primary">
+            {d.name}
+            {d.dlc.includes('spaced_out') && (
+              <span class="ml-2 text-xs px-1.5 py-0.5 rounded bg-oni-bg-elevated text-oni-text-muted">DLC</span>
+            )}
+          </span>
+          <span class="text-oni-text-secondary">
+            <StatPill value={d.growth_cycles} unit="cyc" />
+          </span>
+          <span class="text-oni-text-secondary">
+            <StatPill value={d.kcal_per_cycle.toLocaleString()} unit="kcal" />
+          </span>
+          <span class="text-oni-text-secondary text-sm">
+            {d.irrigation.liquid && d.irrigation.liquid_amount && (
+              <span class="block">{d.irrigation.liquid_amount.value} {d.irrigation.liquid_amount.unit} {formatName(d.irrigation.liquid)}</span>
+            )}
+            {d.irrigation.solid && d.irrigation.solid_amount && (
+              <span class="block">{d.irrigation.solid_amount.value} {d.irrigation.solid_amount.unit} {formatName(d.irrigation.solid)}</span>
+            )}
+            {!d.irrigation.liquid && !d.irrigation.solid && (
+              <span class="text-oni-text-muted">--</span>
+            )}
+          </span>
+          <span class="text-oni-text-secondary flex items-center gap-1 flex-wrap">
+            <StatPill value={d.temperature.min.value} unit={`\u00B0${d.temperature.min.unit}`} />
+            <span class="text-oni-text-muted">to</span>
+            <StatPill value={d.temperature.max.value} unit={`\u00B0${d.temperature.max.unit}`} />
+          </span>
+          <span class="text-oni-text-secondary text-sm">
+            {d.fertilizer ? formatName(d.fertilizer) : '--'}
+          </span>
+        </a>
+      );
+    })}
+  </div>
+</div>
+
+{/* Mobile stacked cards (shown on mobile, hidden on md+) */}
+<div class="md:hidden space-y-3 mb-10">
+  {sorted.map((crop) => {
+    const d = crop.data;
+    return (
+      <a
+        href={cropHref(d.id)}
+        class="block bg-oni-bg-surface border border-oni-bg-elevated rounded-xl p-4 hover:border-oni-teal transition-colors"
+      >
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-bold text-oni-text-primary">
+            {d.name}
+          </h3>
+          {d.dlc.includes('spaced_out') && (
+            <span class="text-xs px-1.5 py-0.5 rounded bg-oni-bg-elevated text-oni-text-muted">DLC</span>
+          )}
+        </div>
+        <div class="grid grid-cols-2 gap-2 text-sm">
+          <div>
+            <span class="text-xs text-oni-text-muted uppercase tracking-wider block mb-1">Growth</span>
+            <StatPill value={d.growth_cycles} unit="cyc" />
+          </div>
+          <div>
+            <span class="text-xs text-oni-text-muted uppercase tracking-wider block mb-1">kcal/cycle</span>
+            <StatPill value={d.kcal_per_cycle.toLocaleString()} unit="kcal" />
+          </div>
+          <div>
+            <span class="text-xs text-oni-text-muted uppercase tracking-wider block mb-1">Temp Range</span>
+            <span class="flex items-center gap-1 flex-wrap">
+              <StatPill value={d.temperature.min.value} unit={`\u00B0${d.temperature.min.unit}`} />
+              <span class="text-oni-text-muted">to</span>
+              <StatPill value={d.temperature.max.value} unit={`\u00B0${d.temperature.max.unit}`} />
+            </span>
+          </div>
+          <div>
+            <span class="text-xs text-oni-text-muted uppercase tracking-wider block mb-1">Fertilizer</span>
+            <span class="text-oni-text-secondary">{d.fertilizer ? d.fertilizer : '--'}</span>
+          </div>
+          <div class="col-span-2">
+            <span class="text-xs text-oni-text-muted uppercase tracking-wider block mb-1">Irrigation</span>
+            <span class="text-oni-text-secondary">
+              {d.irrigation.liquid && d.irrigation.liquid_amount && (
+                <span class="block">{d.irrigation.liquid_amount.value} {d.irrigation.liquid_amount.unit} {formatName(d.irrigation.liquid)}</span>
+              )}
+              {d.irrigation.solid && d.irrigation.solid_amount && (
+                <span class="block">{d.irrigation.solid_amount.value} {d.irrigation.solid_amount.unit} {formatName(d.irrigation.solid)}</span>
+              )}
+              {!d.irrigation.liquid && !d.irrigation.solid && (
+                <span class="text-oni-text-muted">--</span>
+              )}
+            </span>
+          </div>
+        </div>
+      </a>
+    );
+  })}
+</div>
