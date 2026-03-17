@@ -1,0 +1,101 @@
+- id: coal_generator
+  name: Coal Generator
+  dlc:
+    - base
+  watts: 600
+  fuel_type: coal
+  consumption:
+    value: 1000
+    unit: g/s
+  heat_output:
+    value: 9
+    unit: kDTU/s
+  byproducts:
+    - product: carbon_dioxide
+      rate:
+        value: 20
+        unit: g/s
+      temp:
+        value: 110
+        unit: C
+  dimensions: "3x3"
+  notes: "Earliest generator. High CO2 output -- route to carbon skimmer. Good for early-game coal ranch setups."
+  image_slot: true
+
+- id: natural_gas_generator
+  name: Natural Gas Generator
+  dlc:
+    - base
+  watts: 800
+  fuel_type: natural_gas
+  consumption:
+    value: 90
+    unit: g/s
+  heat_output:
+    value: 10
+    unit: kDTU/s
+  byproducts:
+    - product: polluted_water
+      rate:
+        value: 67.5
+        unit: g/s
+      temp:
+        value: 40
+        unit: C
+    - product: carbon_dioxide
+      rate:
+        value: 22.5
+        unit: g/s
+      temp:
+        value: 110
+        unit: C
+  dimensions: "4x3"
+  notes: "Pairs with natural gas geyser. Produces polluted water -- route to plants or water sieve."
+  image_slot: true
+
+- id: hydrogen_generator
+  name: Hydrogen Generator
+  dlc:
+    - base
+  watts: 800
+  fuel_type: hydrogen
+  consumption:
+    value: 100
+    unit: g/s
+  heat_output:
+    value: 4
+    unit: kDTU/s
+  dimensions: "4x3"
+  notes: "Most heat-efficient generator. Requires hydrogen atmosphere supply. Pairs with electrolyzers."
+  image_slot: true
+
+- id: petroleum_generator
+  name: Petroleum Generator
+  dlc:
+    - base
+  watts: 2000
+  fuel_type: petroleum
+  consumption:
+    value: 2000
+    unit: g/s
+  heat_output:
+    value: 20
+    unit: kDTU/s
+  byproducts:
+    - product: carbon_dioxide
+      rate:
+        value: 500
+        unit: g/s
+      temp:
+        value: 110
+        unit: C
+    - product: polluted_water
+      rate:
+        value: 750
+        unit: g/s
+      temp:
+        value: 40
+        unit: C
+  dimensions: "3x4"
+  notes: "Highest wattage. Requires petroleum refinery setup. High heat -- needs active cooling."
+  image_slot: true

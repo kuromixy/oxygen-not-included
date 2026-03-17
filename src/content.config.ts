@@ -104,6 +104,50 @@ const shineBugs = defineCollection({
   schema: critterSchema,
 });
 
+const generatorSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  dlc: z.array(z.string()),
+  watts: z.number(),
+  fuel_type: z.string(),
+  consumption: unitValue,
+  heat_output: unitValue,
+  byproducts: z.array(z.object({
+    product: z.string(),
+    rate: unitValue,
+    temp: unitValue.optional(),
+  })).optional(),
+  dimensions: z.string(),
+  notes: z.string().optional(),
+  image_slot: z.boolean().default(true),
+});
+
+const batterySchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  dlc: z.array(z.string()),
+  capacity: unitValue,
+  leak_rate: unitValue,
+  heat_output: unitValue,
+  dimensions: z.string(),
+  notes: z.string().optional(),
+});
+
+const geyserSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  dlc: z.array(z.string()),
+  output_material: z.string(),
+  avg_output: unitValue,
+  output_temp: unitValue,
+  biome: z.string(),
+  taming_complexity: z.enum(['low', 'medium', 'high']),
+  taming_method: z.string(),
+  power_output: unitValue.optional(),
+  notes: z.string().optional(),
+  image_slot: z.boolean().default(true),
+});
+
 const rooms = defineCollection({
   loader: file('src/data/rooms.yaml'),
   schema: roomSchema,
@@ -112,6 +156,21 @@ const rooms = defineCollection({
 const crops = defineCollection({
   loader: file('src/data/crops.yaml'),
   schema: cropSchema,
+});
+
+const generators = defineCollection({
+  loader: file('src/data/generators.yaml'),
+  schema: generatorSchema,
+});
+
+const batteries = defineCollection({
+  loader: file('src/data/batteries.yaml'),
+  schema: batterySchema,
+});
+
+const geysers = defineCollection({
+  loader: file('src/data/geysers.yaml'),
+  schema: geyserSchema,
 });
 
 export const collections = {
@@ -123,4 +182,7 @@ export const collections = {
   shineBugs,
   rooms,
   crops,
+  generators,
+  batteries,
+  geysers,
 };

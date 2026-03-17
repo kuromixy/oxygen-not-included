@@ -1,0 +1,47 @@
+- id: battery
+  name: Battery
+  dlc:
+    - base
+  capacity:
+    value: 10
+    unit: kJ
+  leak_rate:
+    value: 1
+    unit: kJ/cycle
+  heat_output:
+    value: 1.25
+    unit: kDTU/s
+  dimensions: "1x2"
+  notes: "Basic battery. High leak rate -- use Smart Battery for efficiency."
+
+- id: smart_battery
+  name: Smart Battery
+  dlc:
+    - base
+  capacity:
+    value: 20
+    unit: kJ
+  leak_rate:
+    value: 0.4
+    unit: kJ/cycle
+  heat_output:
+    value: 0.5
+    unit: kDTU/s
+  dimensions: "2x2"
+  notes: "Preferred mid-game battery. Automation output to control generators -- turn off when full."
+
+- id: jumbo_battery
+  name: Jumbo Battery
+  dlc:
+    - base
+  capacity:
+    value: 40
+    unit: kJ
+  leak_rate:
+    value: 2
+    unit: kJ/cycle
+  heat_output:
+    value: 1.25
+    unit: kDTU/s
+  dimensions: "2x2"
+  notes: "Largest capacity per footprint. Higher leak rate than Smart Battery."

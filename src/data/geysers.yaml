@@ -1,0 +1,104 @@
+- id: water_geyser
+  name: Water Geyser
+  dlc:
+    - base
+  output_material: water
+  avg_output:
+    value: 1800
+    unit: kg/cycle
+  output_temp:
+    value: 95
+    unit: C
+  biome: random
+  taming_complexity: low
+  taming_method: "Insulated tile box. Cool output with aquatuner or heat exchange before use."
+  notes: "Most valuable geyser. Hot water -- needs cooling. Avg output shown is long-period average; actual output varies per seed instance."
+  image_slot: true
+
+- id: cool_slush_geyser
+  name: Cool Slush Geyser
+  dlc:
+    - base
+  output_material: polluted_water
+  avg_output:
+    value: 900
+    unit: kg/cycle
+  output_temp:
+    value: -10
+    unit: C
+  biome: random
+  taming_complexity: low
+  taming_method: "Simple insulated box containment. Output already cold -- direct to water sieve."
+  notes: "Produces cold polluted water -- doubles as passive cooling. Run through water sieve for clean water. Avg output shown is long-period average."
+  image_slot: true
+
+- id: cool_steam_vent
+  name: Cool Steam Vent
+  dlc:
+    - base
+  output_material: steam
+  avg_output:
+    value: 900
+    unit: kg/cycle
+  output_temp:
+    value: 110
+    unit: C
+  biome: swamp
+  taming_complexity: medium
+  taming_method: "Steam chamber containment with steam turbine for power + cooling."
+  notes: "Common water source. Output as steam requires condensing. Pairs with steam turbine. Avg output shown is long-period average."
+  image_slot: true
+
+- id: natural_gas_geyser
+  name: Natural Gas Geyser
+  dlc:
+    - base
+  output_material: natural_gas
+  avg_output:
+    value: 63
+    unit: kg/cycle
+  output_temp:
+    value: 150
+    unit: C
+  biome: swamp
+  taming_complexity: medium
+  taming_method: "Gas pump + pipe to Natural Gas Generator. Pairs with Fertilizer Synthesizer for bonus gas."
+  power_output:
+    value: 659
+    unit: W
+  notes: "~659W net after supporting infrastructure. Each geyser supports ~2 Natural Gas Generators. Avg output shown is long-period average."
+  image_slot: true
+
+- id: hydrogen_vent
+  name: Hydrogen Vent
+  dlc:
+    - base
+  output_material: hydrogen
+  avg_output:
+    value: 63
+    unit: kg/cycle
+  output_temp:
+    value: 500
+    unit: C
+  biome: random
+  taming_complexity: high
+  taming_method: "Insulated containment with gas pump. Hot hydrogen -- needs heat management before storage."
+  notes: "Very hot output. Requires active cooling before piping to Hydrogen Generators. Avg output shown is long-period average."
+  image_slot: true
+
+- id: salt_water_geyser
+  name: Salt Water Geyser
+  dlc:
+    - base
+  output_material: salt_water
+  avg_output:
+    value: 1800
+    unit: kg/cycle
+  output_temp:
+    value: 95
+    unit: C
+  biome: ocean
+  taming_complexity: low
+  taming_method: "Insulated tile box. Route to Desalinator for clean water + salt. Cool before processing."
+  notes: "Ocean biome source. Desalinator converts to water + table salt. Hot -- needs cooling. Avg output shown is long-period average."
+  image_slot: true
