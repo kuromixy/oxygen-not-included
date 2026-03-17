@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RanchBuildTabs from '../../components/RanchBuildTabs.astro';
+import BuildStatCard from '../../components/BuildStatCard.astro';
+import { getCollection } from 'astro:content';
+
+const allGenerators = await getCollection('generators');
+const generator = allGenerators.find(g => g.data.id === 'hydrogen_generator');
+---
+
+<BaseLayout title="Hydrogen Generator -- ONI Reference">
+  {/* Breadcrumb */}
+  <nav class="text-sm text-oni-text-muted mb-4" aria-label="Breadcrumb">
+    <a href="/oni-fanpage/power-plumbing/" class="hover:text-oni-teal transition-colors">Power / Plumbing</a>
+    <span class="mx-1">&gt;</span>
+    <span class="text-oni-text-secondary">Hydrogen Generator</span>
+  </nav>
+
+  {/* Page heading */}
+  <section class="mb-8">
+    <h1 class="text-3xl md:text-4xl font-bold text-oni-text-primary">Hydrogen Generator</h1>
+    {generator && (
+      <p class="mt-3 text-oni-text-secondary text-lg">{generator.data.notes}</p>
+    )}
+  </section>
+
+  {/* Build layout tabs */}
+  <RanchBuildTabs family="hydrogen-generator" />
+
+  {/* Stat card */}
+  {generator && (
+    <section class="mb-10">
+      <h2 class="text-xl font-bold text-oni-text-primary mb-4">Generator Stats</h2>
+      <BuildStatCard entry={generator} mode="generator" />
+    </section>
+  )}
+</BaseLayout>

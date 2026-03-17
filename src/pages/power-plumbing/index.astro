@@ -1,21 +1,100 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import StatPill from '../../components/StatPill.astro';
+import { getCollection } from 'astro:content';
+
+const batteries = await getCollection('batteries');
+
+const generators = [
+  { name: 'Coal Generator', href: '/oni-fanpage/power-plumbing/coal-generator/' },
+  { name: 'Natural Gas Generator', href: '/oni-fanpage/power-plumbing/natural-gas-generator/' },
+  { name: 'Hydrogen Generator', href: '/oni-fanpage/power-plumbing/hydrogen-generator/' },
+  { name: 'Petroleum Generator', href: '/oni-fanpage/power-plumbing/petroleum-generator/' },
+];
+
+const geysers = [
+  { name: 'Water Geyser', href: '/oni-fanpage/power-plumbing/water-geyser/' },
+  { name: 'Cool Slush Geyser', href: '/oni-fanpage/power-plumbing/cool-slush-geyser/' },
+  { name: 'Cool Steam Vent', href: '/oni-fanpage/power-plumbing/cool-steam-vent/' },
+  { name: 'Natural Gas Geyser', href: '/oni-fanpage/power-plumbing/natural-gas-geyser/' },
+  { name: 'Hydrogen Vent', href: '/oni-fanpage/power-plumbing/hydrogen-vent/' },
+  { name: 'Salt Water Geyser', href: '/oni-fanpage/power-plumbing/salt-water-geyser/' },
+];
 ---
 
 <BaseLayout title="Power / Plumbing -- ONI Reference">
+  {/* Page heading */}
   <section class="mb-8">
     <h1 class="text-3xl md:text-4xl font-bold text-oni-text-primary">Power / Plumbing</h1>
     <p class="mt-3 text-oni-text-secondary text-lg">
-      Generators, batteries, pipes, pumps -- wattage and throughput at a glance.
+      Generators, batteries, and geyser taming -- wattage and throughput at a glance.
     </p>
   </section>
 
-  <div class="flex items-center justify-center py-16">
-    <div class="bg-oni-bg-surface border border-oni-bg-elevated rounded-xl p-8 text-center max-w-md">
-      <p class="text-oni-text-muted text-lg">Coming in a future update</p>
-      <p class="text-oni-text-muted text-sm mt-2">
-        Power generation, battery capacity, pipe throughput, and pump stats will be added here.
-      </p>
+  {/* Generators section */}
+  <section class="mb-10">
+    <h2 class="text-xl font-bold text-oni-text-primary mb-4">Generators</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      {generators.map((gen) => (
+        <a
+          href={gen.href}
+          class="bg-oni-bg-surface border border-oni-bg-elevated rounded-lg p-4 hover:border-oni-teal transition-colors group"
+        >
+          <span class="text-lg font-semibold text-oni-text-primary group-hover:text-oni-teal transition-colors">
+            {gen.name}
+          </span>
+        </a>
+      ))}
     </div>
-  </div>
+  </section>
+
+  {/* Batteries section */}
+  <section class="mb-10">
+    <h2 class="text-xl font-bold text-oni-text-primary mb-4">Batteries</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      {batteries.map((battery) => (
+        <div class="bg-oni-bg-surface border border-oni-bg-elevated rounded-lg p-4">
+          <h3 class="font-semibold text-oni-text-primary mb-3">{battery.data.name}</h3>
+          <dl class="space-y-2 text-sm">
+            <div class="flex items-center justify-between">
+              <dt class="text-oni-text-muted">Capacity</dt>
+              <dd><StatPill value={battery.data.capacity.value} unit={battery.data.capacity.unit} /></dd>
+            </div>
+            <div class="flex items-center justify-between">
+              <dt class="text-oni-text-muted">Leak Rate</dt>
+              <dd><StatPill value={battery.data.leak_rate.value} unit={battery.data.leak_rate.unit} /></dd>
+            </div>
+            <div class="flex items-center justify-between">
+              <dt class="text-oni-text-muted">Heat Output</dt>
+              <dd><StatPill value={battery.data.heat_output.value} unit={battery.data.heat_output.unit} /></dd>
+            </div>
+            <div class="flex items-center justify-between">
+              <dt class="text-oni-text-muted">Dimensions</dt>
+              <dd class="text-oni-text-secondary">{battery.data.dimensions}</dd>
+            </div>
+          </dl>
+          {battery.data.notes && (
+            <p class="mt-3 text-xs text-oni-text-muted italic">{battery.data.notes}</p>
+          )}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {/* Geysers section */}
+  <section class="mb-10">
+    <h2 class="text-xl font-bold text-oni-text-primary mb-4">Geysers</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      {geysers.map((geyser) => (
+        <a
+          href={geyser.href}
+          class="bg-oni-bg-surface border border-oni-bg-elevated rounded-lg p-4 hover:border-oni-teal transition-colors group"
+        >
+          <span class="text-lg font-semibold text-oni-text-primary group-hover:text-oni-teal transition-colors">
+            {geyser.name}
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
 </BaseLayout>

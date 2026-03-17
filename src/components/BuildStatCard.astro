@@ -1,0 +1,179 @@
+---
+import StatPill from './StatPill.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'generators'> | CollectionEntry<'geysers'>;
+  mode: 'generator' | 'geyser';
+}
+
+const { entry, mode } = Astro.props;
+const d = entry.data as any;
+
+function formatName(slug: string): string {
+  return slug
+    .split('_')
+    .map((w: string) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
+const tamingColor = {
+  low: 'text-green-400 bg-green-400/10 border-green-400/30',
+  medium: 'text-yellow-400 bg-yellow-400/10 border-yellow-400/30',
+  high: 'text-red-400 bg-red-400/10 border-red-400/30',
+};
+---
+
+<div class="border border-oni-bg-elevated rounded-xl p-5">
+  {/* Top section: icon + name */}
+  <div class="flex items-center gap-4 mb-4">
+    <div class="w-20 h-20 rounded-lg bg-oni-bg-elevated flex items-center justify-center text-3xl shrink-0" aria-hidden="true">
+      {mode === 'generator' ? '⚡' : '🌋'}
+    </div>
+    <div>
+      <h3 class="text-xl font-bold text-oni-text-primary">{d.name}</h3>
+      {d.dlc && d.dlc.includes('spaced_out') && (
+        <span class="inline-block mt-1 text-xs px-2 py-0.5 rounded-full bg-oni-bg-elevated text-oni-text-muted">Spaced Out! DLC</span>
+      )}
+    </div>
+  </div>
+
+  {/* Stats grid */}
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {mode === 'generator' && (
+      <>
+        {/* Power Output */}
+        <div>
+          <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Power Output</h4>
+          <StatPill value={d.watts} unit="W" />
+        </div>
+
+        {/* Fuel Type */}
+        <div>
+          <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Fuel</h4>
+          <p class="text-oni-text-secondary">{formatName(d.fuel_type)}</p>
+        </div>
+
+        {/* Consumption */}
+        <div>
+          <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Consumption</h4>
+          <StatPill value={d.consumption.value} unit={d.consumption.unit} />
+        </div>
+
+        {/* Heat Output */}
+        <div>
+          <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Heat Output</h4>
+          <StatPill value={d.heat_output.value} unit={d.heat_output.unit} />
+        </div>
+
+        {/* Dimensions */}
+        <div>
+          <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Dimensions</h4>
+          <p class="text-oni-text-secondary">{d.dimensions}</p>
+        </div>
+
+        {/* Byproducts */}
+        {d.byproducts && d.byproducts.length > 0 && (
+          <div>
+            <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Byproducts</h4>
+            <div class="text-oni-text-secondary space-y-1">
+              {d.byproducts.map((bp: any) => (
+                <p class="flex items-center gap-1 flex-wrap">
+                  <StatPill value={bp.rate.value} unit={bp.rate.unit} />
+                  <span class="ml-1">{formatName(bp.product)}</span>
+                  {bp.temp && (
+                    <span class="text-oni-text-muted text-sm">@ {bp.temp.value}&deg;{bp.temp.unit}</span>
+                  )}
+                </p>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* DLC */}
+        <div>
+          <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">DLC Compatibility</h4>
+          <div class="flex flex-wrap gap-1.5">
+            {d.dlc.map((tag: string) => (
+              <span class="inline-block text-xs px-2 py-1 rounded-full bg-oni-bg-elevated text-oni-text-muted">
+                {formatName(tag)}
+              </span>
+            ))}
+          </div>
+        </div>
+      </>
+    )}
+
+    {mode === 'geyser' && (
+      <>
+        {/* Output Material */}
+        <div>
+          <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Output Material</h4>
+          <p class="text-oni-text-secondary">{formatName(d.output_material)}</p>
+        </div>
+
+        {/* Avg Output */}
+        <div>
+          <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Avg Output</h4>
+          <p class="flex items-center gap-1">
+            <StatPill value={d.avg_output.value.toLocaleString()} unit={d.avg_output.unit} />
+            <span class="text-oni-text-muted text-sm ml-1">(long-period avg)</span>
+          </p>
+        </div>
+
+        {/* Output Temperature */}
+        <div>
+          <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Output Temperature</h4>
+          <StatPill value={d.output_temp.value} unit={`\u00B0${d.output_temp.unit}`} />
+        </div>
+
+        {/* Biome */}
+        <div>
+          <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Biome</h4>
+          <p class="text-oni-text-secondary">{formatName(d.biome)}</p>
+        </div>
+
+        {/* Taming Complexity */}
+        <div>
+          <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Taming Complexity</h4>
+          <span class={`inline-block text-xs px-2 py-1 rounded-full border font-medium ${tamingColor[d.taming_complexity as 'low' | 'medium' | 'high']}`}>
+            {d.taming_complexity.charAt(0).toUpperCase() + d.taming_complexity.slice(1)}
+          </span>
+        </div>
+
+        {/* Taming Method */}
+        <div>
+          <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Taming Method</h4>
+          <p class="text-oni-text-secondary text-sm">{d.taming_method}</p>
+        </div>
+
+        {/* Power Output (optional) */}
+        {d.power_output && (
+          <div>
+            <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Net Power Output</h4>
+            <StatPill value={d.power_output.value} unit={d.power_output.unit} />
+          </div>
+        )}
+
+        {/* DLC */}
+        <div>
+          <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">DLC Compatibility</h4>
+          <div class="flex flex-wrap gap-1.5">
+            {d.dlc.map((tag: string) => (
+              <span class="inline-block text-xs px-2 py-1 rounded-full bg-oni-bg-elevated text-oni-text-muted">
+                {formatName(tag)}
+              </span>
+            ))}
+          </div>
+        </div>
+      </>
+    )}
+  </div>
+
+  {/* Notes */}
+  {d.notes && (
+    <div class="mt-4 p-3 rounded-lg bg-oni-bg-elevated/50 border border-oni-bg-elevated">
+      <p class="text-sm text-oni-text-secondary italic">{d.notes}</p>
+    </div>
+  )}
+</div>
