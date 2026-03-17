@@ -33,8 +33,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Power & Plumbing
 
-- [ ] **POWR-01**: User can look up generators with wattage output, fuel type, and fuel consumption rate
-- [ ] **POWR-02**: User can see battery types with capacity and heat output
+- [x] **POWR-01**: User can look up generators with wattage output, fuel type, and fuel consumption rate
+- [x] **POWR-02**: User can see battery types with capacity and heat output
 - [ ] **POWR-03**: User can look up pipe types with throughput and temperature limits
 - [ ] **POWR-04**: User can see pump types with flow rates and power consumption
 
@@ -109,8 +109,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FARM-01 | Phase 3 | Complete |
 | FARM-02 | Phase 3 | Complete |
 | FARM-03 | Phase 3 | Complete |
-| POWR-01 | Phase 3 | Pending |
-| POWR-02 | Phase 3 | Pending |
+| POWR-01 | Phase 3 | Complete |
+| POWR-02 | Phase 3 | Complete |
 | POWR-03 | Phase 3 | Pending |
 | POWR-04 | Phase 3 | Pending |
 | DSGN-01 | Phase 1 | Complete |

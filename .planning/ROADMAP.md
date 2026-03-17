@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation & Design System** - Astro project with data schemas, nav shell, dark mode, deploy pipeline, and one proof-of-concept page
 - [x] **Phase 2: Rooms & Ranching** - Complete room reference and critter ranching data using established templates
-- [ ] **Phase 3: Farming, Power & Plumbing** - Remaining content domains reusing Phase 2 patterns
+- [x] **Phase 3: Farming, Power & Plumbing** - Remaining content domains reusing Phase 2 patterns (completed 2026-03-17)
 - [ ] **Phase 4: Search & DLC Toggle** - Client-side search and base game vs DLC content filtering
 
 ## Phase Details
@@ -88,5 +88,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 |-------|----------------|--------|-----------|
 | 1. Foundation & Design System | 3/3 | Complete | 2026-03-08 |
 | 2. Rooms & Ranching | 3/3 | Complete | 2026-03-09 |
-| 3. Farming, Power & Plumbing | 1/2 | In Progress | - |
+| 3. Farming, Power & Plumbing | 2/2 | Complete   | 2026-03-17 |
 | 4. Search & DLC Toggle | 0/1 | Not started | - |
