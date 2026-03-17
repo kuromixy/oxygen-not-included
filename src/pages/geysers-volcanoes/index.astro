@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const geysers = [
+  { name: 'Water Geyser', href: '/oni-fanpage/geysers-volcanoes/water-geyser/' },
+  { name: 'Cool Slush Geyser', href: '/oni-fanpage/geysers-volcanoes/cool-slush-geyser/' },
+  { name: 'Cool Steam Vent', href: '/oni-fanpage/geysers-volcanoes/cool-steam-vent/' },
+  { name: 'Natural Gas Geyser', href: '/oni-fanpage/geysers-volcanoes/natural-gas-geyser/' },
+  { name: 'Hydrogen Vent', href: '/oni-fanpage/geysers-volcanoes/hydrogen-vent/' },
+  { name: 'Salt Water Geyser', href: '/oni-fanpage/geysers-volcanoes/salt-water-geyser/' },
+];
+---
+
+<BaseLayout title="Geysers & Volcanoes -- ONI Reference">
+  {/* Page heading */}
+  <section class="mb-8">
+    <h1 class="text-3xl md:text-4xl font-bold text-oni-text-primary">Geysers & Volcanoes</h1>
+    <p class="mt-3 text-oni-text-secondary text-lg">
+      Taming guides, average outputs, and temperature data for every geyser and volcano.
+    </p>
+  </section>
+
+  {/* Geysers section */}
+  <section class="mb-10">
+    <h2 class="text-xl font-bold text-oni-text-primary mb-4">Geysers</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      {geysers.map((geyser) => (
+        <a
+          href={geyser.href}
+          class="bg-oni-bg-surface border border-oni-bg-elevated rounded-lg p-4 hover:border-oni-teal transition-colors group"
+        >
+          <span class="text-lg font-semibold text-oni-text-primary group-hover:text-oni-teal transition-colors">
+            {geyser.name}
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  {/* Volcanoes section - placeholder */}
+  <section class="mb-10">
+    <h2 class="text-xl font-bold text-oni-text-primary mb-4">Volcanoes</h2>
+    <p class="text-oni-text-muted italic">Coming soon</p>
+  </section>
+</BaseLayout>
