@@ -1,0 +1,189 @@
+- id: mealwood
+  name: Mealwood
+  dlc:
+    - base
+  growth_cycles: 3
+  kcal_per_harvest: 4600
+  kcal_per_cycle: 1533
+  temperature:
+    min:
+      value: 10
+      unit: C
+    max:
+      value: 30
+      unit: C
+  irrigation:
+    liquid: null
+    liquid_amount: null
+    solid: dirt
+    solid_amount:
+      value: 10
+      unit: kg
+  fertilizer: null
+  light_required: null
+  notes: "Simplest early food. Needs only dirt. Low calorie density -- 5 plants per dupe."
+  image_slot: true
+
+- id: bristle_blossom
+  name: Bristle Blossom
+  dlc:
+    - base
+  growth_cycles: 6
+  kcal_per_harvest: 4600
+  kcal_per_cycle: 767
+  temperature:
+    min:
+      value: 5
+      unit: C
+    max:
+      value: 30
+      unit: C
+  irrigation:
+    liquid: water
+    liquid_amount:
+      value: 20
+      unit: kg
+    solid: null
+    solid_amount: null
+  fertilizer: null
+  light_required: 200
+  notes: "Requires light (200+ lux). Water only. Cook into Gristle Berry for morale bonus."
+  image_slot: true
+
+- id: sleet_wheat
+  name: Sleet Wheat
+  dlc:
+    - base
+  growth_cycles: 18
+  kcal_per_harvest: 12200
+  kcal_per_cycle: 678
+  temperature:
+    min:
+      value: -55
+      unit: C
+    max:
+      value: 5
+      unit: C
+  irrigation:
+    liquid: water
+    liquid_amount:
+      value: 20
+      unit: kg
+    solid: dirt
+    solid_amount:
+      value: 5
+      unit: kg
+  fertilizer: null
+  light_required: null
+  notes: "Requires freezing temperatures. Slow growth. Grind into Frost Bun or Pepper Bread."
+  image_slot: true
+
+- id: dusk_cap
+  name: Dusk Cap
+  dlc:
+    - base
+  growth_cycles: 7.5
+  kcal_per_harvest: 4600
+  kcal_per_cycle: 613
+  temperature:
+    min:
+      value: 5
+      unit: C
+    max:
+      value: 35
+      unit: C
+  irrigation:
+    liquid: null
+    liquid_amount: null
+    solid: slime
+    solid_amount:
+      value: 4
+      unit: kg
+  fertilizer: null
+  light_required: 0
+  notes: "CO2 atmosphere required. Must be kept in darkness. Uses slime for fertilization. Growth time is 7.5 cycles (kcal/cycle rounded)."
+  image_slot: true
+
+- id: pincha_pepper
+  name: Pincha Pepper
+  dlc:
+    - base
+  growth_cycles: 4
+  kcal_per_harvest: 9800
+  kcal_per_cycle: 2450
+  temperature:
+    min:
+      value: 35
+      unit: C
+    max:
+      value: 85
+      unit: C
+  irrigation:
+    liquid: polluted_water
+    liquid_amount:
+      value: 35
+      unit: kg
+    solid: phosphorite
+    solid_amount:
+      value: 1
+      unit: kg
+  fertilizer: null
+  light_required: null
+  notes: "High calorie density. Requires hot environment (35-85C) and polluted water. Best mid-game food."
+  image_slot: true
+
+- id: waterweed
+  name: Waterweed
+  dlc:
+    - spaced_out
+  growth_cycles: 12
+  kcal_per_harvest: 7400
+  kcal_per_cycle: 617
+  temperature:
+    min:
+      value: 22
+      unit: C
+    max:
+      value: 65
+      unit: C
+  irrigation:
+    liquid: salt_water
+    liquid_amount:
+      value: 5
+      unit: kg
+    solid: bleach_stone
+    solid_amount:
+      value: 0.5
+      unit: kg
+  fertilizer: null
+  light_required: null
+  notes: "Spaced Out! DLC only. Grows submerged in liquid. Requires salt water + bleach stone."
+  image_slot: true
+
+- id: nosh_sprout
+  name: Nosh Sprout
+  dlc:
+    - spaced_out
+  growth_cycles: 12
+  kcal_per_harvest: 9800
+  kcal_per_cycle: 817
+  temperature:
+    min:
+      value: -25
+      unit: C
+    max:
+      value: 0
+      unit: C
+  irrigation:
+    liquid: ethanol
+    liquid_amount:
+      value: 20
+      unit: kg
+    solid: dirt
+    solid_amount:
+      value: 5
+      unit: kg
+  fertilizer: null
+  light_required: null
+  notes: "Spaced Out! DLC only. Requires CO2 atmosphere and ethanol irrigation. Cold environment."
+  image_slot: true

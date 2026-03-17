@@ -35,6 +35,29 @@ const critterSchema = z.object({
   notes: z.string().optional(),
 });
 
+const cropSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  dlc: z.array(z.string()),
+  growth_cycles: z.number(),
+  kcal_per_harvest: z.number(),
+  kcal_per_cycle: z.number(),
+  temperature: z.object({
+    min: unitValue,
+    max: unitValue,
+  }),
+  irrigation: z.object({
+    liquid: z.string().nullable(),
+    liquid_amount: unitValue.nullable(),
+    solid: z.string().nullable(),
+    solid_amount: unitValue.nullable(),
+  }),
+  fertilizer: z.string().nullable(),
+  light_required: z.number().nullable(),
+  notes: z.string().optional(),
+  image_slot: z.boolean().default(true),
+});
+
 const roomSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -86,6 +109,11 @@ const rooms = defineCollection({
   schema: roomSchema,
 });
 
+const crops = defineCollection({
+  loader: file('src/data/crops.yaml'),
+  schema: cropSchema,
+});
+
 export const collections = {
   hatches,
   dreckos,
@@ -94,4 +122,5 @@ export const collections = {
   slicksters,
   shineBugs,
   rooms,
+  crops,
 };
