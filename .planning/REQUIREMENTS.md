@@ -27,9 +27,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Farming
 
-- [ ] **FARM-01**: User can look up crops with temperature range, irrigation needs, and fertilizer requirements
-- [ ] **FARM-02**: User can see growth time and calorie/resource output per crop
-- [ ] **FARM-03**: User can compare crops side-by-side to choose optimal food source
+- [x] **FARM-01**: User can look up crops with temperature range, irrigation needs, and fertilizer requirements
+- [x] **FARM-02**: User can see growth time and calorie/resource output per crop
+- [x] **FARM-03**: User can compare crops side-by-side to choose optimal food source
 
 ### Power & Plumbing
 
@@ -106,9 +106,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | RNCH-02 | Phase 2 | Complete |
 | RNCH-03 | Phase 2 | Complete |
 | RNCH-04 | Phase 2 | Complete |
-| FARM-01 | Phase 3 | Pending |
-| FARM-02 | Phase 3 | Pending |
-| FARM-03 | Phase 3 | Pending |
+| FARM-01 | Phase 3 | Complete |
+| FARM-02 | Phase 3 | Complete |
+| FARM-03 | Phase 3 | Complete |
 | POWR-01 | Phase 3 | Pending |
 | POWR-02 | Phase 3 | Pending |
 | POWR-03 | Phase 3 | Pending |

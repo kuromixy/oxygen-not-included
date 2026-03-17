@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: completed
-stopped_at: Phase 3 context gathered
-last_updated: "2026-03-09T20:45:42.949Z"
-last_activity: 2026-03-09 -- Plan 02-03 executed, remaining critter families and ranching hub activation
+status: in_progress
+stopped_at: "Completed 03-01-PLAN.md"
+last_updated: "2026-03-17T19:25:00Z"
+last_activity: 2026-03-17 -- Plan 03-01 executed, farming domain with 7 crop pages and comparison table
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 6
-  completed_plans: 6
-  percent: 100
+  total_plans: 9
+  completed_plans: 7
+  percent: 78
 ---
 
 # Project State
@@ -25,12 +25,12 @@ See: .planning/PROJECT.md (updated 2026-03-08)
 
 ## Current Position
 
-Phase: 2 of 4 (Rooms & Ranching) -- COMPLETE
-Plan: 3 of 3 in current phase (02-03 done)
-Status: Phase 2 complete, ready for Phase 3
-Last activity: 2026-03-09 -- Plan 02-03 executed, remaining critter families and ranching hub activation
+Phase: 3 of 4 (Farming, Power & Plumbing) -- IN PROGRESS
+Plan: 1 of 3 in current phase (03-01 done)
+Status: Phase 3 active -- farming domain complete, power/plumbing plans remaining
+Last activity: 2026-03-17 -- Plan 03-01 executed, farming domain with 7 crop pages and comparison table
 
-Progress: [██████████] 100%
+Progress: [███████---] 78%
 
 ## Performance Metrics
 
@@ -52,6 +52,7 @@ Progress: [██████████] 100%
 
 *Updated after each plan completion*
 | Phase 02-rooms-ranching P03 | 2min | 2 tasks | 11 files |
+| Phase 03-farming-power-plumbing P01 | 3min | 3 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -78,6 +79,9 @@ Recent decisions affecting current work:
 - [02-02]: Removed ComparisonTable and DetailCard from Hatches page per locked user decision
 - [Phase 02-rooms-ranching]: Abyss Bug uses negative lux (-1800) to represent darkness output
 - [Phase 02-rooms-ranching]: Shine Bugs defaultCapacity=16, Cuddle Pip stable_capacity=24 per game data
+- [03-01]: Dusk Cap growth_cycles stored as 7.5 (exact wiki value); kcal_per_cycle rounded to 613
+- [03-01]: Crop comparison table is static order (no JS sort) -- 7 rows don't warrant sorting complexity
+- [03-01]: Nullable irrigation fields guarded with conditional rendering to prevent "null" text output
 
 ### Pending Todos
 

@@ -13,7 +13,7 @@ This roadmap delivers an Oxygen Not Included quick-reference fanpage from zero t
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation & Design System** - Astro project with data schemas, nav shell, dark mode, deploy pipeline, and one proof-of-concept page
-- [ ] **Phase 2: Rooms & Ranching** - Complete room reference and critter ranching data using established templates
+- [x] **Phase 2: Rooms & Ranching** - Complete room reference and critter ranching data using established templates
 - [ ] **Phase 3: Farming, Power & Plumbing** - Remaining content domains reusing Phase 2 patterns
 - [ ] **Phase 4: Search & DLC Toggle** - Client-side search and base game vs DLC content filtering
 
@@ -48,9 +48,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01-PLAN.md -- Data layer (content.config, rooms YAML, schema updates) and rooms reference page
-- [ ] 02-02-PLAN.md -- Critter page template components (RanchBuildTabs, VariantCard, Calculator) and Hatches revision
-- [ ] 02-03-PLAN.md -- Remaining 5 critter families (data + pages) and ranching hub activation
+- [x] 02-01-PLAN.md -- Data layer (content.config, rooms YAML, schema updates) and rooms reference page
+- [x] 02-02-PLAN.md -- Critter page template components (RanchBuildTabs, VariantCard, Calculator) and Hatches revision
+- [x] 02-03-PLAN.md -- Remaining 5 critter families (data + pages) and ranching hub activation
 
 ### Phase 3: Farming, Power & Plumbing
 **Goal**: Users can look up any crop, generator, or geyser and find the key stats at a glance, and compare crops side-by-side on the farming hub
@@ -64,7 +64,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 03-01-PLAN.md -- Crop data layer, farming hub with comparison table, and 7 individual crop pages
+- [x] 03-01-PLAN.md -- Crop data layer, farming hub with comparison table, and 7 individual crop pages
 - [ ] 03-02-PLAN.md -- Generator/battery/geyser data, power hub with battery reference, 4 generator pages, and 6 geyser pages
 
 ### Phase 4: Search & DLC Toggle
@@ -87,6 +87,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Design System | 3/3 | Complete | 2026-03-08 |
-| 2. Rooms & Ranching | 0/3 | Not started | - |
-| 3. Farming, Power & Plumbing | 0/2 | Not started | - |
+| 2. Rooms & Ranching | 3/3 | Complete | 2026-03-09 |
+| 3. Farming, Power & Plumbing | 1/2 | In Progress | - |
 | 4. Search & DLC Toggle | 0/1 | Not started | - |
