@@ -74,10 +74,10 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. User can type a search query and see matching results across all site content without a page reload
   2. Search results show relevant context (page title, snippet) and link directly to the matching page
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 04-01: TBD
+- [ ] 04-01-PLAN.md -- Pagefind integration, content page metadata annotations, and custom search dropdown in Navbar
 
 ## Progress
 
