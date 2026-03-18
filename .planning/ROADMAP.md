@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Foundation & Design System** - Astro project with data schemas, nav shell, dark mode, deploy pipeline, and one proof-of-concept page
 - [x] **Phase 2: Rooms & Ranching** - Complete room reference and critter ranching data using established templates
 - [x] **Phase 3: Farming, Power & Plumbing** - Remaining content domains reusing Phase 2 patterns (completed 2026-03-17)
-- [ ] **Phase 4: Search & DLC Toggle** - Client-side search and base game vs DLC content filtering
+- [ ] **Phase 4: Site Search** - Client-side search across all content (MVP completion)
 
 ## Phase Details
 
@@ -67,13 +67,13 @@ Plans:
 - [x] 03-01-PLAN.md -- Crop data layer, farming hub with comparison table, and 7 individual crop pages
 - [ ] 03-02-PLAN.md -- Generator/battery/geyser data, power hub with battery reference, 4 generator pages, and 6 geyser pages
 
-### Phase 4: Search & DLC Toggle
-**Goal**: Users can instantly find any data point via search and filter content by base game vs Spaced Out! DLC
+### Phase 4: Site Search
+**Goal**: Users can instantly find any data point via search across all site content
 **Depends on**: Phase 3
-**Requirements**: NAV-02, DSGN-02
+**Requirements**: NAV-02
 **Success Criteria** (what must be TRUE):
   1. User can type a search query and see matching results across all site content without a page reload
-  2. User can toggle a DLC filter to show or hide Spaced Out! DLC-specific content, and the preference persists across pages
+  2. Search results show relevant context (page title, snippet) and link directly to the matching page
 **Plans**: TBD
 
 Plans:
@@ -89,4 +89,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | 1. Foundation & Design System | 3/3 | Complete | 2026-03-08 |
 | 2. Rooms & Ranching | 3/3 | Complete | 2026-03-09 |
 | 3. Farming, Power & Plumbing | 2/2 | Complete   | 2026-03-17 |
-| 4. Search & DLC Toggle | 0/1 | Not started | - |
+| 4. Site Search | 0/1 | Not started | - |

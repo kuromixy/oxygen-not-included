@@ -6,7 +6,7 @@ import { getCollection } from 'astro:content';
 const crops = await getCollection('crops');
 
 function cropHref(id: string): string {
-  return `/oni-fanpage/farming/${id.replace(/_/g, '-')}/`;
+  return `/oxygen-not-included/farming/${id.replace(/_/g, '-')}/`;
 }
 
 const ORDER = ['mealwood', 'bristle_blossom', 'dusk_cap', 'pincha_pepper', 'sleet_wheat', 'waterweed', 'nosh_sprout'];

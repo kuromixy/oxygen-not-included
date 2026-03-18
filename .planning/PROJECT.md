@@ -32,6 +32,7 @@ Players can instantly find the exact number, dimension, or layout they need mid-
 - News/patch notes tracking — focus is on reference data
 - Mobile app — web only
 - User accounts or authentication — purely static content
+- DLC toggle — all content assumes all DLCs installed
 
 ## Context
 
