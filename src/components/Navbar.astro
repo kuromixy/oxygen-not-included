@@ -1,7 +1,8 @@
 ---
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 
-<nav class="bg-oni-bg-surface border-b border-oni-bg-elevated">
+<nav class="bg-oni-bg-surface border-b border-oni-bg-elevated" data-base={base}>
   <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
     <a href="/oxygen-not-included/" class="text-oni-teal font-bold text-lg hover:text-oni-teal-dim transition-colors">
       ONI Reference
@@ -87,88 +88,105 @@
   }
 </script>
 
-<script>
-  const BASE = import.meta.env.BASE_URL;
-  let pagefind: any;
+<script is:inline>
+  (function() {
+    var BASE = document.querySelector('nav[data-base]').getAttribute('data-base');
+    var pagefind = null;
 
-  async function loadPagefind() {
-    if (!pagefind) {
-      pagefind = await import(/* @vite-ignore */ `${BASE}pagefind/pagefind.js`);
-      await pagefind.init();
+    function loadPagefind() {
+      if (pagefind) return pagefind;
+      pagefind = import(BASE + 'pagefind/pagefind.js').then(function(pf) {
+        pf.init();
+        return pf;
+      });
+      return pagefind;
     }
-    return pagefind;
-  }
 
-  const desktopInput = document.getElementById('search-input') as HTMLInputElement;
-  const mobileInput = document.getElementById('mobile-search-input') as HTMLInputElement;
-  const desktopDropdown = document.getElementById('search-dropdown') as HTMLElement;
-  const mobileDropdown = document.getElementById('mobile-search-dropdown') as HTMLElement;
-  const searchContainer = document.getElementById('search-container');
-  const mobileSearchContainer = document.getElementById('mobile-search-container');
-  const searchToggle = document.getElementById('search-toggle');
-  const mobileSearchDiv = document.getElementById('mobile-search');
+    var desktopInput = document.getElementById('search-input');
+    var mobileInput = document.getElementById('mobile-search-input');
+    var desktopDropdown = document.getElementById('search-dropdown');
+    var mobileDropdown = document.getElementById('mobile-search-dropdown');
+    var searchContainer = document.getElementById('search-container');
+    var mobileSearchContainer = document.getElementById('mobile-search-container');
+    var searchToggle = document.getElementById('search-toggle');
+    var mobileSearchDiv = document.getElementById('mobile-search');
 
-  // Mobile search toggle
-  searchToggle?.addEventListener('click', () => {
-    mobileSearchDiv?.classList.toggle('hidden');
-    if (!mobileSearchDiv?.classList.contains('hidden')) {
-      mobileInput?.focus();
+    // Mobile search toggle
+    if (searchToggle) {
+      searchToggle.addEventListener('click', function() {
+        mobileSearchDiv.classList.toggle('hidden');
+        if (!mobileSearchDiv.classList.contains('hidden')) {
+          mobileInput.focus();
+        }
+      });
     }
-  });
 
-  function renderDropdown(results: any[], dropdown: HTMLElement) {
-    if (results.length === 0) {
-      dropdown.innerHTML = '<p class="p-3 text-oni-text-muted text-sm">No results found</p>';
-    } else {
-      dropdown.innerHTML = results.map((r: any) => `
-        <a href="${r.url}" class="flex items-center justify-between gap-3 px-3 py-2 hover:bg-oni-bg-elevated transition-colors">
-          <span class="text-oni-text-primary text-sm truncate">${r.meta.title}</span>
-          ${r.meta.category ? `<span class="text-xs px-2 py-0.5 rounded bg-oni-teal/10 text-oni-teal whitespace-nowrap">${r.meta.category}</span>` : ''}
-        </a>
-      `).join('');
-    }
-    dropdown.classList.remove('hidden');
-  }
-
-  function setupSearch(input: HTMLInputElement, dropdown: HTMLElement) {
-    let debounce: ReturnType<typeof setTimeout>;
-    input.addEventListener('input', () => {
-      const q = input.value.trim();
-      clearTimeout(debounce);
-      if (q.length < 3) {
-        dropdown.innerHTML = '';
-        dropdown.classList.add('hidden');
-        return;
+    function renderDropdown(results, dropdown) {
+      if (results.length === 0) {
+        dropdown.innerHTML = '<p class="p-3 text-oni-text-muted text-sm">No results found</p>';
+      } else {
+        dropdown.innerHTML = results.map(function(r) {
+          return '<a href="' + r.url + '" class="flex items-center justify-between gap-3 px-3 py-2 hover:bg-oni-bg-elevated transition-colors">' +
+            '<span class="text-oni-text-primary text-sm truncate">' + r.meta.title + '</span>' +
+            (r.meta.category ? '<span class="text-xs px-2 py-0.5 rounded bg-oni-teal/10 text-oni-teal whitespace-nowrap">' + r.meta.category + '</span>' : '') +
+            '</a>';
+        }).join('');
       }
-      debounce = setTimeout(async () => {
-        const pf = await loadPagefind();
-        const result = await pf.debouncedSearch(q);
-        if (!result) return;
-        const top5 = await Promise.all(result.results.slice(0, 5).map((r: any) => r.data()));
-        renderDropdown(top5, dropdown);
-      }, 200);
+      dropdown.classList.remove('hidden');
+    }
+
+    function setupSearch(input, dropdown) {
+      var debounce;
+      input.addEventListener('input', function() {
+        var q = input.value.trim();
+        clearTimeout(debounce);
+        if (q.length < 1) {
+          dropdown.innerHTML = '';
+          dropdown.classList.add('hidden');
+          return;
+        }
+        debounce = setTimeout(function() {
+          loadPagefind().then(function(pf) {
+            return pf.debouncedSearch(q);
+          }).then(function(result) {
+            if (!result) return;
+            // Load more results so we can filter by title
+            return Promise.all(result.results.slice(0, 15).map(function(r) { return r.data(); }));
+          }).then(function(all) {
+            if (!all) return;
+            var query = input.value.trim().toLowerCase();
+            // Title matches first (subpages like Hatches, Cool Steam Vent, etc.)
+            var titleMatches = all.filter(function(r) {
+              return r.meta.title && r.meta.title.toLowerCase().indexOf(query) !== -1;
+            });
+            // Only show content matches if no title matches
+            var results = titleMatches.length > 0 ? titleMatches.slice(0, 5) : all.slice(0, 5);
+            renderDropdown(results, dropdown);
+          });
+        }, 200);
+      });
+    }
+
+    if (desktopInput && desktopDropdown) setupSearch(desktopInput, desktopDropdown);
+    if (mobileInput && mobileDropdown) setupSearch(mobileInput, mobileDropdown);
+
+    // Close on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        if (desktopDropdown) desktopDropdown.classList.add('hidden');
+        if (mobileDropdown) mobileDropdown.classList.add('hidden');
+      }
     });
-  }
 
-  if (desktopInput && desktopDropdown) setupSearch(desktopInput, desktopDropdown);
-  if (mobileInput && mobileDropdown) setupSearch(mobileInput, mobileDropdown);
-
-  // Close on Escape (close dropdowns, keep query text)
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      desktopDropdown?.classList.add('hidden');
-      mobileDropdown?.classList.add('hidden');
-    }
-  });
-
-  // Close on click outside
-  document.addEventListener('click', (e) => {
-    const target = e.target as Node;
-    if (searchContainer && !searchContainer.contains(target)) {
-      desktopDropdown?.classList.add('hidden');
-    }
-    if (mobileSearchContainer && !mobileSearchContainer.contains(target) && !(searchToggle?.contains(target))) {
-      mobileDropdown?.classList.add('hidden');
-    }
-  });
+    // Close on click outside
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      if (searchContainer && !searchContainer.contains(target)) {
+        desktopDropdown.classList.add('hidden');
+      }
+      if (mobileSearchContainer && !mobileSearchContainer.contains(target) && !(searchToggle && searchToggle.contains(target))) {
+        mobileDropdown.classList.add('hidden');
+      }
+    });
+  })();
 </script>
