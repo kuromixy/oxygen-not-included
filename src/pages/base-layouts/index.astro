@@ -41,18 +41,24 @@ const groups = [
       Every standard room type the game recognizes, with dimensions, required buildings, bonuses, and layout tips.
     </p>
     <p class="mt-2 text-oni-text-muted text-sm">
-      Rooms are grouped by upgrade chains. Use Ctrl+F to find a specific room or scroll through all 18 types.
+      Rooms are grouped by upgrade chains. Click a group to expand it.
     </p>
   </section>
 
-  {groups.map((group) => (
-    <section class="mb-8">
-      <h2 class="text-lg font-semibold text-oni-text-secondary mb-4 border-b border-oni-bg-elevated pb-2">
-        {group.label}
-      </h2>
-      {orderedRooms.slice(group.start, group.end).map((room) => (
-        <RoomEntry room={room} />
-      ))}
-    </section>
+  {groups.map((group, i) => (
+    <details class="mb-4 group" open={i === 0}>
+      <summary class="cursor-pointer select-none list-none flex items-center gap-2 bg-oni-bg-surface border border-oni-bg-elevated rounded-lg px-4 py-3 hover:border-oni-teal transition-colors">
+        <svg class="w-4 h-4 text-oni-text-muted transition-transform group-open:rotate-90 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+        <span class="text-lg font-semibold text-oni-text-secondary">{group.label}</span>
+        <span class="text-sm text-oni-text-muted ml-auto">{group.end - group.start} rooms</span>
+      </summary>
+      <div class="mt-2 ml-2 border-l-2 border-oni-bg-elevated pl-4">
+        {orderedRooms.slice(group.start, group.end).map((room) => (
+          <RoomEntry room={room} />
+        ))}
+      </div>
+    </details>
   ))}
 </BaseLayout>
