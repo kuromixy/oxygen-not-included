@@ -18,7 +18,7 @@ const generator = allGenerators.find(g => g.data.id === 'natural_gas_generator')
 
   {/* Page heading */}
   <section class="mb-8">
-    <h1 class="text-3xl md:text-4xl font-bold text-oni-text-primary">Natural Gas Generator</h1>
+    <h1 data-pagefind-meta="category:Power/Plumbing" class="text-3xl md:text-4xl font-bold text-oni-text-primary">Natural Gas Generator</h1>
     {generator && (
       <p class="mt-3 text-oni-text-secondary text-lg">{generator.data.notes}</p>
     )}

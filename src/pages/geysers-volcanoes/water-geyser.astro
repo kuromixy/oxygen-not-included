@@ -18,7 +18,7 @@ const geyser = allGeysers.find(g => g.data.id === 'water_geyser');
 
   {/* Page heading */}
   <section class="mb-8">
-    <h1 class="text-3xl md:text-4xl font-bold text-oni-text-primary">Water Geyser</h1>
+    <h1 data-pagefind-meta="category:Geysers" class="text-3xl md:text-4xl font-bold text-oni-text-primary">Water Geyser</h1>
     {geyser && (
       <p class="mt-3 text-oni-text-secondary text-lg">{geyser.data.notes}</p>
     )}
