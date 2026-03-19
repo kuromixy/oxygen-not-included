@@ -1,7 +1,5 @@
 - id: mealwood
   name: Mealwood
-  dlc:
-    - base
   growth_cycles: 3
   kcal_per_harvest: 4600
   kcal_per_cycle: 1533
@@ -26,8 +24,6 @@
 
 - id: bristle_blossom
   name: Bristle Blossom
-  dlc:
-    - base
   growth_cycles: 6
   kcal_per_harvest: 4600
   kcal_per_cycle: 767
@@ -52,8 +48,6 @@
 
 - id: sleet_wheat
   name: Sleet Wheat
-  dlc:
-    - base
   growth_cycles: 18
   kcal_per_harvest: 12200
   kcal_per_cycle: 678
@@ -80,8 +74,6 @@
 
 - id: dusk_cap
   name: Dusk Cap
-  dlc:
-    - base
   growth_cycles: 7.5
   kcal_per_harvest: 4600
   kcal_per_cycle: 613
@@ -106,8 +98,6 @@
 
 - id: pincha_pepper
   name: Pincha Pepper
-  dlc:
-    - base
   growth_cycles: 4
   kcal_per_harvest: 9800
   kcal_per_cycle: 2450
@@ -134,8 +124,6 @@
 
 - id: waterweed
   name: Waterweed
-  dlc:
-    - spaced_out
   growth_cycles: 12
   kcal_per_harvest: 7400
   kcal_per_cycle: 617
@@ -157,13 +145,11 @@
       unit: kg
   fertilizer: null
   light_required: null
-  notes: "Spaced Out! DLC only. Grows submerged in liquid. Requires salt water + bleach stone."
+  notes: "Grows submerged in liquid. Requires salt water + bleach stone."
   image_slot: true
 
 - id: nosh_sprout
   name: Nosh Sprout
-  dlc:
-    - spaced_out
   growth_cycles: 12
   kcal_per_harvest: 9800
   kcal_per_cycle: 817
@@ -185,5 +171,5 @@
       unit: kg
   fertilizer: null
   light_required: null
-  notes: "Spaced Out! DLC only. Requires CO2 atmosphere and ethanol irrigation. Cold environment."
+  notes: "Requires CO2 atmosphere and ethanol irrigation. Cold environment."
   image_slot: true

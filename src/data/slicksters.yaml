@@ -1,8 +1,6 @@
 - id: slickster
   name: Slickster
   family: Slickster
-  dlc:
-    - base
   diet:
     - carbon_dioxide
   output:
@@ -33,8 +31,6 @@
 - id: molten_slickster
   name: Molten Slickster
   family: Slickster
-  dlc:
-    - base
   diet:
     - carbon_dioxide
   output:
@@ -66,8 +62,6 @@
 - id: longhair_slickster
   name: Longhair Slickster
   family: Slickster
-  dlc:
-    - base
   diet:
     - oxygen
   output:

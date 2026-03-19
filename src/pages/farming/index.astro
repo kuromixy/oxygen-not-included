@@ -41,12 +41,7 @@ const sorted = [...crops].sort((a, b) => {
           href={cropHref(crop.data.id)}
           class="bg-oni-bg-surface border border-oni-bg-elevated rounded-lg p-4 hover:border-oni-teal transition-colors"
         >
-          <div class="flex items-center justify-between">
-            <span class="font-medium text-oni-text-primary">{crop.data.name}</span>
-            {crop.data.dlc.includes('spaced_out') && (
-              <span class="text-xs px-1.5 py-0.5 rounded bg-oni-bg-elevated text-oni-text-muted">DLC</span>
-            )}
-          </div>
+          <span class="font-medium text-oni-text-primary">{crop.data.name}</span>
           <p class="text-sm text-oni-text-muted mt-1">
             {crop.data.kcal_per_cycle.toLocaleString()} kcal/cycle &middot; {crop.data.growth_cycles} cycles
           </p>

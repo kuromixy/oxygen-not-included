@@ -1,7 +1,5 @@
 - id: battery
   name: Battery
-  dlc:
-    - base
   capacity:
     value: 10
     unit: kJ
@@ -16,8 +14,6 @@
 
 - id: smart_battery
   name: Smart Battery
-  dlc:
-    - base
   capacity:
     value: 20
     unit: kJ
@@ -32,8 +28,6 @@
 
 - id: jumbo_battery
   name: Jumbo Battery
-  dlc:
-    - base
   capacity:
     value: 40
     unit: kJ

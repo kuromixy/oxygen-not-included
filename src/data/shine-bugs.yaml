@@ -1,8 +1,6 @@
 - id: shine_bug
   name: Shine Bug
   family: Shine Bug
-  dlc:
-    - base
   diet:
     - phosphorite
   output:
@@ -35,8 +33,6 @@
 - id: sun_bug
   name: Sun Bug
   family: Shine Bug
-  dlc:
-    - spaced_out
   diet:
     - phosphorite
   output:
@@ -64,13 +60,11 @@
       value: 1
       unit: cycle
   image_slot: true
-  notes: Spaced Out DLC variant. Brighter than standard Shine Bug.
+  notes: Brighter than standard Shine Bug.
 
 - id: royal_bug
   name: Royal Bug
   family: Shine Bug
-  dlc:
-    - base
   diet:
     - phosphorite
   output:
@@ -102,8 +96,6 @@
 - id: coral_bug
   name: Coral Bug
   family: Shine Bug
-  dlc:
-    - base
   diet:
     - phosphorite
   output:
@@ -135,8 +127,6 @@
 - id: azure_bug
   name: Azure Bug
   family: Shine Bug
-  dlc:
-    - base
   diet:
     - phosphorite
   output:
@@ -168,8 +158,6 @@
 - id: abyss_bug
   name: Abyss Bug
   family: Shine Bug
-  dlc:
-    - base
   diet:
     - phosphorite
   output:
@@ -202,8 +190,6 @@
 - id: radiant_bug
   name: Radiant Bug
   family: Shine Bug
-  dlc:
-    - base
   diet:
     - phosphorite
   output:

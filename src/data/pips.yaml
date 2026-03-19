@@ -1,8 +1,6 @@
 - id: pip
   name: Pip
   family: Pip
-  dlc:
-    - base
   diet:
     - raw_minerals
     - seeds
@@ -35,8 +33,6 @@
 - id: cuddle_pip
   name: Cuddle Pip
   family: Pip
-  dlc:
-    - base
   diet:
     - seeds
   output:

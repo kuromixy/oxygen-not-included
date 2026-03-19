@@ -1,8 +1,6 @@
 - id: drecko
   name: Drecko
   family: Drecko
-  dlc:
-    - base
   diet:
     - balm_lily
     - pincha_pepperplant
@@ -36,8 +34,6 @@
 - id: glossy_drecko
   name: Glossy Drecko
   family: Drecko
-  dlc:
-    - base
   diet:
     - mealwood
     - bristle_blossom

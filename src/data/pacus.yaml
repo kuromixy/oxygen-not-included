@@ -1,8 +1,6 @@
 - id: pacu
   name: Pacu
   family: Pacu
-  dlc:
-    - base
   diet:
     - algae
     - seeds
@@ -35,8 +33,6 @@
 - id: tropical_pacu
   name: Tropical Pacu
   family: Pacu
-  dlc:
-    - base
   diet:
     - algae
     - seeds
@@ -69,8 +65,6 @@
 - id: gulp_fish
   name: Gulp Fish
   family: Pacu
-  dlc:
-    - base
   diet:
     - polluted_water
   output:

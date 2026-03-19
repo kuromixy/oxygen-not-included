@@ -1,7 +1,5 @@
 - id: coal_generator
   name: Coal Generator
-  dlc:
-    - base
   watts: 600
   fuel_type: coal
   consumption:
@@ -24,8 +22,6 @@
 
 - id: natural_gas_generator
   name: Natural Gas Generator
-  dlc:
-    - base
   watts: 800
   fuel_type: natural_gas
   consumption:
@@ -55,8 +51,6 @@
 
 - id: hydrogen_generator
   name: Hydrogen Generator
-  dlc:
-    - base
   watts: 800
   fuel_type: hydrogen
   consumption:
@@ -71,8 +65,6 @@
 
 - id: petroleum_generator
   name: Petroleum Generator
-  dlc:
-    - base
   watts: 2000
   fuel_type: petroleum
   consumption:

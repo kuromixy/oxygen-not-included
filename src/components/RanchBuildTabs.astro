@@ -1,15 +1,27 @@
 ---
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
 interface Props {
   family: string;
+  category?: string;
 }
 
-const { family } = Astro.props;
+const { family, category = 'ranching' } = Astro.props;
 
 const tabs = ['Overview', 'Automation', 'Power', 'Plumbing'];
+const tabSlugs = ['overview', 'automation', 'power', 'plumbing'];
+
+const images = tabSlugs.map((slug) => {
+  const filename = `${family}-${slug}.png`;
+  const filePath = join(process.cwd(), 'public', 'images', category, filename);
+  const exists = existsSync(filePath);
+  return exists ? `${import.meta.env.BASE_URL}images/${category}/${filename}` : null;
+});
 ---
 
-<section class="mb-10">
-  <h2 class="text-lg font-bold text-oni-text-primary mb-4">Ranch Build Layout</h2>
+<section class="mb-6">
+  <h2 class="text-lg font-bold text-oni-text-primary mb-2">Ranch Build Layout</h2>
 
   <div class="border border-oni-bg-elevated rounded-xl overflow-hidden">
     {/* CSS-only tabs using radio inputs */}
@@ -40,9 +52,13 @@ const tabs = ['Overview', 'Automation', 'Power', 'Plumbing'];
     {/* Tab panels */}
     {tabs.map((tab, i) => (
       <div class="tab-panel hidden p-4" data-tab-panel={i}>
-        <div class="aspect-video bg-oni-bg-elevated rounded-lg flex items-center justify-center">
-          <p class="text-oni-text-muted text-sm">{tab} diagram &mdash; coming soon</p>
-        </div>
+        {images[i] ? (
+          <img src={images[i]} alt={`${tab} diagram for ${family}`} class="w-full rounded-lg" loading="lazy" />
+        ) : (
+          <div class="h-24 bg-oni-bg-elevated rounded-lg flex items-center justify-center">
+            <p class="text-oni-text-muted text-sm">{tab} diagram &mdash; coming soon</p>
+          </div>
+        )}
       </div>
     ))}
   </div>

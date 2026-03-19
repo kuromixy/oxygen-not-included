@@ -51,9 +51,6 @@ const sorted = [...crops].sort((a, b) => {
         >
           <span class="font-medium text-oni-text-primary">
             {d.name}
-            {d.dlc.includes('spaced_out') && (
-              <span class="ml-2 text-xs px-1.5 py-0.5 rounded bg-oni-bg-elevated text-oni-text-muted">DLC</span>
-            )}
           </span>
           <span class="text-oni-text-secondary">
             <StatPill value={d.growth_cycles} unit="cyc" />
@@ -99,9 +96,6 @@ const sorted = [...crops].sort((a, b) => {
           <h3 class="font-bold text-oni-text-primary">
             {d.name}
           </h3>
-          {d.dlc.includes('spaced_out') && (
-            <span class="text-xs px-1.5 py-0.5 rounded bg-oni-bg-elevated text-oni-text-muted">DLC</span>
-          )}
         </div>
         <div class="grid grid-cols-2 gap-2 text-sm">
           <div>

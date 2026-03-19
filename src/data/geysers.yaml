@@ -1,7 +1,5 @@
 - id: water_geyser
   name: Water Geyser
-  dlc:
-    - base
   output_material: water
   avg_output:
     value: 1800
@@ -17,8 +15,6 @@
 
 - id: cool_slush_geyser
   name: Cool Slush Geyser
-  dlc:
-    - base
   output_material: polluted_water
   avg_output:
     value: 900
@@ -34,8 +30,6 @@
 
 - id: cool_steam_vent
   name: Cool Steam Vent
-  dlc:
-    - base
   output_material: steam
   avg_output:
     value: 900
@@ -51,8 +45,6 @@
 
 - id: natural_gas_geyser
   name: Natural Gas Geyser
-  dlc:
-    - base
   output_material: natural_gas
   avg_output:
     value: 63
@@ -71,8 +63,6 @@
 
 - id: hydrogen_vent
   name: Hydrogen Vent
-  dlc:
-    - base
   output_material: hydrogen
   avg_output:
     value: 63
@@ -88,8 +78,6 @@
 
 - id: salt_water_geyser
   name: Salt Water Geyser
-  dlc:
-    - base
   output_material: salt_water
   avg_output:
     value: 1800

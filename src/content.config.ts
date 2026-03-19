@@ -11,7 +11,6 @@ const critterSchema = z.object({
   id: z.string(),
   name: z.string(),
   family: z.string(),
-  dlc: z.array(z.string()),
   diet: z.array(z.string()),
   output: z.object({
     product: z.string(),
@@ -38,7 +37,6 @@ const critterSchema = z.object({
 const cropSchema = z.object({
   id: z.string(),
   name: z.string(),
-  dlc: z.array(z.string()),
   growth_cycles: z.number(),
   kcal_per_harvest: z.number(),
   kcal_per_cycle: z.number(),
@@ -71,7 +69,6 @@ const roomSchema = z.object({
   upgrade_to: z.string().nullable(),
   layout_tip: z.string(),
   diagram_slot: z.boolean().default(true),
-  dlc: z.array(z.string()),
 });
 
 const hatches = defineCollection({
@@ -107,7 +104,6 @@ const shineBugs = defineCollection({
 const generatorSchema = z.object({
   id: z.string(),
   name: z.string(),
-  dlc: z.array(z.string()),
   watts: z.number(),
   fuel_type: z.string(),
   consumption: unitValue,
@@ -125,7 +121,6 @@ const generatorSchema = z.object({
 const batterySchema = z.object({
   id: z.string(),
   name: z.string(),
-  dlc: z.array(z.string()),
   capacity: unitValue,
   leak_rate: unitValue,
   heat_output: unitValue,
@@ -136,7 +131,6 @@ const batterySchema = z.object({
 const geyserSchema = z.object({
   id: z.string(),
   name: z.string(),
-  dlc: z.array(z.string()),
   output_material: z.string(),
   avg_output: unitValue,
   output_temp: unitValue,
