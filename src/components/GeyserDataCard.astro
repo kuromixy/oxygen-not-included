@@ -35,13 +35,17 @@ const containerByState: Record<string, { name: string; capacity: number }> = {
 };
 const container = containerByState[d.output_state] ?? containerByState.liquid;
 
-type StatKey = 'eruption_period' | 'active_cycle' | 'dormancy' | 'mass_per_second';
-const statFields: Array<{ key: StatKey; label: string; unit: string; decimals: number }> = [
-  { key: 'eruption_period', label: 'Eruption Period', unit: 's', decimals: 1 },
-  { key: 'active_cycle', label: 'Active Cycle Length', unit: 's', decimals: 0 },
-  { key: 'dormancy', label: 'Dormancy', unit: 's', decimals: 0 },
-  { key: 'mass_per_second', label: 'Mass per Second', unit: 'g/s', decimals: 0 },
-];
+// Default values used to seed new instances. If a range exists for active/total, use its avg.
+// Otherwise use sane fallback so the instance has something to compute against.
+const ACTIVE_PERIOD_FALLBACK = 75;
+const TOTAL_PERIOD_FALLBACK = 130;
+const defaults = {
+  mass_per_second: d.cycle_stats.mass_per_second.avg,
+  eruption_period: d.cycle_stats.eruption_period.avg,
+  iteration_period: d.cycle_stats.iteration_period.avg,
+  active_period_cycles: d.cycle_stats.active_period_cycles?.avg ?? ACTIVE_PERIOD_FALLBACK,
+  total_period_cycles: d.cycle_stats.total_period_cycles?.avg ?? TOTAL_PERIOD_FALLBACK,
+};
 ---
 
 <div
@@ -85,14 +89,19 @@ const statFields: Array<{ key: StatKey; label: string; unit: string; decimals: n
     </div>
 
     {/* Cycle stat ranges (read-only) */}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t border-oni-bg-elevated">
-      <RangeDisplay label="Active Eruption Period" range={d.cycle_stats.eruption_period} unit="s" decimals={1} />
-      <RangeDisplay label="Active Cycle Length" range={d.cycle_stats.active_cycle} unit="s" />
-      <RangeDisplay label="Dormancy" range={d.cycle_stats.dormancy} unit="s" />
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4 border-t border-oni-bg-elevated">
       <RangeDisplay label="Mass per Second" range={d.cycle_stats.mass_per_second} unit="g/s" />
+      <RangeDisplay label="Eruption Period" range={d.cycle_stats.eruption_period} unit="s" decimals={1} />
+      <RangeDisplay label="Iteration Period" range={d.cycle_stats.iteration_period} unit="s" />
+      {d.cycle_stats.active_period_cycles && (
+        <RangeDisplay label="Active Period" range={d.cycle_stats.active_period_cycles} unit="cycles" decimals={1} />
+      )}
+      {d.cycle_stats.total_period_cycles && (
+        <RangeDisplay label="Total Period (active + dormant)" range={d.cycle_stats.total_period_cycles} unit="cycles" decimals={1} />
+      )}
     </div>
 
-    {/* Compatible geotuner material (the dynamic per-instance cost lives below in each Your Geyser entry) */}
+    {/* Compatible geotuner material (dynamic per-instance cost lives below) */}
     <div class="pt-4 border-t border-oni-bg-elevated">
       <h5 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Compatible Geotuner Material</h5>
       <p class="text-oni-text-primary font-semibold">{d.geotuner.material}</p>
@@ -104,7 +113,7 @@ const statFields: Array<{ key: StatKey; label: string; unit: string; decimals: n
     <header class="flex items-center justify-between gap-2 flex-wrap">
       <div>
         <h3 class="text-xl font-bold text-oni-text-primary">Your Geysers</h3>
-        <p class="text-xs text-oni-text-muted mt-1">Add the {d.name.toLowerCase()}s in your world to calculate their output.</p>
+        <p class="text-xs text-oni-text-muted mt-1">Copy the values from your in-game geyser tile.</p>
       </div>
       <button
         type="button"
@@ -118,7 +127,7 @@ const statFields: Array<{ key: StatKey; label: string; unit: string; decimals: n
     <div data-instance-list class="space-y-4"></div>
   </section>
 
-  {/* ─── Instance template (cloned on add) ─── */}
+  {/* ─── Instance template ─── */}
   <template data-instance-template>
     <article class="border border-oni-bg-elevated rounded-lg p-4 space-y-4" data-instance>
       <div class="flex items-center justify-between gap-2">
@@ -135,33 +144,87 @@ const statFields: Array<{ key: StatKey; label: string; unit: string; decimals: n
         </button>
       </div>
 
-      {/* Inputs */}
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        {statFields.map((field) => {
-          const defaultValue = d.cycle_stats[field.key].avg;
-          return (
-            <label class="flex flex-col gap-1">
-              <span class="text-xs text-oni-text-muted uppercase tracking-wider">{field.label}</span>
-              <span class="flex items-baseline gap-2">
-                <input
-                  type="text"
-                  inputmode="decimal"
-                  spellcheck="false"
-                  value={defaultValue.toFixed(field.decimals)}
-                  data-stat-key={field.key}
-                  data-stat-default={defaultValue}
-                  data-stat-decimals={field.decimals}
-                  class="w-24 bg-oni-bg-elevated border border-oni-bg-elevated focus:border-oni-teal focus:ring-1 focus:ring-oni-teal focus:outline-none rounded px-2 py-1 font-mono text-sm text-oni-text-primary"
-                />
-                <span class="text-oni-text-muted text-xs">{field.unit}</span>
-              </span>
-            </label>
-          );
-        })}
+      {/* Inputs — laid out to mirror the in-game tile */}
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-3">
+        {/* Mass per second (single field) */}
+        <label class="flex items-baseline gap-2 text-sm">
+          <span class="text-xs text-oni-text-muted uppercase tracking-wider w-32 shrink-0">Mass per Second</span>
+          <input
+            type="text"
+            inputmode="decimal"
+            spellcheck="false"
+            value={defaults.mass_per_second.toString()}
+            data-stat-key="mass_per_second"
+            data-stat-default={defaults.mass_per_second}
+            data-stat-decimals="1"
+            class="w-24 bg-oni-bg-elevated border border-oni-bg-elevated focus:border-oni-teal focus:ring-1 focus:ring-oni-teal focus:outline-none rounded px-2 py-1 font-mono text-sm text-oni-text-primary"
+          />
+          <span class="text-oni-text-muted text-xs">g/s</span>
+        </label>
+
+        {/* (spacer to keep grid alignment on 2-col) */}
+        <span class="hidden lg:block"></span>
+
+        {/* Eruption: X s every Y s */}
+        <label class="flex items-baseline gap-2 text-sm">
+          <span class="text-xs text-oni-text-muted uppercase tracking-wider w-32 shrink-0">Eruption</span>
+          <input
+            type="text"
+            inputmode="decimal"
+            spellcheck="false"
+            value={defaults.eruption_period.toString()}
+            data-stat-key="eruption_period"
+            data-stat-default={defaults.eruption_period}
+            data-stat-decimals="1"
+            class="w-20 bg-oni-bg-elevated border border-oni-bg-elevated focus:border-oni-teal focus:ring-1 focus:ring-oni-teal focus:outline-none rounded px-2 py-1 font-mono text-sm text-oni-text-primary"
+          />
+          <span class="text-oni-text-muted text-xs">s every</span>
+          <input
+            type="text"
+            inputmode="decimal"
+            spellcheck="false"
+            value={defaults.iteration_period.toString()}
+            data-stat-key="iteration_period"
+            data-stat-default={defaults.iteration_period}
+            data-stat-decimals="1"
+            class="w-20 bg-oni-bg-elevated border border-oni-bg-elevated focus:border-oni-teal focus:ring-1 focus:ring-oni-teal focus:outline-none rounded px-2 py-1 font-mono text-sm text-oni-text-primary"
+          />
+          <span class="text-oni-text-muted text-xs">s</span>
+        </label>
+
+        {/* (spacer) */}
+        <span class="hidden lg:block"></span>
+
+        {/* Active period: X cycles every Y cycles */}
+        <label class="flex items-baseline gap-2 text-sm">
+          <span class="text-xs text-oni-text-muted uppercase tracking-wider w-32 shrink-0">Active Period</span>
+          <input
+            type="text"
+            inputmode="decimal"
+            spellcheck="false"
+            value={defaults.active_period_cycles.toString()}
+            data-stat-key="active_period_cycles"
+            data-stat-default={defaults.active_period_cycles}
+            data-stat-decimals="1"
+            class="w-20 bg-oni-bg-elevated border border-oni-bg-elevated focus:border-oni-teal focus:ring-1 focus:ring-oni-teal focus:outline-none rounded px-2 py-1 font-mono text-sm text-oni-text-primary"
+          />
+          <span class="text-oni-text-muted text-xs">cycles every</span>
+          <input
+            type="text"
+            inputmode="decimal"
+            spellcheck="false"
+            value={defaults.total_period_cycles.toString()}
+            data-stat-key="total_period_cycles"
+            data-stat-default={defaults.total_period_cycles}
+            data-stat-decimals="1"
+            class="w-20 bg-oni-bg-elevated border border-oni-bg-elevated focus:border-oni-teal focus:ring-1 focus:ring-oni-teal focus:outline-none rounded px-2 py-1 font-mono text-sm text-oni-text-primary"
+          />
+          <span class="text-oni-text-muted text-xs">cycles</span>
+        </label>
       </div>
 
       {/* Geotuner stepper + dynamic material cost */}
-      <div>
+      <div class="pt-3 border-t border-oni-bg-elevated">
         <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
           <h5 class="text-xs text-oni-text-muted uppercase tracking-wider">Geotuners</h5>
           <p class="text-xs text-oni-text-muted">+20% output and temperature each &middot; 5 = 2&times; base</p>
@@ -208,10 +271,10 @@ const statFields: Array<{ key: StatKey; label: string; unit: string; decimals: n
           </p>
         </div>
         <div class="bg-oni-bg-elevated/50 rounded-lg p-3">
-          <p class="text-xs text-oni-text-muted mb-1">Avg per Cycle</p>
+          <p class="text-xs text-oni-text-muted mb-1">Average Output</p>
           <p class="font-mono text-lg font-semibold text-oni-text-primary">
-            <span data-calc-output="avg_per_cycle">&mdash;</span>
-            <span class="text-sm text-oni-text-muted ml-1">kg/cycle</span>
+            <span data-calc-output="avg_output">&mdash;</span>
+            <span class="text-sm text-oni-text-muted ml-1">g/s</span>
           </p>
         </div>
         <div class="bg-oni-bg-elevated/50 rounded-lg p-3">
@@ -262,7 +325,6 @@ const statFields: Array<{ key: StatKey; label: string; unit: string; decimals: n
         value: Number.isFinite(parsed) ? parsed : fallback,
         decimals: Number.isFinite(decimals) ? decimals : 0,
         fallback,
-        raw,
         parsedOk: Number.isFinite(parsed),
       };
     }
@@ -270,7 +332,13 @@ const statFields: Array<{ key: StatKey; label: string; unit: string; decimals: n
     function recomputeInstance(instance) {
       if (!instance) return;
       const inputs = instance.querySelectorAll('input[data-stat-key]');
-      const state = { eruption_period: 0, active_cycle: 0, dormancy: 0, mass_per_second: 0 };
+      const state = {
+        mass_per_second: 0,
+        eruption_period: 0,
+        iteration_period: 0,
+        active_period_cycles: 0,
+        total_period_cycles: 0,
+      };
       inputs.forEach((input) => {
         const { key, value } = parseStatValue(input);
         if (key && key in state) state[key] = value;
@@ -280,26 +348,38 @@ const statFields: Array<{ key: StatKey; label: string; unit: string; decimals: n
       const geotunerCount = activeStep ? parseInt(activeStep.getAttribute('data-geotuner-step') ?? '0', 10) : 0;
       const gtMult = 1 + 0.2 * geotunerCount;
 
-      const totalPerPhaseKg = (state.mass_per_second * state.eruption_period * gtMult) / 1000;
+      // Short-scale eruption fraction (within an iteration)
+      const eruptFrac = state.iteration_period > 0 ? state.eruption_period / state.iteration_period : 0;
+      // Long-scale active fraction (over total period including dormancy)
+      const activeFrac = state.total_period_cycles > 0 ? state.active_period_cycles / state.total_period_cycles : 0;
+
+      // Total output during one active phase (between dormancies), in kg
+      //   active phase duration (seconds) × eruption fraction × mass/s × gt mult / 1000
+      const totalPerPhaseKg = (
+        state.active_period_cycles * GAME_CYCLE_SECONDS *
+        eruptFrac *
+        state.mass_per_second * gtMult
+      ) / 1000;
+
       const containersNeeded = containerCapacity > 0 && totalPerPhaseKg > 0
         ? Math.ceil(totalPerPhaseKg / containerCapacity)
         : 0;
-      const totalCycleSeconds = state.active_cycle + state.dormancy;
-      const avgPerCycle = totalCycleSeconds > 0
-        ? (state.mass_per_second * state.eruption_period * gtMult * GAME_CYCLE_SECONDS) / totalCycleSeconds / 1000
-        : 0;
+
+      // Average output over the full cycle (active + dormant), in g/s — matches the in-game stat
+      const avgOutputGperS = state.mass_per_second * gtMult * eruptFrac * activeFrac;
+
       const modifiedTemp = baseTemp * gtMult;
 
-      // Geotuners run for the duration of the active phase; consumption scales with active_cycle.
-      // material_per_cycle is kg per game cycle (600 s); active_cycle is in seconds.
-      const materialCost = geotunerCount > 0 && state.active_cycle > 0
-        ? geotunerMaterialPerCycle * (state.active_cycle / GAME_CYCLE_SECONDS) * geotunerCount
+      // Geotuners run continuously through the active phase; material scales with active period.
+      // material_per_cycle is kg per game cycle. active_period_cycles is in cycles → multiply directly.
+      const materialCost = geotunerCount > 0 && state.active_period_cycles > 0
+        ? geotunerMaterialPerCycle * state.active_period_cycles * geotunerCount
         : 0;
 
       const out = (key) => instance.querySelector(`[data-calc-output="${key}"]`);
       if (out('total_per_phase')) out('total_per_phase').textContent = formatNumber(totalPerPhaseKg, 1);
       if (out('containers_needed')) out('containers_needed').textContent = formatNumber(containersNeeded, 0);
-      if (out('avg_per_cycle')) out('avg_per_cycle').textContent = formatNumber(avgPerCycle, 2);
+      if (out('avg_output')) out('avg_output').textContent = formatNumber(avgOutputGperS, 1);
       if (out('output_temp')) out('output_temp').textContent = formatNumber(modifiedTemp, 1);
       if (out('material_cost')) out('material_cost').textContent = formatNumber(materialCost, 1);
     }
@@ -345,7 +425,6 @@ const statFields: Array<{ key: StatKey; label: string; unit: string; decimals: n
       recomputeInstance(node);
     }
 
-    // Event delegation on list
     list.addEventListener('input', (event) => {
       const target = event.target;
       if (!(target instanceof HTMLInputElement)) return;
@@ -390,7 +469,7 @@ const statFields: Array<{ key: StatKey; label: string; unit: string; decimals: n
         const instance = removeBtn.closest('[data-instance]');
         if (!instance) return;
         const remaining = list.querySelectorAll('[data-instance]').length;
-        if (remaining <= 1) return; // keep at least one
+        if (remaining <= 1) return;
         instance.remove();
         renumberInstances();
       }
@@ -398,7 +477,6 @@ const statFields: Array<{ key: StatKey; label: string; unit: string; decimals: n
 
     addBtn.addEventListener('click', addInstance);
 
-    // Seed with one default instance
     addInstance();
   })();
 </script>

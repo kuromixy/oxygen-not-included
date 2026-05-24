@@ -141,10 +141,11 @@ const geyserSchema = z.object({
   output_temp: unitValue,
   output_state: z.enum(['liquid', 'gas', 'solid']),
   cycle_stats: z.object({
-    eruption_period: range,
-    active_cycle: range,
-    dormancy: range,
-    mass_per_second: range,
+    eruption_period: range,             // seconds erupting within one iteration
+    iteration_period: range,            // total iteration seconds (erupt + idle)
+    active_period_cycles: range.optional(),  // long active phase length (cycles); ranges TBD per variant
+    total_period_cycles: range.optional(),   // active + dormancy (cycles); dormancy = total − active
+    mass_per_second: range,             // g/s during eruption
   }),
   geotuner: z.object({
     material: z.string(),

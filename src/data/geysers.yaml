@@ -12,14 +12,10 @@
       min: 6
       avg: 300
       max: 1026
-    active_cycle:
+    iteration_period:
       min: 60
       avg: 600
       max: 1140
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 2000
       avg: 3000
@@ -40,14 +36,10 @@
       min: 6
       avg: 300
       max: 1026
-    active_cycle:
+    iteration_period:
       min: 60
       avg: 600
       max: 1140
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 1000
       avg: 1500
@@ -68,14 +60,10 @@
       min: 6
       avg: 300
       max: 1026
-    active_cycle:
+    iteration_period:
       min: 60
       avg: 600
       max: 1140
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 2000
       avg: 3000
@@ -96,14 +84,10 @@
       min: 6
       avg: 300
       max: 1026
-    active_cycle:
+    iteration_period:
       min: 60
       avg: 600
       max: 1140
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 2000
       avg: 3000
@@ -124,14 +108,10 @@
       min: 6
       avg: 300
       max: 1026
-    active_cycle:
+    iteration_period:
       min: 60
       avg: 600
       max: 1140
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 1000
       avg: 1500
@@ -152,14 +132,10 @@
       min: 40
       avg: 180
       max: 400
-    active_cycle:
+    iteration_period:
       min: 100
       avg: 300
       max: 500
-    dormancy:
-      min: 40
-      avg: 220
-      max: 400
     mass_per_second:
       min: 2
       avg: 126
@@ -180,14 +156,10 @@
       min: 6
       avg: 300
       max: 1026
-    active_cycle:
+    iteration_period:
       min: 60
       avg: 600
       max: 1140
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 1000
       avg: 1500
@@ -210,14 +182,10 @@
       min: 6
       avg: 300
       max: 1026
-    active_cycle:
+    iteration_period:
       min: 60
       avg: 600
       max: 1140
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 1000
       avg: 1500
@@ -238,14 +206,10 @@
       min: 6
       avg: 300
       max: 1026
-    active_cycle:
+    iteration_period:
       min: 60
       avg: 600
       max: 1140
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 500
       avg: 750
@@ -266,14 +230,10 @@
       min: 6
       avg: 300
       max: 1026
-    active_cycle:
+    iteration_period:
       min: 60
       avg: 600
       max: 1140
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 100
       avg: 150
@@ -294,14 +254,10 @@
       min: 6
       avg: 300
       max: 1026
-    active_cycle:
+    iteration_period:
       min: 60
       avg: 600
       max: 1140
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 70
       avg: 105
@@ -322,14 +278,10 @@
       min: 6
       avg: 300
       max: 1026
-    active_cycle:
+    iteration_period:
       min: 60
       avg: 600
       max: 1140
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 70
       avg: 105
@@ -350,14 +302,10 @@
       min: 6
       avg: 300
       max: 1026
-    active_cycle:
+    iteration_period:
       min: 60
       avg: 600
       max: 1140
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 70
       avg: 105
@@ -378,14 +326,10 @@
       min: 6
       avg: 300
       max: 1026
-    active_cycle:
+    iteration_period:
       min: 60
       avg: 600
       max: 1140
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 70
       avg: 105
@@ -406,14 +350,10 @@
       min: 6
       avg: 300
       max: 1026
-    active_cycle:
+    iteration_period:
       min: 60
       avg: 600
       max: 1140
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 70
       avg: 105
@@ -434,14 +374,10 @@
       min: 6
       avg: 300
       max: 1026
-    active_cycle:
+    iteration_period:
       min: 60
       avg: 600
       max: 1140
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 70
       avg: 105
@@ -464,14 +400,10 @@
       min: 30
       avg: 67.5
       max: 120
-    active_cycle:
+    iteration_period:
       min: 6000
       avg: 9000
       max: 12000
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 800
       avg: 1200
@@ -492,14 +424,10 @@
       min: 30
       avg: 67.5
       max: 120
-    active_cycle:
+    iteration_period:
       min: 6000
       avg: 9000
       max: 12000
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 400
       avg: 600
@@ -520,14 +448,10 @@
       min: 8
       avg: 45.5
       max: 108
-    active_cycle:
+    iteration_period:
       min: 480
       avg: 780
       max: 1080
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 200
       avg: 300
@@ -548,14 +472,10 @@
       min: 8
       avg: 45.5
       max: 108
-    active_cycle:
+    iteration_period:
       min: 480
       avg: 780
       max: 1080
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 200
       avg: 300
@@ -576,14 +496,10 @@
       min: 8
       avg: 45.5
       max: 108
-    active_cycle:
+    iteration_period:
       min: 480
       avg: 780
       max: 1080
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 200
       avg: 300
@@ -604,14 +520,10 @@
       min: 8
       avg: 45.5
       max: 108
-    active_cycle:
+    iteration_period:
       min: 480
       avg: 780
       max: 1080
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 200
       avg: 300
@@ -632,14 +544,10 @@
       min: 30
       avg: 67.5
       max: 120
-    active_cycle:
+    iteration_period:
       min: 6000
       avg: 9000
       max: 12000
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 800
       avg: 1200
@@ -660,14 +568,10 @@
       min: 8
       avg: 45.5
       max: 108
-    active_cycle:
+    iteration_period:
       min: 480
       avg: 780
       max: 1080
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 200
       avg: 300
@@ -688,14 +592,10 @@
       min: 8
       avg: 45.5
       max: 108
-    active_cycle:
+    iteration_period:
       min: 480
       avg: 780
       max: 1080
-    dormancy:
-      min: 15000
-      avg: 75000
-      max: 135000
     mass_per_second:
       min: 200
       avg: 300
