@@ -1,92 +1,705 @@
+# Liquid Output (7)
+
 - id: water_geyser
   name: Water Geyser
   output_material: water
-  avg_output:
-    value: 1800
-    unit: kg/cycle
   output_temp:
     value: 95
     unit: C
-  biome: random
-  taming_complexity: low
-  taming_method: "Insulated tile box. Cool output with aquatuner or heat exchange before use."
-  notes: "Most valuable geyser. Hot water -- needs cooling. Avg output shown is long-period average; actual output varies per seed instance."
-  image_slot: true
+  output_state: liquid
+  cycle_stats:
+    eruption_period:
+      min: 6
+      avg: 300
+      max: 1026
+    active_cycle:
+      min: 60
+      avg: 600
+      max: 1140
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 2000
+      avg: 3000
+      max: 4000
+  geotuner:
+    material: Bleach Stone
+    material_per_cycle: 50
 
 - id: cool_slush_geyser
   name: Cool Slush Geyser
   output_material: polluted_water
-  avg_output:
-    value: 900
-    unit: kg/cycle
   output_temp:
     value: -10
     unit: C
-  biome: random
-  taming_complexity: low
-  taming_method: "Simple insulated box containment. Output already cold -- direct to water sieve."
-  notes: "Produces cold polluted water -- doubles as passive cooling. Run through water sieve for clean water. Avg output shown is long-period average."
-  image_slot: true
+  output_state: liquid
+  cycle_stats:
+    eruption_period:
+      min: 6
+      avg: 300
+      max: 1026
+    active_cycle:
+      min: 60
+      avg: 600
+      max: 1140
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 1000
+      avg: 1500
+      max: 2000
+  geotuner:
+    material: Bleach Stone
+    material_per_cycle: 50
 
-- id: cool_steam_vent
-  name: Cool Steam Vent
-  output_material: steam
-  avg_output:
-    value: 900
-    unit: kg/cycle
+- id: polluted_water_vent
+  name: Polluted Water Vent
+  output_material: polluted_water
   output_temp:
-    value: 110
+    value: 30
     unit: C
-  biome: swamp
-  taming_complexity: medium
-  taming_method: "Steam chamber containment with steam turbine for power + cooling."
-  notes: "Common water source. Output as steam requires condensing. Pairs with steam turbine. Avg output shown is long-period average."
-  image_slot: true
-
-- id: natural_gas_geyser
-  name: Natural Gas Geyser
-  output_material: natural_gas
-  avg_output:
-    value: 63
-    unit: kg/cycle
-  output_temp:
-    value: 150
-    unit: C
-  biome: swamp
-  taming_complexity: medium
-  taming_method: "Gas pump + pipe to Natural Gas Generator. Pairs with Fertilizer Synthesizer for bonus gas."
-  power_output:
-    value: 659
-    unit: W
-  notes: "~659W net after supporting infrastructure. Each geyser supports ~2 Natural Gas Generators. Avg output shown is long-period average."
-  image_slot: true
-
-- id: hydrogen_vent
-  name: Hydrogen Vent
-  output_material: hydrogen
-  avg_output:
-    value: 63
-    unit: kg/cycle
-  output_temp:
-    value: 500
-    unit: C
-  biome: random
-  taming_complexity: high
-  taming_method: "Insulated containment with gas pump. Hot hydrogen -- needs heat management before storage."
-  notes: "Very hot output. Requires active cooling before piping to Hydrogen Generators. Avg output shown is long-period average."
-  image_slot: true
+  output_state: liquid
+  cycle_stats:
+    eruption_period:
+      min: 6
+      avg: 300
+      max: 1026
+    active_cycle:
+      min: 60
+      avg: 600
+      max: 1140
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 2000
+      avg: 3000
+      max: 4000
+  geotuner:
+    material: Bleach Stone
+    material_per_cycle: 50
 
 - id: salt_water_geyser
   name: Salt Water Geyser
   output_material: salt_water
-  avg_output:
-    value: 1800
-    unit: kg/cycle
   output_temp:
     value: 95
     unit: C
-  biome: ocean
-  taming_complexity: low
-  taming_method: "Insulated tile box. Route to Desalinator for clean water + salt. Cool before processing."
-  notes: "Ocean biome source. Desalinator converts to water + table salt. Hot -- needs cooling. Avg output shown is long-period average."
-  image_slot: true
+  output_state: liquid
+  cycle_stats:
+    eruption_period:
+      min: 6
+      avg: 300
+      max: 1026
+    active_cycle:
+      min: 60
+      avg: 600
+      max: 1140
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 2000
+      avg: 3000
+      max: 4000
+  geotuner:
+    material: Bleach Stone
+    material_per_cycle: 50
+
+- id: cool_salt_slush_geyser
+  name: Cool Salt Slush Geyser
+  output_material: brine
+  output_temp:
+    value: -10
+    unit: C
+  output_state: liquid
+  cycle_stats:
+    eruption_period:
+      min: 6
+      avg: 300
+      max: 1026
+    active_cycle:
+      min: 60
+      avg: 600
+      max: 1140
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 1000
+      avg: 1500
+      max: 2000
+  geotuner:
+    material: Bleach Stone
+    material_per_cycle: 50
+
+- id: leaky_oil_fissure
+  name: Leaky Oil Fissure
+  output_material: crude_oil
+  output_temp:
+    value: 326.85
+    unit: C
+  output_state: liquid
+  cycle_stats:
+    eruption_period:
+      min: 40
+      avg: 180
+      max: 400
+    active_cycle:
+      min: 100
+      avg: 300
+      max: 500
+    dormancy:
+      min: 40
+      avg: 220
+      max: 400
+    mass_per_second:
+      min: 2
+      avg: 126
+      max: 250
+  geotuner:
+    material: Abyssalite
+    material_per_cycle: 50
+
+- id: liquid_sulfur_geyser
+  name: Liquid Sulfur Geyser
+  output_material: liquid_sulfur
+  output_temp:
+    value: 165.2
+    unit: C
+  output_state: liquid
+  cycle_stats:
+    eruption_period:
+      min: 6
+      avg: 300
+      max: 1026
+    active_cycle:
+      min: 60
+      avg: 600
+      max: 1140
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 1000
+      avg: 1500
+      max: 2000
+  geotuner:
+    material: Abyssalite
+    material_per_cycle: 50
+
+# Gas Output (9)
+
+- id: cool_steam_vent
+  name: Cool Steam Vent
+  output_material: steam
+  output_temp:
+    value: 110
+    unit: C
+  output_state: gas
+  cycle_stats:
+    eruption_period:
+      min: 6
+      avg: 300
+      max: 1026
+    active_cycle:
+      min: 60
+      avg: 600
+      max: 1140
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 1000
+      avg: 1500
+      max: 2000
+  geotuner:
+    material: Bleach Stone
+    material_per_cycle: 50
+
+- id: steam_vent
+  name: Steam Vent
+  output_material: steam
+  output_temp:
+    value: 500
+    unit: C
+  output_state: gas
+  cycle_stats:
+    eruption_period:
+      min: 6
+      avg: 300
+      max: 1026
+    active_cycle:
+      min: 60
+      avg: 600
+      max: 1140
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 500
+      avg: 750
+      max: 1000
+  geotuner:
+    material: Bleach Stone
+    material_per_cycle: 50
+
+- id: carbon_dioxide_geyser
+  name: Carbon Dioxide Geyser
+  output_material: liquid_carbon_dioxide
+  output_temp:
+    value: -55.15
+    unit: C
+  output_state: gas
+  cycle_stats:
+    eruption_period:
+      min: 6
+      avg: 300
+      max: 1026
+    active_cycle:
+      min: 60
+      avg: 600
+      max: 1140
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 100
+      avg: 150
+      max: 200
+  geotuner:
+    material: Polluted Dirt
+    material_per_cycle: 50
+
+- id: carbon_dioxide_vent
+  name: Carbon Dioxide Vent
+  output_material: carbon_dioxide
+  output_temp:
+    value: 500
+    unit: C
+  output_state: gas
+  cycle_stats:
+    eruption_period:
+      min: 6
+      avg: 300
+      max: 1026
+    active_cycle:
+      min: 60
+      avg: 600
+      max: 1140
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 70
+      avg: 105
+      max: 140
+  geotuner:
+    material: Polluted Dirt
+    material_per_cycle: 50
+
+- id: hydrogen_vent
+  name: Hydrogen Vent
+  output_material: hydrogen
+  output_temp:
+    value: 500
+    unit: C
+  output_state: gas
+  cycle_stats:
+    eruption_period:
+      min: 6
+      avg: 300
+      max: 1026
+    active_cycle:
+      min: 60
+      avg: 600
+      max: 1140
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 70
+      avg: 105
+      max: 140
+  geotuner:
+    material: Abyssalite
+    material_per_cycle: 50
+
+- id: chlorine_gas_vent
+  name: Chlorine Gas Vent
+  output_material: chlorine
+  output_temp:
+    value: 60
+    unit: C
+  output_state: gas
+  cycle_stats:
+    eruption_period:
+      min: 6
+      avg: 300
+      max: 1026
+    active_cycle:
+      min: 60
+      avg: 600
+      max: 1140
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 70
+      avg: 105
+      max: 140
+  geotuner:
+    material: Salt
+    material_per_cycle: 50
+
+- id: natural_gas_geyser
+  name: Natural Gas Geyser
+  output_material: natural_gas
+  output_temp:
+    value: 150
+    unit: C
+  output_state: gas
+  cycle_stats:
+    eruption_period:
+      min: 6
+      avg: 300
+      max: 1026
+    active_cycle:
+      min: 60
+      avg: 600
+      max: 1140
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 70
+      avg: 105
+      max: 140
+  geotuner:
+    material: Abyssalite
+    material_per_cycle: 50
+
+- id: hot_polluted_oxygen_vent
+  name: Hot Polluted Oxygen Vent
+  output_material: polluted_oxygen
+  output_temp:
+    value: 500
+    unit: C
+  output_state: gas
+  cycle_stats:
+    eruption_period:
+      min: 6
+      avg: 300
+      max: 1026
+    active_cycle:
+      min: 60
+      avg: 600
+      max: 1140
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 70
+      avg: 105
+      max: 140
+  geotuner:
+    material: Salt
+    material_per_cycle: 50
+
+- id: infectious_polluted_oxygen_vent
+  name: Infectious Polluted Oxygen Vent
+  output_material: polluted_oxygen
+  output_temp:
+    value: 60
+    unit: C
+  output_state: gas
+  cycle_stats:
+    eruption_period:
+      min: 6
+      avg: 300
+      max: 1026
+    active_cycle:
+      min: 60
+      avg: 600
+      max: 1140
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 70
+      avg: 105
+      max: 140
+  geotuner:
+    material: Salt
+    material_per_cycle: 50
+
+# Solid Output -- Volcanoes (9)
+
+- id: volcano
+  name: Volcano
+  output_material: magma
+  output_temp:
+    value: 1726.85
+    unit: C
+  output_state: solid
+  cycle_stats:
+    eruption_period:
+      min: 30
+      avg: 67.5
+      max: 120
+    active_cycle:
+      min: 6000
+      avg: 9000
+      max: 12000
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 800
+      avg: 1200
+      max: 1600
+  geotuner:
+    material: Refined Phosphorus
+    material_per_cycle: 80
+
+- id: minor_volcano
+  name: Minor Volcano
+  output_material: magma
+  output_temp:
+    value: 1726.85
+    unit: C
+  output_state: solid
+  cycle_stats:
+    eruption_period:
+      min: 30
+      avg: 67.5
+      max: 120
+    active_cycle:
+      min: 6000
+      avg: 9000
+      max: 12000
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 400
+      avg: 600
+      max: 800
+  geotuner:
+    material: Refined Phosphorus
+    material_per_cycle: 80
+
+- id: iron_volcano
+  name: Iron Volcano
+  output_material: molten_iron
+  output_temp:
+    value: 2526.85
+    unit: C
+  output_state: solid
+  cycle_stats:
+    eruption_period:
+      min: 8
+      avg: 45.5
+      max: 108
+    active_cycle:
+      min: 480
+      avg: 780
+      max: 1080
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 200
+      avg: 300
+      max: 400
+  geotuner:
+    material: Refined Phosphorus
+    material_per_cycle: 80
+
+- id: gold_volcano
+  name: Gold Volcano
+  output_material: molten_gold
+  output_temp:
+    value: 2626.85
+    unit: C
+  output_state: solid
+  cycle_stats:
+    eruption_period:
+      min: 8
+      avg: 45.5
+      max: 108
+    active_cycle:
+      min: 480
+      avg: 780
+      max: 1080
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 200
+      avg: 300
+      max: 400
+  geotuner:
+    material: Refined Phosphorus
+    material_per_cycle: 80
+
+- id: copper_volcano
+  name: Copper Volcano
+  output_material: molten_copper
+  output_temp:
+    value: 2226.85
+    unit: C
+  output_state: solid
+  cycle_stats:
+    eruption_period:
+      min: 8
+      avg: 45.5
+      max: 108
+    active_cycle:
+      min: 480
+      avg: 780
+      max: 1080
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 200
+      avg: 300
+      max: 400
+  geotuner:
+    material: Refined Phosphorus
+    material_per_cycle: 80
+
+- id: tungsten_volcano
+  name: Tungsten Volcano
+  output_material: molten_tungsten
+  output_temp:
+    value: 3726.85
+    unit: C
+  output_state: solid
+  cycle_stats:
+    eruption_period:
+      min: 8
+      avg: 45.5
+      max: 108
+    active_cycle:
+      min: 480
+      avg: 780
+      max: 1080
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 200
+      avg: 300
+      max: 400
+  geotuner:
+    material: Refined Phosphorus
+    material_per_cycle: 80
+
+- id: niobium_volcano
+  name: Niobium Volcano
+  output_material: molten_niobium
+  output_temp:
+    value: 3226.85
+    unit: C
+  output_state: solid
+  cycle_stats:
+    eruption_period:
+      min: 30
+      avg: 67.5
+      max: 120
+    active_cycle:
+      min: 6000
+      avg: 9000
+      max: 12000
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 800
+      avg: 1200
+      max: 1600
+  geotuner:
+    material: Refined Phosphorus
+    material_per_cycle: 80
+
+- id: cobalt_volcano
+  name: Cobalt Volcano
+  output_material: molten_cobalt
+  output_temp:
+    value: 2226.85
+    unit: C
+  output_state: solid
+  cycle_stats:
+    eruption_period:
+      min: 8
+      avg: 45.5
+      max: 108
+    active_cycle:
+      min: 480
+      avg: 780
+      max: 1080
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 200
+      avg: 300
+      max: 400
+  geotuner:
+    material: Refined Phosphorus
+    material_per_cycle: 80
+
+- id: aluminum_volcano
+  name: Aluminum Volcano
+  output_material: molten_aluminum
+  output_temp:
+    value: 1726.85
+    unit: C
+  output_state: solid
+  cycle_stats:
+    eruption_period:
+      min: 8
+      avg: 45.5
+      max: 108
+    active_cycle:
+      min: 480
+      avg: 780
+      max: 1080
+    dormancy:
+      min: 15000
+      avg: 75000
+      max: 135000
+    mass_per_second:
+      min: 200
+      avg: 300
+      max: 400
+  geotuner:
+    material: Refined Phosphorus
+    material_per_cycle: 80
