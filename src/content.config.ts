@@ -128,18 +128,28 @@ const batterySchema = z.object({
   notes: z.string().optional(),
 });
 
+const range = z.object({
+  min: z.number(),
+  avg: z.number(),
+  max: z.number(),
+});
+
 const geyserSchema = z.object({
   id: z.string(),
   name: z.string(),
   output_material: z.string(),
-  avg_output: unitValue,
   output_temp: unitValue,
-  biome: z.string(),
-  taming_complexity: z.enum(['low', 'medium', 'high']),
-  taming_method: z.string(),
-  power_output: unitValue.optional(),
-  notes: z.string().optional(),
-  image_slot: z.boolean().default(true),
+  output_state: z.enum(['liquid', 'gas', 'solid']),
+  cycle_stats: z.object({
+    eruption_period: range,
+    active_cycle: range,
+    dormancy: range,
+    mass_per_second: range,
+  }),
+  geotuner: z.object({
+    material: z.string(),
+    material_per_cycle: z.number(),
+  }),
 });
 
 const rooms = defineCollection({
