@@ -1,5 +1,5 @@
 ---
-import RangeStat from './RangeStat.astro';
+import RangeDisplay from './RangeDisplay.astro';
 import StatPill from './StatPill.astro';
 import type { CollectionEntry } from 'astro:content';
 import { existsSync } from 'node:fs';
@@ -34,148 +34,192 @@ const containerByState: Record<string, { name: string; capacity: number }> = {
   solid: { name: 'Storage Bin', capacity: 1000 },
 };
 const container = containerByState[d.output_state] ?? containerByState.liquid;
+
+type StatKey = 'eruption_period' | 'active_cycle' | 'dormancy' | 'mass_per_second';
+const statFields: Array<{ key: StatKey; label: string; unit: string; decimals: number }> = [
+  { key: 'eruption_period', label: 'Eruption Period', unit: 's', decimals: 1 },
+  { key: 'active_cycle', label: 'Active Cycle Length', unit: 's', decimals: 0 },
+  { key: 'dormancy', label: 'Dormancy', unit: 's', decimals: 0 },
+  { key: 'mass_per_second', label: 'Mass per Second', unit: 'g/s', decimals: 0 },
+];
 ---
 
 <div
-  class="border border-oni-bg-elevated rounded-xl p-5 space-y-6"
+  class="space-y-6"
   id={cardId}
   data-output-temp-base={d.output_temp.value}
   data-container-capacity={container.capacity}
   data-container-name={container.name}
 >
-  {headerImage && (
-    <img
-      src={headerImage}
-      alt={d.name}
-      loading="lazy"
-      class="w-full rounded-lg border border-oni-bg-elevated"
-    />
-  )}
+  {/* ─── Reference panel (read-only) ─── */}
+  <section class="border border-oni-bg-elevated rounded-xl p-5 space-y-5">
+    {headerImage && (
+      <img
+        src={headerImage}
+        alt={d.name}
+        loading="lazy"
+        class="w-full rounded-lg border border-oni-bg-elevated"
+      />
+    )}
 
-  {/* Top section: icon + name */}
-  <div class="flex items-center gap-4">
-    <div class="w-20 h-20 rounded-lg bg-oni-bg-elevated flex items-center justify-center text-3xl shrink-0" aria-hidden="true">
-      🌋
+    <div class="flex items-center gap-4">
+      <div class="w-16 h-16 rounded-lg bg-oni-bg-elevated flex items-center justify-center text-2xl shrink-0" aria-hidden="true">
+        🌋
+      </div>
+      <div>
+        <h3 class="text-xl font-bold text-oni-text-primary">{d.name}</h3>
+        <p class="text-xs text-oni-text-muted mt-1">Reference data from the ONI wiki.</p>
+      </div>
     </div>
-    <div>
-      <h3 class="text-xl font-bold text-oni-text-primary">{d.name}</h3>
-      <p class="text-xs text-oni-text-muted mt-1">Enter your geyser&apos;s specific values below &mdash; the calculator updates live.</p>
-    </div>
-  </div>
 
-  {/* Top stats: Output Material + Output Temperature */}
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-    <div>
-      <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Output Material</h4>
-      <p class="text-oni-text-primary text-lg">{formatName(d.output_material)}</p>
+    {/* Output material + base temp */}
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <h5 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Output Material</h5>
+        <p class="text-oni-text-primary">{formatName(d.output_material)}</p>
+      </div>
+      <div>
+        <h5 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Base Output Temperature</h5>
+        <StatPill value={d.output_temp.value} unit={`°${d.output_temp.unit}`} />
+      </div>
     </div>
-    <div>
-      <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Output Temperature</h4>
-      <StatPill value={d.output_temp.value} unit={`°${d.output_temp.unit}`} />
-    </div>
-  </div>
 
-  {/* Middle: cycle stat ranges (4 rows) */}
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-oni-bg-elevated">
-    <RangeStat
-      label="Active Eruption Period"
-      range={d.cycle_stats.eruption_period}
-      unit="s"
-      statKey="eruption_period"
-      decimals={1}
-    />
-    <RangeStat
-      label="Active Cycle Length"
-      range={d.cycle_stats.active_cycle}
-      unit="s"
-      statKey="active_cycle"
-    />
-    <RangeStat
-      label="Dormancy"
-      range={d.cycle_stats.dormancy}
-      unit="s"
-      statKey="dormancy"
-    />
-    <RangeStat
-      label="Mass per Second"
-      range={d.cycle_stats.mass_per_second}
-      unit="g/s"
-      statKey="mass_per_second"
-    />
-  </div>
-
-  {/* Geotuner stepper */}
-  <div class="pt-4 border-t border-oni-bg-elevated">
-    <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
-      <h4 class="text-xs text-oni-text-muted uppercase tracking-wider">Geotuners</h4>
-      <p class="text-xs text-oni-text-muted">+20% output and temperature each &middot; 5 = 2&times; base</p>
+    {/* Cycle stat ranges (read-only) */}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t border-oni-bg-elevated">
+      <RangeDisplay label="Active Eruption Period" range={d.cycle_stats.eruption_period} unit="s" decimals={1} />
+      <RangeDisplay label="Active Cycle Length" range={d.cycle_stats.active_cycle} unit="s" />
+      <RangeDisplay label="Dormancy" range={d.cycle_stats.dormancy} unit="s" />
+      <RangeDisplay label="Mass per Second" range={d.cycle_stats.mass_per_second} unit="g/s" />
     </div>
-    <div class="flex gap-1.5" role="group" aria-label="Geotuner count">
-      {stepperLevels.map((n) => (
+
+    {/* Geotuner material requirement */}
+    <div class="pt-4 border-t border-oni-bg-elevated">
+      <h5 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Geotuner Material</h5>
+      <p class="text-oni-text-secondary">
+        <span class="text-oni-text-primary font-semibold">{d.geotuner.material}</span>
+        <span class="text-oni-text-muted text-sm ml-2">&middot; {d.geotuner.material_per_cycle} kg per active cycle, per geotuner</span>
+      </p>
+    </div>
+  </section>
+
+  {/* ─── Your Geysers panel (editable, multi-instance) ─── */}
+  <section class="border border-oni-bg-elevated rounded-xl p-5 space-y-4">
+    <header class="flex items-center justify-between gap-2 flex-wrap">
+      <div>
+        <h3 class="text-xl font-bold text-oni-text-primary">Your Geysers</h3>
+        <p class="text-xs text-oni-text-muted mt-1">Add the {d.name.toLowerCase()}s in your world to calculate their output.</p>
+      </div>
+      <button
+        type="button"
+        data-add-instance
+        class="px-3 py-1.5 rounded text-sm font-semibold bg-oni-teal/15 hover:bg-oni-teal/25 text-oni-teal border border-oni-teal/40 transition-colors"
+      >
+        + Add geyser
+      </button>
+    </header>
+
+    <div data-instance-list class="space-y-4"></div>
+  </section>
+
+  {/* ─── Instance template (cloned on add) ─── */}
+  <template data-instance-template>
+    <article class="border border-oni-bg-elevated rounded-lg p-4 space-y-4" data-instance>
+      <div class="flex items-center justify-between gap-2">
+        <h4 class="text-sm font-bold text-oni-text-secondary uppercase tracking-wider">
+          Geyser #<span data-instance-num>1</span>
+        </h4>
         <button
           type="button"
-          data-geotuner-step={n}
-          class:list={[
-            'flex-1 px-3 py-1.5 rounded font-mono text-sm font-semibold border transition-colors',
-            n === 0
-              ? 'bg-oni-stat-pill-bg border-oni-teal text-oni-text-primary'
-              : 'bg-oni-bg-surface border-oni-bg-elevated text-oni-text-muted hover:text-oni-text-secondary hover:border-oni-text-muted',
-          ]}
-          aria-pressed={n === 0 ? 'true' : 'false'}
+          data-remove-instance
+          class="px-2 py-1 rounded text-xs text-oni-text-muted hover:text-red-400 hover:bg-red-400/10 transition-colors"
+          aria-label="Remove geyser"
         >
-          {n}
+          Remove
         </button>
-      ))}
-    </div>
-    <p class="text-xs text-oni-text-muted mt-2">
-      Material per cycle:
-      <span class="text-oni-text-secondary font-semibold ml-1">
-        <span data-geotuner-material-total={d.geotuner.material_per_cycle}>0</span>
-        kg
-      </span>
-      <span class="ml-1">{d.geotuner.material}</span>
-      <span class="text-oni-text-muted">({d.geotuner.material_per_cycle} kg &times; <span data-geotuner-count>0</span>)</span>
-    </p>
-  </div>
+      </div>
 
-  {/* Computed outputs (calculator) */}
-  <div class="pt-4 border-t border-oni-bg-elevated">
-    <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-3">Calculated Output (your world)</h4>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      <div class="bg-oni-bg-elevated/50 rounded-lg p-3">
-        <p class="text-xs text-oni-text-muted mb-1">Total per Active Phase</p>
-        <p class="font-mono text-lg font-semibold text-oni-text-primary">
-          <span data-calc-output="total_per_phase">&mdash;</span>
-          <span class="text-sm text-oni-text-muted ml-1">kg</span>
-        </p>
-        <p class="text-xs text-oni-text-muted mt-1">mass/s &times; eruption period</p>
+      {/* Inputs */}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {statFields.map((field) => {
+          const defaultValue = d.cycle_stats[field.key].avg;
+          return (
+            <label class="flex flex-col gap-1">
+              <span class="text-xs text-oni-text-muted uppercase tracking-wider">{field.label}</span>
+              <span class="flex items-baseline gap-2">
+                <input
+                  type="text"
+                  inputmode="decimal"
+                  spellcheck="false"
+                  value={defaultValue.toFixed(field.decimals)}
+                  data-stat-key={field.key}
+                  data-stat-default={defaultValue}
+                  data-stat-decimals={field.decimals}
+                  class="w-24 bg-oni-bg-elevated border border-oni-bg-elevated focus:border-oni-teal focus:ring-1 focus:ring-oni-teal focus:outline-none rounded px-2 py-1 font-mono text-sm text-oni-text-primary"
+                />
+                <span class="text-oni-text-muted text-xs">{field.unit}</span>
+              </span>
+            </label>
+          );
+        })}
       </div>
-      <div class="bg-oni-bg-elevated/50 rounded-lg p-3">
-        <p class="text-xs text-oni-text-muted mb-1">{container.name}s Needed</p>
-        <p class="font-mono text-lg font-semibold text-oni-text-primary">
-          <span data-calc-output="containers_needed">&mdash;</span>
-          <span class="text-sm text-oni-text-muted ml-1">&times; {container.capacity.toLocaleString()} kg</span>
-        </p>
-        <p class="text-xs text-oni-text-muted mt-1">to buffer one active phase</p>
+
+      {/* Geotuner stepper */}
+      <div>
+        <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
+          <h5 class="text-xs text-oni-text-muted uppercase tracking-wider">Geotuners</h5>
+          <p class="text-xs text-oni-text-muted">+20% output and temperature each &middot; 5 = 2&times; base</p>
+        </div>
+        <div class="flex gap-1.5" role="group" aria-label="Geotuner count">
+          {stepperLevels.map((n) => (
+            <button
+              type="button"
+              data-geotuner-step={n}
+              class:list={[
+                'flex-1 px-3 py-1.5 rounded font-mono text-sm font-semibold border transition-colors',
+                n === 0
+                  ? 'bg-oni-stat-pill-bg border-oni-teal text-oni-text-primary'
+                  : 'bg-oni-bg-surface border-oni-bg-elevated text-oni-text-muted hover:text-oni-text-secondary hover:border-oni-text-muted',
+              ]}
+              aria-pressed={n === 0 ? 'true' : 'false'}
+            >
+              {n}
+            </button>
+          ))}
+        </div>
       </div>
-      <div class="bg-oni-bg-elevated/50 rounded-lg p-3">
-        <p class="text-xs text-oni-text-muted mb-1">Avg per Cycle (long term)</p>
-        <p class="font-mono text-lg font-semibold text-oni-text-primary">
-          <span data-calc-output="avg_per_cycle">&mdash;</span>
-          <span class="text-sm text-oni-text-muted ml-1">kg/cycle</span>
-        </p>
-        <p class="text-xs text-oni-text-muted mt-1">averaged over active + dormant time</p>
+
+      {/* Calculated outputs (4 across on desktop) */}
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 pt-3 border-t border-oni-bg-elevated">
+        <div class="bg-oni-bg-elevated/50 rounded-lg p-3">
+          <p class="text-xs text-oni-text-muted mb-1">Total per Active Phase</p>
+          <p class="font-mono text-lg font-semibold text-oni-text-primary">
+            <span data-calc-output="total_per_phase">&mdash;</span>
+            <span class="text-sm text-oni-text-muted ml-1">kg</span>
+          </p>
+        </div>
+        <div class="bg-oni-bg-elevated/50 rounded-lg p-3">
+          <p class="text-xs text-oni-text-muted mb-1">{container.name}s Needed</p>
+          <p class="font-mono text-lg font-semibold text-oni-text-primary">
+            <span data-calc-output="containers_needed">&mdash;</span>
+          </p>
+        </div>
+        <div class="bg-oni-bg-elevated/50 rounded-lg p-3">
+          <p class="text-xs text-oni-text-muted mb-1">Avg per Cycle</p>
+          <p class="font-mono text-lg font-semibold text-oni-text-primary">
+            <span data-calc-output="avg_per_cycle">&mdash;</span>
+            <span class="text-sm text-oni-text-muted ml-1">kg/cycle</span>
+          </p>
+        </div>
+        <div class="bg-oni-bg-elevated/50 rounded-lg p-3">
+          <p class="text-xs text-oni-text-muted mb-1">Output Temperature</p>
+          <p class="font-mono text-lg font-semibold text-oni-text-primary">
+            <span data-calc-output="output_temp">&mdash;</span>
+            <span class="text-sm text-oni-text-muted ml-1">°{d.output_temp.unit}</span>
+          </p>
+        </div>
       </div>
-      <div class="bg-oni-bg-elevated/50 rounded-lg p-3">
-        <p class="text-xs text-oni-text-muted mb-1">Output Temperature</p>
-        <p class="font-mono text-lg font-semibold text-oni-text-primary">
-          <span data-calc-output="output_temp">&mdash;</span>
-          <span class="text-sm text-oni-text-muted ml-1">°{d.output_temp.unit}</span>
-        </p>
-        <p class="text-xs text-oni-text-muted mt-1">base &times; geotuner multiplier</p>
-      </div>
-    </div>
-  </div>
+    </article>
+  </template>
 </div>
 
 <script define:vars={{ cardId, baseTemp: d.output_temp.value, containerCapacity: container.capacity }}>
@@ -183,28 +227,10 @@ const container = containerByState[d.output_state] ?? containerByState.liquid;
     const card = document.getElementById(cardId);
     if (!card) return;
 
-    const editableStats = card.querySelectorAll('[data-stat-key]');
-    const stepButtons = card.querySelectorAll('[data-geotuner-step]');
-    const outputs = {
-      total_per_phase: card.querySelector('[data-calc-output="total_per_phase"]'),
-      containers_needed: card.querySelector('[data-calc-output="containers_needed"]'),
-      avg_per_cycle: card.querySelector('[data-calc-output="avg_per_cycle"]'),
-      output_temp: card.querySelector('[data-calc-output="output_temp"]'),
-    };
-    const countDisplay = card.querySelector('[data-geotuner-count]');
-    const materialTotal = card.querySelector('[data-geotuner-material-total]');
-    const materialPerTuner = materialTotal
-      ? parseFloat(materialTotal.getAttribute('data-geotuner-material-total') ?? '0')
-      : 0;
-
-    let geotunerCount = 0;
-
-    const state = {};
-    editableStats.forEach((el) => {
-      const key = el.getAttribute('data-stat-key');
-      const avg = parseFloat(el.getAttribute('data-stat-avg') ?? '0');
-      if (key) state[key] = avg;
-    });
+    const list = card.querySelector('[data-instance-list]');
+    const template = card.querySelector('[data-instance-template]');
+    const addBtn = card.querySelector('[data-add-instance]');
+    if (!list || !template || !addBtn) return;
 
     const GAME_CYCLE_SECONDS = 600;
 
@@ -216,77 +242,55 @@ const container = containerByState[d.output_state] ?? containerByState.liquid;
       });
     }
 
-    function recompute() {
+    function parseStatValue(input) {
+      const key = input.getAttribute('data-stat-key');
+      const decimals = parseInt(input.getAttribute('data-stat-decimals') ?? '0', 10);
+      const fallback = parseFloat(input.getAttribute('data-stat-default') ?? '0');
+      const raw = (input.value ?? '').trim().replace(/,/g, '');
+      const parsed = parseFloat(raw);
+      return {
+        key,
+        value: Number.isFinite(parsed) ? parsed : fallback,
+        decimals: Number.isFinite(decimals) ? decimals : 0,
+        fallback,
+        raw,
+        parsedOk: Number.isFinite(parsed),
+      };
+    }
+
+    function recomputeInstance(instance) {
+      if (!instance) return;
+      const inputs = instance.querySelectorAll('input[data-stat-key]');
+      const state = { eruption_period: 0, active_cycle: 0, dormancy: 0, mass_per_second: 0 };
+      inputs.forEach((input) => {
+        const { key, value } = parseStatValue(input);
+        if (key && key in state) state[key] = value;
+      });
+
+      const activeStep = instance.querySelector('[data-geotuner-step][aria-pressed="true"]');
+      const geotunerCount = activeStep ? parseInt(activeStep.getAttribute('data-geotuner-step') ?? '0', 10) : 0;
       const gtMult = 1 + 0.2 * geotunerCount;
-      const eruption = state.eruption_period ?? 0;
-      const activeCycle = state.active_cycle ?? 0;
-      const dormancy = state.dormancy ?? 0;
-      const massPerSec = state.mass_per_second ?? 0;
 
-      // Total output during one active phase (between dormancies):
-      // mass_per_second × eruption_period × geotuner multiplier, converted g → kg
-      const totalPerPhaseKg = (massPerSec * eruption * gtMult) / 1000;
-
-      // Containers needed to buffer one active phase
+      const totalPerPhaseKg = (state.mass_per_second * state.eruption_period * gtMult) / 1000;
       const containersNeeded = containerCapacity > 0 && totalPerPhaseKg > 0
         ? Math.ceil(totalPerPhaseKg / containerCapacity)
         : 0;
-
-      // Long-term average across the full active + dormant cycle
-      const totalCycleSeconds = activeCycle + dormancy;
+      const totalCycleSeconds = state.active_cycle + state.dormancy;
       const avgPerCycle = totalCycleSeconds > 0
-        ? (massPerSec * eruption * gtMult * GAME_CYCLE_SECONDS) / totalCycleSeconds / 1000
+        ? (state.mass_per_second * state.eruption_period * gtMult * GAME_CYCLE_SECONDS) / totalCycleSeconds / 1000
         : 0;
       const modifiedTemp = baseTemp * gtMult;
 
-      if (outputs.total_per_phase) outputs.total_per_phase.textContent = formatNumber(totalPerPhaseKg, 1);
-      if (outputs.containers_needed) outputs.containers_needed.textContent = formatNumber(containersNeeded, 0);
-      if (outputs.avg_per_cycle) outputs.avg_per_cycle.textContent = formatNumber(avgPerCycle, 2);
-      if (outputs.output_temp) outputs.output_temp.textContent = formatNumber(modifiedTemp, 1);
+      const out = (key) => instance.querySelector(`[data-calc-output="${key}"]`);
+      if (out('total_per_phase')) out('total_per_phase').textContent = formatNumber(totalPerPhaseKg, 1);
+      if (out('containers_needed')) out('containers_needed').textContent = formatNumber(containersNeeded, 0);
+      if (out('avg_per_cycle')) out('avg_per_cycle').textContent = formatNumber(avgPerCycle, 2);
+      if (out('output_temp')) out('output_temp').textContent = formatNumber(modifiedTemp, 1);
     }
 
-    function handleStatInput(el) {
-      const key = el.getAttribute('data-stat-key');
-      if (!key) return;
-      const raw = (el.value ?? '').trim().replace(/,/g, '');
-      const parsed = parseFloat(raw);
-      if (Number.isFinite(parsed)) {
-        state[key] = parsed;
-      }
-      recompute();
-    }
-
-    function commitStatValue(el) {
-      const key = el.getAttribute('data-stat-key');
-      if (!key) return;
-      const decimals = parseInt(el.getAttribute('data-stat-decimals') ?? '0', 10);
-      const raw = (el.value ?? '').trim().replace(/,/g, '');
-      const parsed = parseFloat(raw);
-      if (Number.isFinite(parsed)) {
-        state[key] = parsed;
-        el.value = parsed.toFixed(Number.isFinite(decimals) ? decimals : 0);
-      } else {
-        const fallback = parseFloat(el.getAttribute('data-stat-avg') ?? '0');
-        state[key] = fallback;
-        el.value = fallback.toFixed(Number.isFinite(decimals) ? decimals : 0);
-      }
-      recompute();
-    }
-
-    editableStats.forEach((el) => {
-      el.addEventListener('input', () => handleStatInput(el));
-      el.addEventListener('change', () => commitStatValue(el));
-      el.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-          event.preventDefault();
-          el.blur();
-        }
-      });
-    });
-
-    function setGeotuner(n) {
-      geotunerCount = n;
-      stepButtons.forEach((btn) => {
+    function setGeotuner(instance, n) {
+      const buttons = instance.querySelectorAll('[data-geotuner-step]');
+      buttons.forEach((btn) => {
         const value = parseInt(btn.getAttribute('data-geotuner-step') ?? '0', 10);
         const active = value === n;
         btn.setAttribute('aria-pressed', active ? 'true' : 'false');
@@ -297,18 +301,88 @@ const container = containerByState[d.output_state] ?? containerByState.liquid;
         btn.classList.toggle('border-oni-bg-elevated', !active);
         btn.classList.toggle('text-oni-text-muted', !active);
       });
-      if (countDisplay) countDisplay.textContent = String(n);
-      if (materialTotal) materialTotal.textContent = String(materialPerTuner * n);
-      recompute();
+      recomputeInstance(instance);
     }
 
-    stepButtons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const value = parseInt(btn.getAttribute('data-geotuner-step') ?? '0', 10);
-        setGeotuner(value);
+    function renumberInstances() {
+      const instances = list.querySelectorAll('[data-instance]');
+      instances.forEach((inst, i) => {
+        const num = inst.querySelector('[data-instance-num]');
+        if (num) num.textContent = String(i + 1);
+        const removeBtn = inst.querySelector('[data-remove-instance]');
+        if (removeBtn) {
+          if (instances.length === 1) {
+            removeBtn.setAttribute('disabled', '');
+            removeBtn.classList.add('opacity-0', 'pointer-events-none');
+          } else {
+            removeBtn.removeAttribute('disabled');
+            removeBtn.classList.remove('opacity-0', 'pointer-events-none');
+          }
+        }
       });
+    }
+
+    function addInstance() {
+      const node = template.content.firstElementChild.cloneNode(true);
+      list.appendChild(node);
+      renumberInstances();
+      recomputeInstance(node);
+    }
+
+    // Event delegation on list
+    list.addEventListener('input', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLInputElement)) return;
+      if (!target.hasAttribute('data-stat-key')) return;
+      const instance = target.closest('[data-instance]');
+      if (instance) recomputeInstance(instance);
     });
 
-    recompute();
+    list.addEventListener('change', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLInputElement)) return;
+      if (!target.hasAttribute('data-stat-key')) return;
+      const { value, decimals, fallback, parsedOk } = parseStatValue(target);
+      target.value = (parsedOk ? value : fallback).toFixed(decimals);
+      const instance = target.closest('[data-instance]');
+      if (instance) recomputeInstance(instance);
+    });
+
+    list.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter') return;
+      const target = event.target;
+      if (!(target instanceof HTMLInputElement)) return;
+      if (!target.hasAttribute('data-stat-key')) return;
+      event.preventDefault();
+      target.blur();
+    });
+
+    list.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+
+      const stepBtn = target.closest('[data-geotuner-step]');
+      if (stepBtn) {
+        const instance = stepBtn.closest('[data-instance]');
+        const n = parseInt(stepBtn.getAttribute('data-geotuner-step') ?? '0', 10);
+        if (instance) setGeotuner(instance, n);
+        return;
+      }
+
+      const removeBtn = target.closest('[data-remove-instance]');
+      if (removeBtn) {
+        const instance = removeBtn.closest('[data-instance]');
+        if (!instance) return;
+        const remaining = list.querySelectorAll('[data-instance]').length;
+        if (remaining <= 1) return; // keep at least one
+        instance.remove();
+        renumberInstances();
+      }
+    });
+
+    addBtn.addEventListener('click', addInstance);
+
+    // Seed with one default instance
+    addInstance();
   })();
 </script>

@@ -1,0 +1,19 @@
+---
+interface Props {
+  label: string;
+  range: { min: number; avg: number; max: number };
+  unit: string;
+  decimals?: number;
+}
+
+const { label, range, unit, decimals = 0 } = Astro.props;
+const fmt = (n: number) => n.toFixed(decimals);
+---
+
+<div class="flex flex-col gap-1">
+  <h5 class="text-xs text-oni-text-muted uppercase tracking-wider">{label}</h5>
+  <p class="font-mono text-sm text-oni-text-secondary">
+    {fmt(range.min)} &ndash; {fmt(range.max)}
+    <span class="text-oni-text-muted ml-1">{unit}</span>
+  </p>
+</div>
