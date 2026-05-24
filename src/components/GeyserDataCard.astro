@@ -92,13 +92,10 @@ const statFields: Array<{ key: StatKey; label: string; unit: string; decimals: n
       <RangeDisplay label="Mass per Second" range={d.cycle_stats.mass_per_second} unit="g/s" />
     </div>
 
-    {/* Geotuner material requirement */}
+    {/* Compatible geotuner material (the dynamic per-instance cost lives below in each Your Geyser entry) */}
     <div class="pt-4 border-t border-oni-bg-elevated">
-      <h5 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Geotuner Material</h5>
-      <p class="text-oni-text-secondary">
-        <span class="text-oni-text-primary font-semibold">{d.geotuner.material}</span>
-        <span class="text-oni-text-muted text-sm ml-2">&middot; {d.geotuner.material_per_cycle} kg per active cycle, per geotuner</span>
-      </p>
+      <h5 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Compatible Geotuner Material</h5>
+      <p class="text-oni-text-primary font-semibold">{d.geotuner.material}</p>
     </div>
   </section>
 
@@ -163,7 +160,7 @@ const statFields: Array<{ key: StatKey; label: string; unit: string; decimals: n
         })}
       </div>
 
-      {/* Geotuner stepper */}
+      {/* Geotuner stepper + dynamic material cost */}
       <div>
         <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
           <h5 class="text-xs text-oni-text-muted uppercase tracking-wider">Geotuners</h5>
@@ -186,6 +183,13 @@ const statFields: Array<{ key: StatKey; label: string; unit: string; decimals: n
             </button>
           ))}
         </div>
+        <p class="text-xs text-oni-text-muted mt-2">
+          <span class="uppercase tracking-wider">Material cost</span>
+          <span class="text-oni-text-primary font-mono font-semibold ml-2">
+            <span data-calc-output="material_cost">&mdash;</span> kg {d.geotuner.material}
+          </span>
+          <span class="ml-1">per active phase</span>
+        </p>
       </div>
 
       {/* Calculated outputs (4 across on desktop) */}
@@ -222,7 +226,12 @@ const statFields: Array<{ key: StatKey; label: string; unit: string; decimals: n
   </template>
 </div>
 
-<script define:vars={{ cardId, baseTemp: d.output_temp.value, containerCapacity: container.capacity }}>
+<script define:vars={{
+  cardId,
+  baseTemp: d.output_temp.value,
+  containerCapacity: container.capacity,
+  geotunerMaterialPerCycle: d.geotuner.material_per_cycle,
+}}>
   (function initGeyserCalculator() {
     const card = document.getElementById(cardId);
     if (!card) return;
@@ -281,11 +290,18 @@ const statFields: Array<{ key: StatKey; label: string; unit: string; decimals: n
         : 0;
       const modifiedTemp = baseTemp * gtMult;
 
+      // Geotuners run for the duration of the active phase; consumption scales with active_cycle.
+      // material_per_cycle is kg per game cycle (600 s); active_cycle is in seconds.
+      const materialCost = geotunerCount > 0 && state.active_cycle > 0
+        ? geotunerMaterialPerCycle * (state.active_cycle / GAME_CYCLE_SECONDS) * geotunerCount
+        : 0;
+
       const out = (key) => instance.querySelector(`[data-calc-output="${key}"]`);
       if (out('total_per_phase')) out('total_per_phase').textContent = formatNumber(totalPerPhaseKg, 1);
       if (out('containers_needed')) out('containers_needed').textContent = formatNumber(containersNeeded, 0);
       if (out('avg_per_cycle')) out('avg_per_cycle').textContent = formatNumber(avgPerCycle, 2);
       if (out('output_temp')) out('output_temp').textContent = formatNumber(modifiedTemp, 1);
+      if (out('material_cost')) out('material_cost').textContent = formatNumber(materialCost, 1);
     }
 
     function setGeotuner(instance, n) {
