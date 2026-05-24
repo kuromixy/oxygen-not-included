@@ -46,7 +46,7 @@ const stepperLevels = [0, 1, 2, 3, 4, 5];
     </div>
     <div>
       <h3 class="text-xl font-bold text-oni-text-primary">{d.name}</h3>
-      <p class="text-xs text-oni-text-muted mt-1">Click a value to enter your world&apos;s number &mdash; the calculator updates live.</p>
+      <p class="text-xs text-oni-text-muted mt-1">Enter your geyser&apos;s specific values below &mdash; the calculator updates live.</p>
     </div>
   </div>
 
@@ -216,7 +216,7 @@ const stepperLevels = [0, 1, 2, 3, 4, 5];
     function handleStatInput(el) {
       const key = el.getAttribute('data-stat-key');
       if (!key) return;
-      const raw = (el.textContent ?? '').trim().replace(/,/g, '');
+      const raw = (el.value ?? '').trim().replace(/,/g, '');
       const parsed = parseFloat(raw);
       if (Number.isFinite(parsed)) {
         state[key] = parsed;
@@ -228,22 +228,22 @@ const stepperLevels = [0, 1, 2, 3, 4, 5];
       const key = el.getAttribute('data-stat-key');
       if (!key) return;
       const decimals = parseInt(el.getAttribute('data-stat-decimals') ?? '0', 10);
-      const raw = (el.textContent ?? '').trim().replace(/,/g, '');
+      const raw = (el.value ?? '').trim().replace(/,/g, '');
       const parsed = parseFloat(raw);
       if (Number.isFinite(parsed)) {
         state[key] = parsed;
-        el.textContent = parsed.toFixed(Number.isFinite(decimals) ? decimals : 0);
+        el.value = parsed.toFixed(Number.isFinite(decimals) ? decimals : 0);
       } else {
         const fallback = parseFloat(el.getAttribute('data-stat-avg') ?? '0');
         state[key] = fallback;
-        el.textContent = fallback.toFixed(Number.isFinite(decimals) ? decimals : 0);
+        el.value = fallback.toFixed(Number.isFinite(decimals) ? decimals : 0);
       }
       recompute();
     }
 
     editableStats.forEach((el) => {
       el.addEventListener('input', () => handleStatInput(el));
-      el.addEventListener('blur', () => commitStatValue(el));
+      el.addEventListener('change', () => commitStatValue(el));
       el.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
           event.preventDefault();

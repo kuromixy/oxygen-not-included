@@ -11,24 +11,30 @@ const { label, range, unit, statKey, decimals = 0 } = Astro.props;
 const fmt = (n: number) => n.toFixed(decimals);
 ---
 
-<div class="flex flex-col">
-  <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">{label}</h4>
-  <div class="flex items-baseline gap-2 font-mono text-sm">
-    <span class="text-oni-text-muted">{fmt(range.min)}</span>
-    <span class="text-oni-text-muted">&middot;</span>
-    <span
-      class="text-oni-text-primary font-semibold bg-oni-stat-pill-bg px-2 py-0.5 rounded outline-none focus:ring-2 focus:ring-oni-teal focus:bg-oni-bg-elevated hover:underline hover:decoration-dotted hover:underline-offset-2 cursor-text transition-colors"
-      contenteditable="true"
-      spellcheck="false"
+<div class="flex flex-col gap-2">
+  <h4 class="text-xs text-oni-text-muted uppercase tracking-wider">{label}</h4>
+
+  {/* Reference range (read-only) */}
+  <div class="flex items-baseline gap-2 text-sm font-mono">
+    <span class="text-xs uppercase tracking-wider text-oni-text-muted shrink-0 w-20">Range</span>
+    <span class="text-oni-text-secondary">{fmt(range.min)} &ndash; {fmt(range.max)}</span>
+    <span class="text-oni-text-muted text-xs ml-1">{unit}</span>
+  </div>
+
+  {/* User input */}
+  <label class="flex items-baseline gap-2 text-sm">
+    <span class="text-xs uppercase tracking-wider text-oni-text-muted shrink-0 w-20">Your value</span>
+    <input
+      type="text"
       inputmode="decimal"
-      role="textbox"
-      aria-label={`${label} (editable, default ${fmt(range.avg)} ${unit})`}
+      spellcheck="false"
+      value={fmt(range.avg)}
       data-stat-key={statKey}
       data-stat-avg={range.avg}
       data-stat-decimals={decimals}
-    >{fmt(range.avg)}</span>
-    <span class="text-oni-text-muted">&middot;</span>
-    <span class="text-oni-text-muted">{fmt(range.max)}</span>
-    <span class="text-oni-text-muted ml-1">{unit}</span>
-  </div>
+      class="w-24 bg-oni-bg-elevated border border-oni-bg-elevated focus:border-oni-teal focus:ring-1 focus:ring-oni-teal focus:outline-none rounded px-2 py-1 font-mono text-sm text-oni-text-primary"
+      aria-label={`${label}, your value`}
+    />
+    <span class="text-oni-text-muted text-xs">{unit}</span>
+  </label>
 </div>
