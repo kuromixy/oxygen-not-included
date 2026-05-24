@@ -5,9 +5,10 @@ import { join } from 'node:path';
 interface Props {
   family: string;
   category?: string;
+  title?: string;
 }
 
-const { family, category = 'ranching' } = Astro.props;
+const { family, category = 'ranching', title = 'Ranch Build Layout' } = Astro.props;
 
 const tabs = ['Overview', 'Automation', 'Power', 'Plumbing'];
 const tabSlugs = ['overview', 'automation', 'power', 'plumbing'];
@@ -21,7 +22,7 @@ const images = tabSlugs.map((slug) => {
 ---
 
 <section class="mb-6">
-  <h2 class="text-lg font-bold text-oni-text-primary mb-2">Ranch Build Layout</h2>
+  <h2 class="text-lg font-bold text-oni-text-primary mb-2">{title}</h2>
 
   <div class="border border-oni-bg-elevated rounded-xl overflow-hidden">
     {/* CSS-only tabs using radio inputs */}

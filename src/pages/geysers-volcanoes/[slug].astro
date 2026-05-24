@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import GeyserDataCard from '../../components/GeyserDataCard.astro';
+import RanchBuildTabs from '../../components/RanchBuildTabs.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
@@ -35,6 +36,13 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   <section class="mb-8">
     <h1 data-pagefind-meta="category:Geysers" class="text-3xl md:text-4xl font-bold text-oni-text-primary">{geyser.data.name}</h1>
   </section>
+
+  {/* Build layout tabs (Overview / Automation / Power / Plumbing) */}
+  <RanchBuildTabs
+    family={geyser.data.id.replaceAll('_', '-')}
+    category="geysers"
+    title="Build Layout"
+  />
 
   {/* Lean structured data card */}
   <GeyserDataCard entry={geyser} />

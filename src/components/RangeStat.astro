@@ -17,9 +17,15 @@ const fmt = (n: number) => n.toFixed(decimals);
     <span class="text-oni-text-muted">{fmt(range.min)}</span>
     <span class="text-oni-text-muted">&middot;</span>
     <span
-      class="text-oni-text-primary font-semibold bg-oni-stat-pill-bg px-2 py-0.5 rounded"
+      class="text-oni-text-primary font-semibold bg-oni-stat-pill-bg px-2 py-0.5 rounded outline-none focus:ring-2 focus:ring-oni-teal focus:bg-oni-bg-elevated hover:underline hover:decoration-dotted hover:underline-offset-2 cursor-text transition-colors"
+      contenteditable="true"
+      spellcheck="false"
+      inputmode="decimal"
+      role="textbox"
+      aria-label={`${label} (editable, default ${fmt(range.avg)} ${unit})`}
       data-stat-key={statKey}
       data-stat-avg={range.avg}
+      data-stat-decimals={decimals}
     >{fmt(range.avg)}</span>
     <span class="text-oni-text-muted">&middot;</span>
     <span class="text-oni-text-muted">{fmt(range.max)}</span>
