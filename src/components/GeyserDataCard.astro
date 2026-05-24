@@ -1,0 +1,98 @@
+---
+import RangeStat from './RangeStat.astro';
+import StatPill from './StatPill.astro';
+import type { CollectionEntry } from 'astro:content';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
+interface Props {
+  entry: CollectionEntry<'geysers'>;
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+
+function formatName(slug: string): string {
+  return slug
+    .split('_')
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
+const slug = d.id.replaceAll('_', '-');
+const imgPath = join(process.cwd(), 'public', 'images', 'geysers', `${slug}.png`);
+const headerImage = existsSync(imgPath)
+  ? `${import.meta.env.BASE_URL}images/geysers/${slug}.png`
+  : null;
+---
+
+<div class="border border-oni-bg-elevated rounded-xl p-5 space-y-6">
+  {headerImage && (
+    <img
+      src={headerImage}
+      alt={d.name}
+      loading="lazy"
+      class="w-full rounded-lg border border-oni-bg-elevated"
+    />
+  )}
+
+  {/* Top section: icon + name */}
+  <div class="flex items-center gap-4">
+    <div class="w-20 h-20 rounded-lg bg-oni-bg-elevated flex items-center justify-center text-3xl shrink-0" aria-hidden="true">
+      🌋
+    </div>
+    <div>
+      <h3 class="text-xl font-bold text-oni-text-primary">{d.name}</h3>
+    </div>
+  </div>
+
+  {/* Top stats: Output Material + Output Temperature */}
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div>
+      <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Output Material</h4>
+      <p class="text-oni-text-primary text-lg">{formatName(d.output_material)}</p>
+    </div>
+    <div>
+      <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Output Temperature</h4>
+      <StatPill value={d.output_temp.value} unit={`°${d.output_temp.unit}`} />
+    </div>
+  </div>
+
+  {/* Middle: cycle stat ranges (4 rows) */}
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-oni-bg-elevated">
+    <RangeStat
+      label="Active Eruption Period"
+      range={d.cycle_stats.eruption_period}
+      unit="s"
+      statKey="eruption_period"
+      decimals={1}
+    />
+    <RangeStat
+      label="Active Cycle Length"
+      range={d.cycle_stats.active_cycle}
+      unit="s"
+      statKey="active_cycle"
+    />
+    <RangeStat
+      label="Dormancy"
+      range={d.cycle_stats.dormancy}
+      unit="s"
+      statKey="dormancy"
+    />
+    <RangeStat
+      label="Mass per Second"
+      range={d.cycle_stats.mass_per_second}
+      unit="g/s"
+      statKey="mass_per_second"
+    />
+  </div>
+
+  {/* Bottom: Geotuner */}
+  <div class="pt-4 border-t border-oni-bg-elevated">
+    <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">Geotuner Material</h4>
+    <p class="text-oni-text-primary">
+      <span class="font-semibold">{d.geotuner.material}</span>
+      <span class="text-oni-text-muted text-sm ml-2">({d.geotuner.material_per_cycle} kg per active cycle, per geotuner)</span>
+    </p>
+  </div>
+</div>
