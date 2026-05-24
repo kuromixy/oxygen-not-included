@@ -35,10 +35,13 @@ const containerByState: Record<string, { name: string; capacity: number }> = {
 };
 const container = containerByState[d.output_state] ?? containerByState.liquid;
 
-// Default values used to seed new instances. If a range exists for active/total, use its avg.
-// Otherwise use sane fallback so the instance has something to compute against.
+// Default values seeded into new instances. The active/total period defaults are heuristic
+// placeholders (~60% long-term active fraction — derived from the wiki's Avg Lifetime ÷ Avg
+// Active Yield ratio, which is consistent across variants). They are NOT canonical per-variant
+// averages — every player's geyser rolls its own active/total cycles. Users should overwrite
+// these from their in-game tile.
 const ACTIVE_PERIOD_FALLBACK = 75;
-const TOTAL_PERIOD_FALLBACK = 130;
+const TOTAL_PERIOD_FALLBACK = 125;
 const defaults = {
   mass_per_second: d.cycle_stats.mass_per_second.avg,
   eruption_period: d.cycle_stats.eruption_period.avg,
@@ -113,7 +116,7 @@ const defaults = {
     <header class="flex items-center justify-between gap-2 flex-wrap">
       <div>
         <h3 class="text-xl font-bold text-oni-text-primary">Your Geysers</h3>
-        <p class="text-xs text-oni-text-muted mt-1">Copy the values from your in-game geyser tile.</p>
+        <p class="text-xs text-oni-text-muted mt-1">Copy the values from your in-game geyser tile &mdash; every vent rolls its own specific timings.</p>
       </div>
       <button
         type="button"
