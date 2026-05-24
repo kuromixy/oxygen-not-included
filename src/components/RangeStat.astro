@@ -1,0 +1,28 @@
+---
+interface Props {
+  label: string;
+  range: { min: number; avg: number; max: number };
+  unit: string;
+  statKey: string;
+  decimals?: number;
+}
+
+const { label, range, unit, statKey, decimals = 0 } = Astro.props;
+const fmt = (n: number) => n.toFixed(decimals);
+---
+
+<div class="flex flex-col">
+  <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-2">{label}</h4>
+  <div class="flex items-baseline gap-2 font-mono text-sm">
+    <span class="text-oni-text-muted">{fmt(range.min)}</span>
+    <span class="text-oni-text-muted">&middot;</span>
+    <span
+      class="text-oni-text-primary font-semibold bg-oni-stat-pill-bg px-2 py-0.5 rounded"
+      data-stat-key={statKey}
+      data-stat-avg={range.avg}
+    >{fmt(range.avg)}</span>
+    <span class="text-oni-text-muted">&middot;</span>
+    <span class="text-oni-text-muted">{fmt(range.max)}</span>
+    <span class="text-oni-text-muted ml-1">{unit}</span>
+  </div>
+</div>
