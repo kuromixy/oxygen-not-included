@@ -17,7 +17,10 @@ interface Props {
 }
 
 const { geyser } = Astro.props;
-const baseUrl = import.meta.env.BASE_URL;
+// Normalise BASE_URL to end with `/` so concatenated paths like `${baseUrl}geysers-volcanoes/`
+// resolve correctly whether astro.config.mjs sets `base` with or without a trailing slash
+// (see Navbar.astro canonical pattern; commit da6e30c fixed this class of bug).
+const baseUrl = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 
 <BaseLayout title={`${geyser.data.name} -- ONI Reference`}>

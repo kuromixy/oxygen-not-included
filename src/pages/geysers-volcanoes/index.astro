@@ -2,45 +2,55 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const geysers = [
-  { name: 'Water Geyser', href: '/oxygen-not-included/geysers-volcanoes/water-geyser/' },
-  { name: 'Cool Slush Geyser', href: '/oxygen-not-included/geysers-volcanoes/cool-slush-geyser/' },
-  { name: 'Cool Steam Vent', href: '/oxygen-not-included/geysers-volcanoes/cool-steam-vent/' },
-  { name: 'Natural Gas Geyser', href: '/oxygen-not-included/geysers-volcanoes/natural-gas-geyser/' },
-  { name: 'Hydrogen Vent', href: '/oxygen-not-included/geysers-volcanoes/hydrogen-vent/' },
-  { name: 'Salt Water Geyser', href: '/oxygen-not-included/geysers-volcanoes/salt-water-geyser/' },
-];
+const geysers = await getCollection('geysers');
+
+// Sort alphabetically by name within each group (RESEARCH.md Pattern 3 recommendation).
+geysers.sort((a, b) => a.data.name.localeCompare(b.data.name));
+
+// Precompute groups at build time (server-side; SSG-only).
+const groups = {
+  liquid: geysers.filter(g => g.data.output_state === 'liquid'),
+  gas:    geysers.filter(g => g.data.output_state === 'gas'),
+  solid:  geysers.filter(g => g.data.output_state === 'solid'),
+} as const;
+
+const groupLabels: Record<'liquid' | 'gas' | 'solid', string> = {
+  liquid: 'Liquid Output',
+  gas:    'Gas Output',
+  solid:  'Solid Output (Volcanoes)',
+};
+
+// Normalise BASE_URL to always end with `/` so href concatenation works whether
+// astro.config.mjs sets `base` with or without a trailing slash (see Navbar.astro
+// canonical pattern; recent commit da6e30c fixed this exact class of bug).
+const baseUrl = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const states = ['liquid', 'gas', 'solid'] as const;
 ---
 
 <BaseLayout title="Geysers & Volcanoes -- ONI Reference">
   {/* Page heading */}
   <section class="mb-8">
-    <h1 data-pagefind-meta="category:Geysers" class="text-3xl md:text-4xl font-bold text-oni-text-primary">Geysers & Volcanoes</h1>
+    <h1 data-pagefind-meta="category:Geysers" class="text-3xl md:text-4xl font-bold text-oni-text-primary">Geysers &amp; Volcanoes</h1>
     <p class="mt-3 text-oni-text-secondary text-lg">
-      Taming guides, average outputs, and temperature data for every geyser and volcano.
+      Min, average, and max output ranges plus geotuner requirements for every geyser type and volcano variant.
     </p>
   </section>
 
-  {/* Geysers section */}
-  <section class="mb-10">
-    <h2 class="text-xl font-bold text-oni-text-primary mb-4">Geysers</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-      {geysers.map((geyser) => (
-        <a
-          href={geyser.href}
-          class="bg-oni-bg-surface border border-oni-bg-elevated rounded-lg p-4 hover:border-oni-teal transition-colors group"
-        >
-          <span class="text-lg font-semibold text-oni-text-primary group-hover:text-oni-teal transition-colors">
-            {geyser.name}
-          </span>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  {/* Volcanoes section - placeholder */}
-  <section class="mb-10">
-    <h2 class="text-xl font-bold text-oni-text-primary mb-4">Volcanoes</h2>
-    <p class="text-oni-text-muted italic">Coming soon</p>
-  </section>
+  {states.map(state => (
+    <section class="mb-10" data-output-state={state}>
+      <h2 class="text-xl font-bold text-oni-text-primary mb-4">{groupLabels[state]}</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {groups[state].map(g => (
+          <a
+            href={`${baseUrl}geysers-volcanoes/${g.data.id.replaceAll('_', '-')}/`}
+            class="bg-oni-bg-surface border border-oni-bg-elevated rounded-lg p-4 hover:border-oni-teal transition-colors group"
+          >
+            <span class="text-lg font-semibold text-oni-text-primary group-hover:text-oni-teal transition-colors">
+              {g.data.name}
+            </span>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
 </BaseLayout>
