@@ -27,9 +27,22 @@ const headerImage = existsSync(imgPath)
 
 const cardId = `geyser-card-${slug}`;
 const stepperLevels = [0, 1, 2, 3, 4, 5];
+
+const containerByState: Record<string, { name: string; capacity: number }> = {
+  liquid: { name: 'Liquid Reservoir', capacity: 5000 },
+  gas: { name: 'Gas Reservoir', capacity: 150 },
+  solid: { name: 'Storage Bin', capacity: 1000 },
+};
+const container = containerByState[d.output_state] ?? containerByState.liquid;
 ---
 
-<div class="border border-oni-bg-elevated rounded-xl p-5 space-y-6" id={cardId} data-output-temp-base={d.output_temp.value}>
+<div
+  class="border border-oni-bg-elevated rounded-xl p-5 space-y-6"
+  id={cardId}
+  data-output-temp-base={d.output_temp.value}
+  data-container-capacity={container.capacity}
+  data-container-name={container.name}
+>
   {headerImage && (
     <img
       src={headerImage}
@@ -128,20 +141,30 @@ const stepperLevels = [0, 1, 2, 3, 4, 5];
   {/* Computed outputs (calculator) */}
   <div class="pt-4 border-t border-oni-bg-elevated">
     <h4 class="text-xs text-oni-text-muted uppercase tracking-wider mb-3">Calculated Output (your world)</h4>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
       <div class="bg-oni-bg-elevated/50 rounded-lg p-3">
-        <p class="text-xs text-oni-text-muted mb-1">Avg per Cycle</p>
+        <p class="text-xs text-oni-text-muted mb-1">Total per Active Phase</p>
+        <p class="font-mono text-lg font-semibold text-oni-text-primary">
+          <span data-calc-output="total_per_phase">&mdash;</span>
+          <span class="text-sm text-oni-text-muted ml-1">kg</span>
+        </p>
+        <p class="text-xs text-oni-text-muted mt-1">mass/s &times; eruption period</p>
+      </div>
+      <div class="bg-oni-bg-elevated/50 rounded-lg p-3">
+        <p class="text-xs text-oni-text-muted mb-1">{container.name}s Needed</p>
+        <p class="font-mono text-lg font-semibold text-oni-text-primary">
+          <span data-calc-output="containers_needed">&mdash;</span>
+          <span class="text-sm text-oni-text-muted ml-1">&times; {container.capacity.toLocaleString()} kg</span>
+        </p>
+        <p class="text-xs text-oni-text-muted mt-1">to buffer one active phase</p>
+      </div>
+      <div class="bg-oni-bg-elevated/50 rounded-lg p-3">
+        <p class="text-xs text-oni-text-muted mb-1">Avg per Cycle (long term)</p>
         <p class="font-mono text-lg font-semibold text-oni-text-primary">
           <span data-calc-output="avg_per_cycle">&mdash;</span>
           <span class="text-sm text-oni-text-muted ml-1">kg/cycle</span>
         </p>
-      </div>
-      <div class="bg-oni-bg-elevated/50 rounded-lg p-3">
-        <p class="text-xs text-oni-text-muted mb-1">Peak (during eruption)</p>
-        <p class="font-mono text-lg font-semibold text-oni-text-primary">
-          <span data-calc-output="peak_kg_s">&mdash;</span>
-          <span class="text-sm text-oni-text-muted ml-1">kg/s</span>
-        </p>
+        <p class="text-xs text-oni-text-muted mt-1">averaged over active + dormant time</p>
       </div>
       <div class="bg-oni-bg-elevated/50 rounded-lg p-3">
         <p class="text-xs text-oni-text-muted mb-1">Output Temperature</p>
@@ -149,15 +172,13 @@ const stepperLevels = [0, 1, 2, 3, 4, 5];
           <span data-calc-output="output_temp">&mdash;</span>
           <span class="text-sm text-oni-text-muted ml-1">°{d.output_temp.unit}</span>
         </p>
+        <p class="text-xs text-oni-text-muted mt-1">base &times; geotuner multiplier</p>
       </div>
     </div>
-    <p class="text-xs text-oni-text-muted mt-3">
-      Avg per cycle assumes a full active+dormant cycle. Peak applies the geotuner multiplier to your mass/second input.
-    </p>
   </div>
 </div>
 
-<script define:vars={{ cardId, baseTemp: d.output_temp.value }}>
+<script define:vars={{ cardId, baseTemp: d.output_temp.value, containerCapacity: container.capacity }}>
   (function initGeyserCalculator() {
     const card = document.getElementById(cardId);
     if (!card) return;
@@ -165,8 +186,9 @@ const stepperLevels = [0, 1, 2, 3, 4, 5];
     const editableStats = card.querySelectorAll('[data-stat-key]');
     const stepButtons = card.querySelectorAll('[data-geotuner-step]');
     const outputs = {
+      total_per_phase: card.querySelector('[data-calc-output="total_per_phase"]'),
+      containers_needed: card.querySelector('[data-calc-output="containers_needed"]'),
       avg_per_cycle: card.querySelector('[data-calc-output="avg_per_cycle"]'),
-      peak_kg_s: card.querySelector('[data-calc-output="peak_kg_s"]'),
       output_temp: card.querySelector('[data-calc-output="output_temp"]'),
     };
     const countDisplay = card.querySelector('[data-geotuner-count]');
@@ -201,15 +223,25 @@ const stepperLevels = [0, 1, 2, 3, 4, 5];
       const dormancy = state.dormancy ?? 0;
       const massPerSec = state.mass_per_second ?? 0;
 
-      const peakKgS = (massPerSec * gtMult) / 1000;
+      // Total output during one active phase (between dormancies):
+      // mass_per_second × eruption_period × geotuner multiplier, converted g → kg
+      const totalPerPhaseKg = (massPerSec * eruption * gtMult) / 1000;
+
+      // Containers needed to buffer one active phase
+      const containersNeeded = containerCapacity > 0 && totalPerPhaseKg > 0
+        ? Math.ceil(totalPerPhaseKg / containerCapacity)
+        : 0;
+
+      // Long-term average across the full active + dormant cycle
       const totalCycleSeconds = activeCycle + dormancy;
       const avgPerCycle = totalCycleSeconds > 0
         ? (massPerSec * eruption * gtMult * GAME_CYCLE_SECONDS) / totalCycleSeconds / 1000
         : 0;
       const modifiedTemp = baseTemp * gtMult;
 
+      if (outputs.total_per_phase) outputs.total_per_phase.textContent = formatNumber(totalPerPhaseKg, 1);
+      if (outputs.containers_needed) outputs.containers_needed.textContent = formatNumber(containersNeeded, 0);
       if (outputs.avg_per_cycle) outputs.avg_per_cycle.textContent = formatNumber(avgPerCycle, 2);
-      if (outputs.peak_kg_s) outputs.peak_kg_s.textContent = formatNumber(peakKgS, 2);
       if (outputs.output_temp) outputs.output_temp.textContent = formatNumber(modifiedTemp, 1);
     }
 
